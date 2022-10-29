@@ -1,62 +1,35 @@
-import {useState} from 'react'
-import LoginForm from './components/LoginForm.jsx'
-import AddForm from './components/AddForm.jsx'
+import './App.css';
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import React from 'react';
+import  {useEffect} from 'react'
+import UserForm from './components/UserForm';
+import UsersList from './components/UsersList';
+import Login from './components/Login'
+import { getAll } from '../src/services/axiosBD';
+
 function App() {
 
-  const adminUser = {
-    name:"Luis",
-    lastname:"Vasquez",
-    email: "luisvasquez@gmail.com",
-    password:"12345",
-    favouriteteam: "Argentina",
-  }
-
-  const [user, setUser] = useState({name:"", lastname:"", email:"", favouriteteam:""});
-  const [error, setError] = useState("");
-
-  const Login = details =>{
-    console.log(details);
-
-    if (details.email == adminUser.email && details.password == adminUser.password){
-      console.log("Sesion Iniciada!")
-      setUser({
-        name:details.name,
-        lastname:details.lastname,
-        email:details.email,
-        favouriteteam:details.favouriteteam,
-      })
-    } else {
-      console.log("Se ha equivocado de email o contraseña")
-      setError("Se ha equivocado de email o contraseña")
+ //pedir datos de la api 
+  useEffect(() => {
+    const fetch = async () => {
+      return getAll();
     }
-
-  }
-
-  const Logout = () => { 
-    setUser({name:"", lastname:"", email:"", favouriteteam:""});
-  }
-
-  const Add = () => {
-    //
-  }
-
+    const data = fetch();
+    console.log(data);
+  }, []);
 
   return (
-
-
-    <div className="App">
-        {(user.email != "") ? (
-          <div className='welcome'>
-              <h2>Bienvenido, <span>{user.name}</span></h2>
-              <h3>Elija una opción:</h3>
-              <button onClick={Add}>Agregar Usuario</button>
-                
-              <button onClick={Logout}>Cerrar Sesión</button>
-          </div>
-        ) : (
-          <LoginForm Login={Login} error ={error} />
-        )
-        }
+    <div className='bg-zinc-900 h-screen text-white'>
+      <div className='flex items-center justify-center h-full'>
+        <BrowserRouter>
+        <Routes>
+          <Route path='/' element= {<Login/>} />
+          <Route path="/show-users" element={<UsersList/>} />
+          <Route path="/create-user" element={<UserForm/>} />
+          <Route path="/edit-user/:id" element={<UserForm/>} />
+        </Routes>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }
