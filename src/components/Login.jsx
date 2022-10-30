@@ -1,8 +1,10 @@
-import { useRef, useState, useEffect } from "react";
-import {useNavigate} from 'react-router-dom';
-import logo from './offsidelogo.png'
+import { useRef, useState, useEffect, useContext } from "react";
+import { useNavigate } from 'react-router-dom';
+import logo from './offsidelogo.png';
+
 
 function Login() {
+  //const { setAuth } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
   const navigate = useNavigate();
@@ -22,11 +24,12 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault(user, password);
-    setUser("");
-    setPassword("");
-    setSuccess(true);
-    navigate("/show-users")
-  };
+
+      setUser("");
+      setPassword("");
+      setSuccess(true);
+      navigate("/show-users")
+  }
 
   return (
     <>
@@ -40,7 +43,7 @@ function Login() {
         </section>
       ) : (
         <section className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
-          <p    
+          <p
             ref={errRef}
             className={errorMessage ? "errorMessage" : "offscreen"}
             aria-live="assertive"
@@ -49,7 +52,7 @@ function Login() {
           </p>
           <img src={logo} alt="" className="h-32 float-right" />
           <h1 className="py-3 text-2xl">Inicio de Sesión</h1>
-          
+
           <form>
             <label htmlFor="email" className="block text-sm font-bold mb-2">Email:</label>
             <input

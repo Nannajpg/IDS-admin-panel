@@ -4,34 +4,28 @@ const initialState = [
     {
         id: "1",
         name: "Luis",
-        lastname: "Vasquez",
+        role: "no",
         email: "luisvasquez@gmail.com",
         password: "hola1234",
-        favouriteTeam: "Argentina",
-        isAdmin: "No",
     },
     {
         id: "2",
         name: "Anna",
-        lastname: "Cadena",
+        role: "admin",
         email: "annacadena@gmail.com",
         password: "nanna",
-        favouriteTeam: "Alemania",
-        isAdmin: "Si",
     },
     {
         id: "3",
         name: "Eduardo",
-        lastname: "Sucre",
+        role: "no",
         email: "capibara@gmail.com",
         password: "aocapibara",
-        favouriteTeam: "Brasil",
-        isAdmin: "No",
     },
-
 ]
 
 export const userSlice = createSlice({
+
     name: 'users',
     initialState,
     reducers:{
@@ -39,16 +33,15 @@ export const userSlice = createSlice({
             state.push(action.payload)
         },
         editUser: (state, action) =>{
-            const {id, name, lastname, email, password, favouriteTeam, isAdmin} = action.payload
+            const {id, name, role, email, password} = action.payload
             const foundUser = state.find(user => user.id === id)
 
             if(foundUser){
+                foundUser.id = id
                 foundUser.name = name
-                foundUser.lastname = lastname
+                foundUser.role = role
                 foundUser.email = email
                 foundUser.password = password
-                foundUser.favouriteTeam = favouriteTeam
-                foundUser.isAdmin = isAdmin
             }
         },
         deleteUser: (state, action) => {

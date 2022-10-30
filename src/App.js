@@ -9,7 +9,7 @@ import { getAll } from '../src/services/axiosBD';
 
 function App() {
 
- //pedir datos de la api 
+//pedir datos de la api 
   useEffect(() => {
     const fetch = async () => {
       return getAll();
