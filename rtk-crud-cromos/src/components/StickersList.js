@@ -1,13 +1,10 @@
-import { useSelector, useDispatch} from 'react-redux'
-import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import StickerCard from './StickerCard'
 
 function StickersList() {
     const stickers = useSelector(state => state.stickers)
-    const [isLoading, setIsLoading] = useState(1);
 
-    
     return (
         <div className='w-4/6'>
             <header className='flex justify-between item-center py-4'>

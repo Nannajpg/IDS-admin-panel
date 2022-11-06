@@ -2,10 +2,9 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:3000/chromes";
 
-export const getAllStickers = async () => {
+export const getStickers = async () => {
     try {
         const res = await axios.get(BASE_URL);
-        return res.data;
     } catch (error) {
         console.log("Error "+error);
     }
@@ -14,7 +13,6 @@ export const getAllStickers = async () => {
 export const saveSticker = async (sticker) => {
     try {
         const res = await axios.post(BASE_URL, sticker);
-        return res;
     } catch (error) {
         console.log("Error "+error);
     }
@@ -24,16 +22,14 @@ export const saveSticker = async (sticker) => {
 export const editSticker = async (sticker) => {
     try {
         const res = await axios.put(BASE_URL, sticker);
-        return res;
     } catch (error) {
         console.log("Error "+error);
     }
 }
 
-export const deletSticker = async (sticker) => {
+export const deleteSticker = async (sticker) => {
     try {
         const res = await axios.delete(BASE_URL, sticker);
-        return res;
     } catch (error) {
         console.log("Error "+error);
     }
