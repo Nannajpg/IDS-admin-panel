@@ -18,7 +18,7 @@ function StickerCard() {
             {stickers.map(sticker => (
                 <div key={sticker.id} className='bg-slate-400 p-4 rounded-md'>
                     <header className='flex justify-between'>
-                        <h3 className='text-sm'>Nombre: {sticker.name}</h3>
+                        <h3 className='text-sm'>Nombre: {sticker.playerName}</h3>
                         <div className='flex gap-x-1'>
                             <Link
                                 to={`/edit-sticker/${sticker.id}`}
@@ -39,7 +39,7 @@ function StickerCard() {
                     <p className='text-sm'>Posición: {sticker.position}</p>
                     <p className='text-sm'>Altura: {sticker.height}</p>
                     <p className='text-sm'>Peso: {sticker.weight}</p>
-                    <p className='text-sm'>Probabilidad de Aparición: {sticker.stickerRate}</p>
+                    <p className='text-sm'>Probabilidad de Aparición: {sticker.appearanceRate}</p>
                 </div>
             ))}
         </div>

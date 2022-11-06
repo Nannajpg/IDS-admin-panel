@@ -8,13 +8,13 @@ import { Link } from 'react-router-dom'
 function StickerForm() {
 
     const [sticker, setSticker] = useState({
-        name: '',
+        playerName: '',
         team: '',
         country: '',
         position: '',
         height: '',
         weight: '',
-        stickerRate: '',
+        appearanceRate: '',
     })
 
     const dispatch = useDispatch()
@@ -53,12 +53,12 @@ function StickerForm() {
         <div className='flex items-center h-screen'>
             <form onSubmit={handleSubmit} className='bg-slate-300 max-w-sm p-4 rounded-md grid grid-cols-2'>
 
-                <label htmlFor='name' className='block text-xs font-bold mb-2'>Nombre de Jugador:</label>
+                <label htmlFor='playerName' className='block text-xs font-bold mb-2'>Nombre de Jugador:</label>
                 <input
-                    name='name'
+                    name='playerName'
                     type='text'
                     onChange={handleChange}
-                    value={sticker.name}
+                    value={sticker.playerName}
                     className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
                 />
                 <label htmlFor='team' className='block text-xs font-bold mb-2'>Equipo al que Juega:</label>
@@ -113,12 +113,12 @@ function StickerForm() {
                     value={sticker.weight}
                     className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
                 ></input>
-                <label htmlFor='stickerRate' className='block text-xs font-bold mb-2'>Tasa de Aparición:</label>
+                <label htmlFor='appearanceRate' className='block text-xs font-bold mb-2'>Tasa de Aparición:</label>
                 <input
-                    name='stickerRate'
+                    name='appearanceRate'
                     type='number'
                     onChange={handleChange}
-                    value={sticker.stickerRate}
+                    value={sticker.appearanceRate}
                     className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
                 ></input>
                 <div className='flex grid'>
