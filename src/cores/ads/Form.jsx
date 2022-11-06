@@ -22,7 +22,7 @@ const Form = ({ action, id }) => {
     adTypeRef.current.value = "";
     redirecToRef.current.value = "";
     await action(ad, id);
-    navigate("/");
+    navigate("/adList");
   };
 
   return (
@@ -80,7 +80,7 @@ const Form = ({ action, id }) => {
       <button
         className="bg-red-700 px-2 py-1 hover:bg-red-800 md:ml-5"
         onClick={() => {
-          navigate("/");
+          navigate("/adList");
         }}
       >
         Cancelar
