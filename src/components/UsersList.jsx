@@ -13,7 +13,8 @@ function UsersList() {
     return (
         <div className='w-4/6'>
             <header className='flex justify-between items-center py-4'>
-                <h1>Usuarios: {users.length}</h1>
+                <Link to="/menu" className="bg-emerald-600 px-2 py-1 text-sm rounded-md mx-2">Volver</Link>
+                <h1>Usuarios Totales: {users.length}</h1>
                 <Link to="/create-user" className='bg-emerald-600 px-2 py-1 rounded-md text-sm'>
                     Crear Usuario
                 </Link>
@@ -32,10 +33,7 @@ function UsersList() {
                         </header>
                         <p>Email: {user.email}</p>
                         <p>Nombre: {user.name}</p>
-                        <p>Apellido: {user.lastname}</p>
-                        <p>Contraseña: {user.password}</p>
-                        <p>Equipo Favorito: {user.favouriteTeam}</p>
-                        <p>Permisos de Administrador: {user.isAdmin}</p>
+                        <p>Rol: {user.role}</p>
                     </div>
                 ))}
             </div>

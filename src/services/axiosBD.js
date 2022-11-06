@@ -19,3 +19,13 @@ export const createUser = async (user) => {
         console.log("Error createUser: " + error)
     }
 }
+
+export const createEvent = async (user) => {
+    try {
+        const res = await axios.post(BASE_URL, user);
+        return res.data;
+    } catch (error) {
+        console.log("Error createEvent: " + error)
+    }
+}
+

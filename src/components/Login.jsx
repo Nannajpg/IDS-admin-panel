@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import logo from './offsidelogo.png';
-
+import { Link } from 'react-router-dom'
 
 function Login() {
   //const { setAuth } = useContext(AuthContext);
@@ -28,18 +28,21 @@ function Login() {
       setUser("");
       setPassword("");
       setSuccess(true);
-      navigate("/show-users")
+      navigate("/menu")
   }
 
   return (
     <>
       {success ? (
-        <section>
-          <h1>Inicio de sesion exitoso</h1>
-          <br />
-          <p>
-            <a href="">Regresar</a>
-          </p>
+        <section className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
+          <h1 className="text-center text-lg font-bold">¡Bienvenido!</h1>
+          <br/>
+          <Link to="/show-users" className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2 ">Gestionar Usuarios</Link>
+          <Link to="/show-events" className="bg-emerald-600 px-2 py-1 rounded-md">Gestionar Eventos</Link>
+          <br/>
+          <br/>
+          <a href="" className="bg-red-700 px-2 py-1 rounded-md mx-2">Regresar</a>
+          
         </section>
       ) : (
         <section className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
