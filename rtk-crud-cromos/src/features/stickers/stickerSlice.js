@@ -1,15 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = [
-    {
-        id: "0",
-        name: "Sticker 1",
-        height: "Height",
-        weight: "Weight",
-        stickerRate: 'Ratio',
-        completed: false,
-    }
-]
+const initialState = []
 
 export const stickerSlice = createSlice({
     name: 'stickers',
@@ -19,10 +10,13 @@ export const stickerSlice = createSlice({
             state.push(action.payload)
         },
         updateSticker: (state, action) => {
-            const {id, name, height, weight, stickerRate} = action.payload
+            const {id, name, team, country, position, height, weight, stickerRate} = action.payload
             const foundSticker = state.find(sticker => sticker.id === id)
             if (foundSticker) {
                 foundSticker.name = name
+                foundSticker.team = team
+                foundSticker.country = country
+                foundSticker.position = position
                 foundSticker.height = height
                 foundSticker.weight = weight
                 foundSticker.stickerRate = stickerRate
