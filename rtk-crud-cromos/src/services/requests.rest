@@ -1,0 +1,14 @@
+POST http://localhost:3000/chromes/
+Content-Type: application/json
+
+{
+    "id": 1,
+    "playerName": "Auri",
+    "team": "Vzla",
+    "country": "Vzla",
+    "position": "Delantero",
+    "img": "",
+    "height": 1.10,
+    "weight": 10.00,
+    "appearanceRate": 100.00
+};
