@@ -25,7 +25,7 @@ export const adsSlice = createSlice({
   name: "@ads",
   initialState: {
     loading: 'idle',
-    ads: []
+    ads: [{id:'1', announcer:'Facebook', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png', adType:'estatico', link:'https://www.facebook.com'},{id:'2', announcer:'Facebook', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png', adType:'estatico', link:'https://www.facebook.com'},{id:'3', announcer:'Facebook', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png', adType:'flotante', link:'https://www.facebook.com'},]
   },
   reducers: {
     editAd: (state, action) => {

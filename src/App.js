@@ -7,7 +7,7 @@ import AdsList from "./cores/ads/AdsList";
 function App() {
   
   return (
-    <div className="bg-zinc-900 md:h-screen text-white h-full">
+    <div className="bg-zinc-900 text-white h-full">
       <div className="flex items-center justify-center h-full">
         <BrowserRouter>
           <Routes>
