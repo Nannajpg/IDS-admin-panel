@@ -4,6 +4,7 @@ import { createSticker, updateSticker } from '../features/stickers/stickerSlice'
 import { v4 as uuid } from 'uuid'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { saveSticker, editSticker } from '../services/axios';
 
 function StickerForm() {
 
@@ -12,6 +13,7 @@ function StickerForm() {
         team: '',
         country: '',
         position: '',
+        img: '',
         height: '',
         weight: '',
         appearanceRate: '',
@@ -29,16 +31,23 @@ function StickerForm() {
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         if (params.id) {
+            console.log("asi: "+JSON.stringify(sticker));
+            let res = await editSticker(sticker, sticker.playerName);
             dispatch(updateSticker(sticker))
+
         } else {
-            dispatch(createSticker({
-                ...sticker,
-                id: uuid(),
-            }))
+            let newSticker = {
+                "id":  uuid(),
+                ...sticker
+            }
+            let res = await saveSticker(newSticker);
+            console.log(JSON.stringify(res));
+            
+            dispatch(createSticker(newSticker))
         }
         navigate('/')
     }

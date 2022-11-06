@@ -2,8 +2,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import StickerCard from './StickerCard'
 
+
 function StickersList() {
     const stickers = useSelector(state => state.stickers)
+    
 
     return (
         <div className='w-4/6'>

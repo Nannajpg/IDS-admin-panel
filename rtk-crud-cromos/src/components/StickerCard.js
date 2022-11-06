@@ -2,13 +2,25 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteSticker } from '../features/stickers/stickerSlice'
 import { Link } from 'react-router-dom'
+import { deletSticker } from '../services/axios';
+import { getAllStickers } from '../services/axios'
+import { useEffect } from 'react'
 
 function StickerCard() {
-    const stickers = useSelector(state => state.stickers)
+    let stickers = useSelector(state => state.stickers)
     const dispatch = useDispatch()
 
-    const handleDelete = (id) => {
+    /*useEffect( function(){
+        let res =  getAllStickers();
+        stickers = res.data.users;
+        console.log(JSON.stringify(stickers));
+    },[])*/
+
+    const handleDelete = async (id) => {
         if (window.confirm('¿Desea eliminar ese Sticker?')) {
+            const stickerToDelete = stickers.find(sticker => sticker.id === id)
+            console.log(JSON.stringify(stickerToDelete));
+            await deletSticker(stickerToDelete.playerName);
             dispatch(deleteSticker(id))
         }
     }
