@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/api/chromes";
+const BASE_URL = "http://localhost:3000/chromes";
 
 export const getStickers = async () => {
     try {
