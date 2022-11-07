@@ -3,9 +3,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import stickerSlice, { deleteSticker } from '../features/stickers/stickerSlice'
 import { Link } from 'react-router-dom'
 import Pagination from './Pagination'
+import { deletSticker } from '../services/axios';
+import { getAllStickers } from '../services/axios'
+import { useEffect } from 'react'
 
 function StickerCard() {
-    const stickers = useSelector(state => state.stickers)
+    let stickers = useSelector(state => state.stickers)
     const dispatch = useDispatch()
     const [currentPage, setCurrentPage] = useState(1)
     const [postPerPage, setPostPerPage] = useState(4)
@@ -14,8 +17,17 @@ function StickerCard() {
     const firstPostIndex = lastPostIndex - postPerPage
     const currentPosts = stickers.slice(firstPostIndex, lastPostIndex)
 
-    const handleDelete = (id) => {
+    /*useEffect( function(){
+        let res =  getAllStickers();
+        stickers = res.data.users;
+        console.log(JSON.stringify(stickers));
+    },[])*/
+
+    const handleDelete = async (id) => {
         if (window.confirm('¿Desea eliminar ese Sticker?')) {
+            const stickerToDelete = stickers.find(sticker => sticker.id === id)
+            console.log(JSON.stringify(stickerToDelete));
+            await deletSticker(stickerToDelete.playerName);
             dispatch(deleteSticker(id))
         }
     }
