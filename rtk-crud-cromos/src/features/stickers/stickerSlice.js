@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { saveSticker } from '../../services/axios';
 
 const initialState = []
 
@@ -7,10 +8,10 @@ export const stickerSlice = createSlice({
     initialState,
     reducers: {
         createSticker: (state, action) => {
-            state.push(action.payload)
+            state.push(action.payload);
         },
         updateSticker: (state, action) => {
-            const {id, playerName, team, country, position, height, weight, appearanceRate} = action.payload
+            const { id, playerName, team, country, position, height, weight, appearanceRate, img } = action.payload
             const foundSticker = state.find(sticker => sticker.id === id)
             if (foundSticker) {
                 foundSticker.playerName = playerName
@@ -20,6 +21,7 @@ export const stickerSlice = createSlice({
                 foundSticker.height = height
                 foundSticker.weight = weight
                 foundSticker.appearanceRate = appearanceRate
+                foundSticker.img = img
             }
         },
         deleteSticker: (state, action) => {
@@ -28,7 +30,7 @@ export const stickerSlice = createSlice({
                 state.splice(state.indexOf(stickerFound), 1)
             }
         },
-        
+
     },
 })
 

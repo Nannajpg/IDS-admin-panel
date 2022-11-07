@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import StickerForm from './components/StickerForm';
-import StickersList from './components/StickersList';
+import StickerList from './components/StickerList';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <div className="flex justify-center h-full">
           <BrowserRouter>
             <Routes>
-              <Route path='/' element={<StickersList />} />
+              <Route path='/' element={<StickerList />} />
               <Route path='/create-sticker' element={<StickerForm />} />
               <Route path='/edit-sticker/:id' element={<StickerForm />} />
             </Routes>

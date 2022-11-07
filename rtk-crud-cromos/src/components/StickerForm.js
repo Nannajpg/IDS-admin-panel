@@ -15,6 +15,7 @@ function StickerForm() {
         height: '',
         weight: '',
         appearanceRate: '',
+        img: '',
     })
 
     const dispatch = useDispatch()
@@ -60,6 +61,7 @@ function StickerForm() {
                     onChange={handleChange}
                     value={sticker.playerName}
                     className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                    required
                 />
                 <label htmlFor='team' className='block text-xs font-bold mb-2'>Equipo al que Juega:</label>
                 <input
@@ -68,6 +70,7 @@ function StickerForm() {
                     onChange={handleChange}
                     value={sticker.team}
                     className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                    required
                 />
                 <label htmlFor='country' className='block text-xs font-bold mb-2'>País de donde Proviene:</label>
                 <input
@@ -76,26 +79,20 @@ function StickerForm() {
                     onChange={handleChange}
                     value={sticker.country}
                     className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                    required
                 />
                 <label htmlFor='position' className='block text-xs font-bold mb-2'>Posición:</label>
                 <select
-                    onChange={handleChange} 
+                    onChange={handleChange}
+                    value={sticker.position}
                     name='position'
-                    className='w-full p-1 border border-gray-300 focus:border-blue-500 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'>
+                    className='w-full p-1 border border-gray-300 focus:border-blue-500 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                >
                     <option>Seleccione Posición...</option>
-                    <option value={sticker.position}>Arquero</option>
-                    <option value={sticker.position}>Defensa</option>
-                    <option value={sticker.position}>Defensa Central</option>
-                    <option value={sticker.position}>Defensa Lateral</option>
-                    <option value={sticker.position}>MedioCentro / Centrocampista</option>
-                    <option value={sticker.position}>MedioCentro Defensivo</option>
-                    <option value={sticker.position}>MedioCentro Ofensivo</option>
-                    <option value={sticker.position}>Interior Izquierdo</option>
-                    <option value={sticker.position}>Interior Derecho</option>
-                    <option value={sticker.position}>Delantero</option>
-                    <option value={sticker.position}>Delantero Centro</option>
-                    <option value={sticker.position}>Delantero Segunda Punta</option>
-                    <option value={sticker.position}>Delantero Extremo</option>
+                    <option value='Arquero'>Arquero</option>
+                    <option value='Defensa'>Defensa</option>
+                    <option value='MedioCentro'>MedioCentro</option>
+                    <option value='Delantero'>Delantero</option>
                 </select>
                 <label htmlFor='height' className='block text-xs font-bold mb-2'>Altura:</label>
                 <input
@@ -104,6 +101,7 @@ function StickerForm() {
                     onChange={handleChange}
                     value={sticker.height}
                     className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                    required
                 ></input>
                 <label htmlFor='weight' className='block text-xs font-bold mb-2'>Peso:</label>
                 <input
@@ -112,6 +110,7 @@ function StickerForm() {
                     onChange={handleChange}
                     value={sticker.weight}
                     className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                    required
                 ></input>
                 <label htmlFor='appearanceRate' className='block text-xs font-bold mb-2'>Tasa de Aparición:</label>
                 <input
@@ -120,7 +119,19 @@ function StickerForm() {
                     onChange={handleChange}
                     value={sticker.appearanceRate}
                     className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                    required
                 ></input>
+                <label htmlFor='img' className='block text-xs font-bold mb-2'>
+                    Url de la Imagen:
+                </label>
+                <input
+                    name='img'
+                    type='text'
+                    onChange={handleChange}
+                    value={sticker.img}
+                    className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                    required
+                />
                 <div className='flex grid'>
                     <header className='mb-2'>
                         <Link to='/' className='flex justify-center w-full bg-red-500 py-1 hover:bg-red-600'>
