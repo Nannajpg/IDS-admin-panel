@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import StickerForm from './components/StickerForm';
-import StickersList from './components/StickersList';
+import StickerForm from './cores/stickers/StickerForm';
+import StickersList from './cores/stickers/StickersList';
 
 function App() {
   return (

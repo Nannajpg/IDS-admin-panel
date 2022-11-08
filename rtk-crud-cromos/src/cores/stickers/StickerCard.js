@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import stickerSlice, { deleteSticker } from '../features/stickers/stickerSlice'
+import stickerSlice, { deleteSticker } from '../../features/stickers/stickerSlice'
 import { Link } from 'react-router-dom'
 import Pagination from './Pagination'
-import { deletSticker } from '../services/axios';
-import { getAllStickers } from '../services/axios'
+import { deletSticker } from '../../services/axios';
+import { getAllStickers } from '../../services/axios'
 import { useEffect } from 'react'
 
 function StickerCard() {

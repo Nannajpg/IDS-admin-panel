@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createSticker, updateSticker } from '../features/stickers/stickerSlice'
+import { createSticker, updateSticker } from '../../features/stickers/stickerSlice'
 import { v4 as uuid } from 'uuid'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import { saveSticker, editSticker } from '../services/axios';
+import { saveSticker, editSticker } from '../../services/axios';
 
 function StickerForm() {
 
