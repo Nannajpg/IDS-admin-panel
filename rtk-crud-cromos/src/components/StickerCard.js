@@ -12,16 +12,22 @@ function StickerCard() {
     const dispatch = useDispatch()
     const [currentPage, setCurrentPage] = useState(1)
     const [postPerPage, setPostPerPage] = useState(4)
+    const [loading, setLoading] = useState(true);
 
     const lastPostIndex = currentPage * postPerPage
     const firstPostIndex = lastPostIndex - postPerPage
     const currentPosts = stickers.slice(firstPostIndex, lastPostIndex)
 
-    /*useEffect( function(){
-        let res =  getAllStickers();
-        stickers = res.data.users;
-        console.log(JSON.stringify(stickers));
-    },[])*/
+    useEffect( () => {
+        (async () => {
+            let res =  await getAllStickers();
+            stickers =  res.data.users;
+            console.log(JSON.stringify(stickers));
+            setLoading(false);
+        })();        
+    },[])
+
+    
 
     const handleDelete = async (id) => {
         if (window.confirm('¿Desea eliminar ese Sticker?')) {
@@ -35,7 +41,7 @@ function StickerCard() {
     return (
         <div>
             <div className='grid grid-cols-4 gap-4'>
-                {currentPosts.map(currentPosts => (
+                {loading ? (<div>Cargando Cromos...</div>) : currentPosts.map(currentPosts => (
                     <div key={currentPosts.id} className='bg-slate-400 p-4 rounded-md'>
                         <img src={currentPosts.img} alt='stickerImg' className='w-25' />
                         <p className='text-sm'>Nombre: {currentPosts.playerName}</p>
