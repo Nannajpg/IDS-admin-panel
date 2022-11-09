@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import stickerSlice, { deleteSticker } from '../../features/stickers/stickerSlice'
+import stickerSlice, { deleteSticker, initStickers } from '../../features/stickers/stickerSlice'
 import { Link } from 'react-router-dom'
 import Pagination from './Pagination'
 import { deletSticker } from '../../services/axios';
@@ -21,8 +21,7 @@ function StickerCard() {
     useEffect( () => {
         (async () => {
             let res =  await getAllStickers();
-            stickers =  res.data.users;
-            console.log(JSON.stringify(stickers));
+            dispatch(initStickers(res.data.users));
             setLoading(false);
         })();        
     },[])

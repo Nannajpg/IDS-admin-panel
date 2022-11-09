@@ -7,6 +7,9 @@ export const stickerSlice = createSlice({
     name: 'stickers',
     initialState,
     reducers: {
+        initStickers: (state, action) => {
+            action.payload.forEach(sticker => state.push(sticker));
+        },
         createSticker: (state, action) => {
             state.push(action.payload);
         },
@@ -34,6 +37,6 @@ export const stickerSlice = createSlice({
     },
 })
 
-export const { createSticker, updateSticker, deleteSticker } = stickerSlice.actions
+export const { initStickers, createSticker, updateSticker, deleteSticker } = stickerSlice.actions
 
 export default stickerSlice.reducer
