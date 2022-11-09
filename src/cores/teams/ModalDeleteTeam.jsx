@@ -1,10 +1,10 @@
 import React from "react";
-import { deleteAd } from "../../features/ads/adSlice";
-import { useDispatch } from "react-redux";
+/* import { deleteAd } from "../../features/teams/teamSlice"; */
+/* import { useDispatch } from "react-redux"; */
 
 function ModalDeleteTeam({ isVisible, hideModal, getId }) {
-  const dispatch = useDispatch();
-  const id = getId();
+  /* const dispatch = useDispatch();
+  const id = getId(); */
 
   return (
     <>
@@ -30,7 +30,7 @@ function ModalDeleteTeam({ isVisible, hideModal, getId }) {
               <button
                 className="bg-red-700 rounded p-2 hover:bg-red-800"
                 onClick={async () => {
-                  await dispatch(deleteAd(id));
+                  /* await dispatch(deleteAd(id)); */
                   hideModal(isVisible);
                 }}
               >
