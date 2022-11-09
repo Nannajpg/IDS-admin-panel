@@ -1,6 +1,10 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+<<<<<<< Updated upstream
 /* import Select from "react-select" */
+=======
+import Select from "react-select";
+>>>>>>> Stashed changes
 
 const Form = ({ action, id }) => {
   const teamNameRef = useRef(null);
@@ -26,9 +30,15 @@ const Form = ({ action, id }) => {
     navigate("/teamList");
   };
 
-  return (
-    <form onSubmit={handleSubmit} className="bg-zinc-800 max-w-sm p-4 mt-24">
+  const optionsSelect = [
+    { value: "mbappe", label: "Mbappe" },
+    { value: "messi", label: "Messi" },
+    { value: "neymar", label: "Neymar" },
+    { value: "cristiano", label: "Cristiano" },
+  ];
 
+  return (
+    <form onSubmit={handleSubmit} className="bg-zinc-800 w-1/3 p-4 mt-24">
       <label htmlFor="teamName" className="block text-xs font-bold mb-2">
         Nombre del equipo
       </label>
@@ -71,19 +81,44 @@ const Form = ({ action, id }) => {
       <label htmlFor="players" className="block text-xs font-bold mb-2">
         Jugadores del equipo
       </label>
-      <select
-        name="event"
+      <Select
+        name="players"
+        options={optionsSelect}
+        isMulti
         className="w-full p-2 rounded-md bg-zinc-600 mb-2"
         ref={playersRef}
-        placeholder="Evento donde participa"      
         required
-      >
-        <option value="">Jugadores</option>
-        <option value="embape">embape</option>
-        <option value="mesi">mesi</option>
-        <option value="neimar">neimar</option>
-        
-      </select>
+        styles={{
+          menu: (provide) => ({
+            ...provide,
+            color: "#F1F5FD",
+            background: "rgb(82, 82, 91)",
+          }),
+          control: (provide) => ({
+            ...provide,
+            color: "#F1F5FD",
+            background: "rgb(82, 82, 91)",
+          }),
+          option: (provide, { isFocused }) => ({
+            ...provide,
+            background: isFocused ? "rgb(39 39 42)" : "default",
+            color: "#F1F5FD",
+          }),
+          multiValue: (provide) => ({
+            ...provide,
+            background: "rgb(39 39 42)",
+            color: "#F1F5FD",
+          }),
+          input: (provide) => ({
+            ...provide,
+            color: "#F1F5FD",
+          }),
+          multiValueLabel: (provide) => ({
+            ...provide,
+            color: "#F1F5FD",
+          }),
+        }}
+      />
       <button className="bg-indigo-600 px-2 py-1" type="Submit">
         Guardar
       </button>
