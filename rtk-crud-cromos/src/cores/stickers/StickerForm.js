@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createSticker, updateSticker } from '../../features/stickers/stickerSlice'
 import { v4 as uuid } from 'uuid'
-import { useNavigate, useParams } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { createSticker, updateSticker } from '../../features/stickers/stickerSlice'
+import { useNavigate, useParams, Link } from 'react-router-dom'
 import { saveSticker, editSticker } from '../../services/axios';
 
 function StickerForm() {
@@ -13,7 +12,6 @@ function StickerForm() {
         team: '',
         country: '',
         position: '',
-        img: '',
         height: '',
         weight: '',
         appearanceRate: '',
@@ -24,6 +22,8 @@ function StickerForm() {
     const navigate = useNavigate()
     const params = useParams()
     const stickers = useSelector(state => state.stickers)
+    console.log('Form:')
+    console.log(stickers)
 
     const handleChange = e => {
         setSticker({
@@ -36,18 +36,16 @@ function StickerForm() {
         e.preventDefault()
 
         if (params.id) {
-            console.log("asi: "+JSON.stringify(sticker));
             let res = await editSticker(sticker, sticker.playerName);
+            console.log("asi: " + JSON.stringify(sticker));
             dispatch(updateSticker(sticker))
-
         } else {
             let newSticker = {
-                "id":  uuid(),
+                "id": uuid(),
                 ...sticker
             }
             let res = await saveSticker(newSticker);
             console.log(JSON.stringify(res));
-            
             dispatch(createSticker(newSticker))
         }
         navigate('/')
@@ -55,7 +53,7 @@ function StickerForm() {
 
     useEffect(() => {
         if (params.id) {
-            setSticker(stickers.find(sticker => sticker.id === params.id))
+            setSticker(stickers.find(sticker => sticker.id == params.id))
         }
     }, [])
 
@@ -92,9 +90,9 @@ function StickerForm() {
                 />
                 <label htmlFor='position' className='block text-xs font-bold mb-2'>Posición:</label>
                 <select
+                    name='position'
                     onChange={handleChange}
                     value={sticker.position}
-                    name='position'
                     className='w-full p-1 border border-gray-300 focus:border-blue-500 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
                 >
                     <option>Seleccione Posición...</option>

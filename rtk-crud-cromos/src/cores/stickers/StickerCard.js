@@ -1,36 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import stickerSlice, { deleteSticker, initStickers } from '../../features/stickers/stickerSlice'
 import { Link } from 'react-router-dom'
+import { createSticker, deleteSticker } from '../../features/stickers/stickerSlice'
+import { getAllStickers, deletSticker } from '../../services/axios';
 import Pagination from './Pagination'
-import { deletSticker } from '../../services/axios';
-import { getAllStickers } from '../../services/axios'
-import { useEffect } from 'react'
 
 function StickerCard() {
+
     let stickers = useSelector(state => state.stickers)
     const dispatch = useDispatch()
     const [currentPage, setCurrentPage] = useState(1)
     const [postPerPage, setPostPerPage] = useState(4)
-    const [loading, setLoading] = useState(true);
-
+    
     const lastPostIndex = currentPage * postPerPage
     const firstPostIndex = lastPostIndex - postPerPage
     const currentPosts = stickers.slice(firstPostIndex, lastPostIndex)
 
-    useEffect( () => {
-        (async () => {
-            let res =  await getAllStickers();
-            dispatch(initStickers(res.data.users));
-            setLoading(false);
-        })();        
-    },[])
-
-    
-
     const handleDelete = async (id) => {
         if (window.confirm('¿Desea eliminar ese Sticker?')) {
-            const stickerToDelete = stickers.find(sticker => sticker.id === id)
+            const stickerToDelete = stickers.find(sticker => sticker.id == id)
             console.log(JSON.stringify(stickerToDelete));
             await deletSticker(stickerToDelete.playerName);
             dispatch(deleteSticker(id))
@@ -40,7 +28,7 @@ function StickerCard() {
     return (
         <div>
             <div className='grid grid-cols-4 gap-4'>
-                {loading ? (<div>Cargando Cromos...</div>) : currentPosts.map(currentPosts => (
+                {currentPosts.map(currentPosts => (
                     <div key={currentPosts.id} className='bg-slate-400 p-4 rounded-md'>
                         <img src={currentPosts.img} alt='stickerImg' className='w-25' />
                         <p className='text-sm'>Nombre: {currentPosts.playerName}</p>

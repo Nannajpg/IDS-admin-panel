@@ -38,15 +38,3 @@ export const deletSticker = async (playerName) => {
         console.log("Error "+error);
     }
 }
-
-
-
-/*
-const sticker={
-    id:"",
-    playerName:"",
-    img:"",
-    height:"",
-    weight:"",
-    appareanceRate:""
-}*/
