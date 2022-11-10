@@ -23,7 +23,6 @@ const AdsList = () => {
   return (
     <div className="w-4/6">
       <AdsListHeader />
-      <FilterSelect />
       <div className="grid md:grid-cols-3 gap-4 grid-cols-1">
         {state.ads.map((ad) => (
           <Ad id={ad.id} key={ad.id} showModal={toggleModal} />
