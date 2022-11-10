@@ -1,10 +1,6 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-<<<<<<< Updated upstream
-/* import Select from "react-select" */
-=======
 import Select from "react-select";
->>>>>>> Stashed changes
 
 const Form = ({ action, id }) => {
   const teamNameRef = useRef(null);
