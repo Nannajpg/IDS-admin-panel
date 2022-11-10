@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getAllAds, createAd, deleteAd as deleteBdAd, editAd as editBdAd } from "../../services/axios";
+import { fetchAds as getAllAds, createAd, deleteAd as deleteBdAd, editAd as editBdAd } from "../../services/ads";
 
-export const fetchAds = createAsyncThunk('@ads/fetchAll', async () => {
-  const res = await getAllAds();
+export const fetchAds = createAsyncThunk('@ads/fetchAds', async ({ page, adtype, search }) => {
+  const res = await getAllAds(page, adtype, search);
   return res;
 })
 
@@ -24,8 +24,12 @@ export const editAd = createAsyncThunk('@ads/editAd', async (ad) => {
 export const adsSlice = createSlice({
   name: "@ads",
   initialState: {
+    adtype: '',
+    search: '',
+    amount: 0,
+    page: 0,
     loading: 'idle',
-    ads: [{id:'1', announcer:'Facebook', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png', adType:'estatico', link:'https://www.facebook.com'},{id:'2', announcer:'Facebook', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png', adType:'estatico', link:'https://www.facebook.com'},{id:'3', announcer:'Facebook', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png', adType:'flotante', link:'https://www.facebook.com'},]
+    ads: []
   },
   reducers: {
     editAd: (state, action) => {
@@ -38,6 +42,21 @@ export const adsSlice = createSlice({
         foundAd.redirecTo = redirecTo;
       }
     },
+    nextPage: (state, action) => {
+      state.page++;
+    },
+    prevPage: (state, action) => {
+      state.page--;
+    },
+    toFirstPage: (state, action) => {
+      state.page = 0;
+    },
+    toSearch: (state, action) => {
+      state.search = action.payload;
+    },
+    toFilter: (state, action) => {
+      state.adtype = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAds.pending, (state, action) => {
@@ -45,14 +64,13 @@ export const adsSlice = createSlice({
     })
     builder.addCase(fetchAds.fulfilled, (state, action) => {
       if (state.loading === 'pending') {
-        state.ads = action.payload;
+        state.ads = action.payload.ads;
+        state.amount = action.payload.totalAds;
         state.loading = 'idle';
       }
-    })
-    builder.addCase(deleteAd.fulfilled, (state, action) => {
-      state.ads = state.ads.filter(ad => ad.id !== action.payload);
     })
   }
 });
 
+export const { nextPage, prevPage, toFirstPage, toSearch, toFilter } = adsSlice.actions;
 export default adsSlice.reducer;

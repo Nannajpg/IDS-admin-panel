@@ -6,45 +6,26 @@ import { useEffect } from "react";
 import AdsListHeader from "./AdsListHeader";
 import ModalDeleteAd from "./ModalDeleteAd";
 import useModal from "./useModal";
-import { useState } from "react";
+import Navigation from "./Navigation";
+import FilterSelect from "./FilterSelect";
 
 const AdsList = () => {
-  const adsState = useSelector((state) => state);
+  const state = useSelector((state) => state.ads);
   const dispatch = useDispatch();
-  const [adsFilter, setAdsFilter] = useState(adsState.ads.ads);
 
   const { isVisible, toggleModal, getId } = useModal();
 
   useEffect(() => {
-    dispatch(fetchAds());
-  }, [dispatch]);
+    dispatch(fetchAds(state));
+  }, [dispatch, state.page, state.adtype, state.search]);
 
-  const handleChange = (e) => {
-    if (e.target.value === "") {
-      setAdsFilter(adsState.ads.ads);
-    } else {
-      setAdsFilter(
-        adsState.ads.ads.filter((ad) => {
-          return ad.adType === e.target.value;
-        })
-      );
-    }
-  };
 
   return (
     <div className="w-4/6">
       <AdsListHeader />
-      <select
-        name="filterType"
-        className="w-full p-2 rounded-md bg-zinc-600 mb-2"
-        onChange={(e) => handleChange(e)}
-      >
-        <option value="">Todos los anuncios</option>
-        <option value="estatico">Estáticos</option>
-        <option value="flotante">Flotantes</option>
-      </select>
+      <FilterSelect />
       <div className="grid md:grid-cols-3 gap-4 grid-cols-1">
-        {adsFilter.map((ad) => (
+        {state.ads.map((ad) => (
           <Ad id={ad.id} key={ad.id} showModal={toggleModal} />
         ))}
       </div>
@@ -53,6 +34,7 @@ const AdsList = () => {
         hideModal={toggleModal}
         getId={getId}
       />
+      <Navigation />
     </div>
   );
 };

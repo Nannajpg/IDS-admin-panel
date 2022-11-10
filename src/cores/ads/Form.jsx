@@ -22,7 +22,7 @@ const Form = ({ action, id }) => {
     adTypeRef.current.value = "";
     redirecToRef.current.value = "";
     await action(ad, id);
-    navigate("/adList");
+    navigate("/ads");
   };
 
   return (
@@ -60,8 +60,8 @@ const Form = ({ action, id }) => {
         required
       >
         <option value="">Tipo del anuncio</option>
-        <option value="estatico">Estático</option>
-        <option value="flotante">Flotante</option>
+        <option value="static">Estático</option>
+        <option value="float">Flotante</option>
       </select>
       <label htmlFor="redirecTo" className="block text-xs font-bold mb-2">
         Link
@@ -80,7 +80,7 @@ const Form = ({ action, id }) => {
       <button
         className="bg-red-700 px-2 py-1 hover:bg-red-800 md:ml-5"
         onClick={() => {
-          navigate("/adList");
+          navigate("/ads");
         }}
       >
         Cancelar

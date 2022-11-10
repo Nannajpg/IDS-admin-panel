@@ -1,9 +1,15 @@
 import axios from "axios";
 
-const BASE_URL = 'http://localhost:8080/api/ads';
+const BASE_URL = 'http://localhost:8080/ads';
+const FETCH_URL = 'http://localhost:8080/ads/search?size=6&page=';
 
-export const getAllAds = async () => {
-  const res = await axios.get(BASE_URL);
+
+export const fetchAds = async (page = 0, adtype, search) => {
+  if (adtype === '') adtype = '&adtype[]=static&adtype[]=float';
+  else adtype = `&adtype=${adtype}`;
+  if (search === '') search = '&announcer=.*'
+  else search = `&announcer=${search}`
+  const res = await axios.get(FETCH_URL + page + adtype + search);
   return res.data;
 }
 

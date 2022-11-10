@@ -1,10 +1,12 @@
 import React from "react";
-import { deleteAd } from "../../features/ads/adSlice";
-import { useDispatch } from "react-redux";
+import { deleteAd, fetchAds } from "../../features/ads/adSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function ModalDeleteAd({ isVisible, hideModal, getId }) {
   const dispatch = useDispatch();
   const id = getId();
+
+  const state = useSelector(state => state.ads);
 
   return (
     <>
@@ -30,7 +32,8 @@ function ModalDeleteAd({ isVisible, hideModal, getId }) {
               <button
                 className="bg-red-700 rounded p-2 hover:bg-red-800"
                 onClick={async () => {
-                  await dispatch(deleteAd(id));
+                  await dispatch(deleteAd(id, state));
+                  await dispatch(fetchAds(state));
                   hideModal(isVisible);
                 }}
               >
