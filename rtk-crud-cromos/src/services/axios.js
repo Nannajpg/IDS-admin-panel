@@ -38,3 +38,12 @@ export const deletSticker = async (playerName) => {
         console.log("Error "+error);
     }
 }
+
+export const getStickerMaxID = async () => {
+    try {
+        const res = await axios.get(BASE_URL+"/maxid");
+        return res;
+    } catch (error) {
+        console.log("Error: "+error);
+    }
+}
