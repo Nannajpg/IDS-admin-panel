@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const BASE_URL = 'http://localhost:8080/ads';
-const FETCH_URL = 'http://localhost:8080/ads/search?size=6&page=';
-
+const FETCH_URL = `${BASE_URL}/search?size=6&page=`;
 
 export const fetchAds = async (page = 0, adtype, search) => {
   if (adtype === '') adtype = '&adtype[]=static&adtype[]=float';
