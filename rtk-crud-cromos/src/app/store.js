@@ -5,4 +5,8 @@ export const store = configureStore({
     reducer: {
         stickers: stickerReducer,
     },
+    middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })

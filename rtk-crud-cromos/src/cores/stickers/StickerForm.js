@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { v4 as uuid } from 'uuid'
-import { createSticker, updateSticker } from '../../features/stickers/stickerSlice'
+import { updateSticker } from '../../features/stickers/stickerSlice'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { saveSticker, editSticker } from '../../services/axios';
 
@@ -37,16 +36,9 @@ function StickerForm() {
 
         if (params.id) {
             let res = await editSticker(sticker, sticker.playerName);
-            console.log("asi: " + JSON.stringify(sticker));
             dispatch(updateSticker(sticker))
         } else {
-            let newSticker = {
-                "id": uuid(),
-                ...sticker
-            }
-            let res = await saveSticker(newSticker);
-            console.log(JSON.stringify(res));
-            dispatch(createSticker(newSticker))
+            let res = await saveSticker(sticker);
         }
         navigate('/')
     }
