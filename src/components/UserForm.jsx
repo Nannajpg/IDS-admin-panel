@@ -49,10 +49,8 @@ function UserForm() {
     }, [params.id, users])
 
     return (
-        <form onSubmit={handleSubmit} className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
-            <label htmlFor="name" className="block text-sm font-bold mb-2">Id:</label>
-            <input name='id' type="text" placeholder="ID" onChange={handleChange} value={user.title} className="w-full p-2 rounded-md bg-zinc-600 mb-2" />
-
+        <div className="flex items-center h-screen">
+            <form onSubmit={handleSubmit} className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
             <label htmlFor="name" className="block text-sm font-bold mb-2">Nombre:</label>
             <input name='name' type="text" placeholder="Nombre" onChange={handleChange} value={user.title} className="w-full p-2 rounded-md bg-zinc-600 mb-2" />
 
@@ -71,6 +69,8 @@ function UserForm() {
 
             <button className="bg-emerald-600 px-2 py-1 rounded-md">Guardar</button>
         </form>
+        </div>
+        
     )
 }
 

@@ -23,17 +23,19 @@ function UsersList() {
             <div className='grid grid-cols-3 gap-4'>
                 {users.map(user => (
                     <div key={user.id} className="bg-neutral-800 p-4 rounded-md">
-                        <header className='flex justify-between'>
-                            <h3>{user.id}</h3>
+
+                        <p>Email: {user.email}</p>
+                        <p>Nombre: {user.name}</p>
+                        <p>Rol: {user.role}</p>
+
+                        <footer className='flex justify-between'>
                             <div className='flex gap-x-2'>
                                 <Link to={`/edit-user/${user.id}`} className="bg-teal-600 px-2 py-1 text-xs rounded-md self-center">Editar</Link>
                                 <button onClick={() => handleDelete(user.id)} className="bg-red-700 px-2 py-1 text-xs rounded-md self-center" >Eliminar</button>
 
                             </div>
-                        </header>
-                        <p>Email: {user.email}</p>
-                        <p>Nombre: {user.name}</p>
-                        <p>Rol: {user.role}</p>
+                        </footer>
+                        
                     </div>
                 ))}
             </div>

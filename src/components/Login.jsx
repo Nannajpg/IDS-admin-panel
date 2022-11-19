@@ -4,7 +4,7 @@ import logo from './offsidelogo.png';
 import { Link } from 'react-router-dom'
 
 function Login() {
-  //const { setAuth } = useContext(AuthContext);
+
   const userRef = useRef();
   const errRef = useRef();
   const navigate = useNavigate();
@@ -34,7 +34,8 @@ function Login() {
   return (
     <>
       {success ? (
-        <section className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
+        <div className="flex items-center h-screen">
+          <section className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
           <h1 className="text-center text-lg font-bold">¡Bienvenido!</h1>
           <br/>
           <Link to="/show-users" className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2 ">Gestionar Usuarios</Link>
@@ -42,10 +43,12 @@ function Login() {
           <br/>
           <br/>
           <a href="" className="bg-red-700 px-2 py-1 rounded-md mx-2">Regresar</a>
-          
-        </section>
+          </section>
+        </div>
+        
       ) : (
-        <section className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
+        <div className="flex items-center h-screen">
+          <section className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
           <p
             ref={errRef}
             className={errorMessage ? "errorMessage" : "offscreen"}
@@ -81,6 +84,7 @@ function Login() {
             <button onClick={handleSubmit} className='bg-teal-600 px-2 py-1 rounded-md text-sm'>Ingresar</button>
           </form>
         </section>
+        </div>
       )}
     </>
   );

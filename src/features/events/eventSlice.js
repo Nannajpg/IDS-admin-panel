@@ -4,14 +4,17 @@ const initialState = [
     {
         id: "1",
         name: "UEFA Champions League",
+        state: "Inactivo",
     },
     {
         id: "2",
         name: "UEFA Europa League",
+        state: "Inactivo",
     },
     {
         id: "3",
         name: "FIFA World Cup Qatar 2022",
+        state: "Activo",
     },
 ]
 

@@ -23,14 +23,16 @@ function EventsList() {
             <div className='grid grid-cols-3 gap-4'>
                 {events.map(event => (
                     <div key={event.id} className="bg-neutral-800 p-4 rounded-md">
-                        <header className='flex justify-between'>
-                            <h3>{event.id}</h3>
+                        
+                        <p>Evento: {event.name}</p>
+                        <p>Estado: {event.state}</p>
+                        <footer className='flex justify-between'>
                             <div className='flex gap-x-2'>
                                 <Link to={`/edit-event/${event.id}`} className="bg-teal-600 px-2 py-1 text-xs rounded-md self-center">Editar</Link>
                                 <button onClick={() => handleDelete(event.id)} className="bg-red-700 px-2 py-1 text-xs rounded-md self-center" >Eliminar</button>
                             </div>
-                        </header>
-                        <p>Evento: {event.name}</p>
+                        </footer>
+                        
                     </div>
                 ))}
             </div>
