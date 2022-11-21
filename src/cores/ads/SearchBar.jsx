@@ -18,7 +18,7 @@ const SearchBar = () => {
   return (
     <form onSubmit={(e) => handleSubmit(e)} className="w-2/5">
       <input type="text" ref={searchRef} placeholder="search..." className='w-4/5 rounded p-2 bg-zinc-600 mb-4'></input>
-      <button type='submit' className='hover:bg-stone-700 p-3 rounded-full h-full'> <BsSearch size="1.3rem"/> </button> 
+      <button type='submit' className='hover:bg-stone-700 ml-1 p-3 rounded-full h-full'> <BsSearch size="1.3rem"/> </button> 
     </form>
   )
 }

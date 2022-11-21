@@ -29,7 +29,7 @@ export const adsSlice = createSlice({
     amount: 0,
     page: 0,
     loading: 'idle',
-    ads: []
+    ads: [{id:"1", announcer:"papajohns", image:"https://assets.stickpng.com/images/5842998fa6515b1e0ad75ae0.png", adType:"static", redirecTo:"https://tailwindcss.com/docs/padding"}]
   },
   reducers: {
     editAd: (state, action) => {

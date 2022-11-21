@@ -7,7 +7,6 @@ import AdsListHeader from "./AdsListHeader";
 import ModalDeleteAd from "./ModalDeleteAd";
 import useModal from "./useModal";
 import Navigation from "./Navigation";
-import FilterSelect from "./FilterSelect";
 
 const AdsList = () => {
   const state = useSelector((state) => state.ads);
