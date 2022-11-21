@@ -93,7 +93,7 @@ function StickerForm() {
                     <option value='MedioCentro'>MedioCentro</option>
                     <option value='Delantero'>Delantero</option>
                 </select>
-                <label htmlFor='height' className='block text-xs font-bold mb-2'>Altura:</label>
+                <label htmlFor='height' className='block text-xs font-bold mb-2'>Altura (m):</label>
                 <input
                     name='height'
                     type='number'
@@ -102,7 +102,7 @@ function StickerForm() {
                     className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
                     required
                 ></input>
-                <label htmlFor='weight' className='block text-xs font-bold mb-2'>Peso:</label>
+                <label htmlFor='weight' className='block text-xs font-bold mb-2'>Peso (Kg):</label>
                 <input
                     name='weight'
                     type='number'
@@ -111,7 +111,7 @@ function StickerForm() {
                     className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
                     required
                 ></input>
-                <label htmlFor='appearanceRate' className='block text-xs font-bold mb-2'>Tasa de Aparición:</label>
+                <label htmlFor='appearanceRate' className='block text-xs font-bold mb-2'>Tasa de Aparición (%):</label>
                 <input
                     name='appearanceRate'
                     type='number'

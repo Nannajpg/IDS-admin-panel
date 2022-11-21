@@ -4,9 +4,6 @@ export const stickerSlice = createSlice({
     name: 'stickers',
     initialState: [],
     reducers: {
-        createSticker: (state, action) => {
-            state.push(action.payload)
-        },
         readStickers: (state, action) => {
             const id = action.payload.id
             const foundSticker = state.find(sticker => sticker.id === id)
@@ -40,6 +37,6 @@ export const stickerSlice = createSlice({
     },
 })
 
-export const { createSticker, readStickers, updateSticker, deleteSticker } = stickerSlice.actions
+export const { readStickers, updateSticker, deleteSticker } = stickerSlice.actions
 
 export default stickerSlice.reducer

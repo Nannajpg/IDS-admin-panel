@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { createSticker, deleteSticker } from '../../features/stickers/stickerSlice'
+import { deleteSticker } from '../../features/stickers/stickerSlice'
 import { getAllStickers, deletSticker } from '../../services/axios';
 import Pagination from './Pagination'
 
