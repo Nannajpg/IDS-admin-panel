@@ -1,35 +1,43 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchAds as getAllAds, createAd, deleteAd as deleteBdAd, editAd as editBdAd } from "../../services/ads";
+import {
+  fetchAds as getAllAds,
+  createAd,
+  deleteAd as deleteBdAd,
+  editAd as editBdAd,
+} from "../../services/ads";
 
-export const fetchAds = createAsyncThunk('@ads/fetchAds', async ({ page, adtype, search }) => {
-  const res = await getAllAds(page, adtype, search);
-  return res;
-})
+export const fetchAds = createAsyncThunk(
+  "@ads/fetchAds",
+  async ({ page, adtype, search }) => {
+    const res = await getAllAds(page, adtype, search);
+    return res;
+  }
+);
 
-export const uploadAd = createAsyncThunk('@ads/uploadAd', async (ad) => {
+export const uploadAd = createAsyncThunk("@ads/uploadAd", async (ad) => {
   const res = await createAd(ad);
   return res;
-})
+});
 
-export const deleteAd = createAsyncThunk('@ads/deleteAd', async (id) => {
+export const deleteAd = createAsyncThunk("@ads/deleteAd", async (id) => {
   await deleteBdAd(id);
   return id;
-})
+});
 
-export const editAd = createAsyncThunk('@ads/editAd', async (ad) => {
-    const { announcer, adtype, redirecTo } = await editBdAd(ad);
-    return { announcer, adtype, redirecTo };
-})
+export const editAd = createAsyncThunk("@ads/editAd", async (ad) => {
+  const { announcer, adtype, redirecTo } = await editBdAd(ad);
+  return { announcer, adtype, redirecTo };
+});
 
 export const adsSlice = createSlice({
   name: "@ads",
   initialState: {
-    adtype: '',
-    search: '',
+    adtype: "",
+    search: "",
     amount: 0,
     page: 0,
-    loading: 'idle',
-    ads: []
+    loading: "idle",
+    ads: [],
   },
   reducers: {
     editAd: (state, action) => {
@@ -56,21 +64,22 @@ export const adsSlice = createSlice({
     },
     toFilter: (state, action) => {
       state.adtype = action.payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAds.pending, (state, action) => {
-      if (state.loading === 'idle') state.loading = 'pending';
-    })
+      if (state.loading === "idle") state.loading = "pending";
+    });
     builder.addCase(fetchAds.fulfilled, (state, action) => {
-      if (state.loading === 'pending') {
+      if (state.loading === "pending") {
         state.ads = action.payload.ads;
         state.amount = action.payload.totalAds;
-        state.loading = 'idle';
+        state.loading = "idle";
       }
-    })
-  }
+    });
+  },
 });
 
-export const { nextPage, prevPage, toFirstPage, toSearch, toFilter } = adsSlice.actions;
+export const { nextPage, prevPage, toFirstPage, toSearch, toFilter } =
+  adsSlice.actions;
 export default adsSlice.reducer;
