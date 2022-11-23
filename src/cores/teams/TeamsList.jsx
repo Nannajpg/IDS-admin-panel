@@ -1,43 +1,28 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Team from "./Team";
 import TeamsListHeader from "./TeamsListHeader";
 import ModalDeleteTeam from "./ModalDeleteTeam";
 import useModal from "./useModal";
-import { useState } from "react";
+import { useEffect } from "react";
+import Navigation from "./Navigation";
+import { fetchTeams } from "../../features/teams/teamSlice";
 
 const TeamsList = () => {
-  const teamsState = useSelector((state) => state);
-  const [teamsFilter, setTeamsFilter] = useState(teamsState.teams);
+  const state = useSelector((state) => state.teams);
+  const dispatch = useDispatch(); 
 
   const { isVisible, toggleModal, getId } = useModal();
 
-  const handleChange = (e) => {
-    if (e.target.value === "") {
-      setTeamsFilter(teamsState.teams);
-    } else {
-      setTeamsFilter(
-        teamsState.teams.filter((team) => {
-          return team.event === e.target.value;
-        })
-      );
-    }
-  };
+  useEffect(() => {
+    dispatch(fetchTeams(state));
+  }, [dispatch, state.page, state.event, state.search])
 
   return (
     <div className="w-4/6">
       <TeamsListHeader />
-      <select
-        name="filterType"
-        className="w-full p-2 rounded-md bg-zinc-600 mb-2"
-        onChange={(e) => handleChange(e)}
-      >
-        <option value="">Todos los equipos</option>
-        <option value="mundial">Mundial</option>
-        <option value="champions">Champions</option>
-      </select>
       <div className="grid md:grid-cols-3 gap-4 grid-cols-1">
-        {teamsFilter.map((team) => (
+        {state.teams.map((team) => (
           <Team id={team.id} key={team.id} showModal={toggleModal} />
         ))}
       </div>
@@ -46,6 +31,7 @@ const TeamsList = () => {
         hideModal={toggleModal}
         getId={getId}
       />
+      <Navigation />
     </div>
   );
 };

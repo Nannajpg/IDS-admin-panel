@@ -1,19 +1,16 @@
-import React from 'react'
-/* import { useDispatch } from 'react-redux' */
-import Form from './Form'
-/* import { uploadAd } from '../../features/ads/adSlice' */
+import React from "react";
+import { useDispatch } from "react-redux";
+import Form from "./Form";
+import { uploadTeam } from "../../features/teams/teamSlice";
 
 const CreateFormTeam = () => {
-/*   const dispatch = useDispatch(); */
+  const dispatch = useDispatch();
 
   const create = (team) => {
-    /* return dispatch(uploadAd(team)); */
+    return dispatch(uploadTeam(team));
+  };
 
-  }
+  return <Form action={create} />;
+};
 
-  return (
-    <Form action={create}/>
-  )
-}
-
-export default CreateFormTeam
+export default CreateFormTeam;

@@ -1,10 +1,12 @@
 import React from "react";
-/* import { deleteAd } from "../../features/teams/teamSlice"; */
-/* import { useDispatch } from "react-redux"; */
+import { deleteTeam, fetchTeams } from "../../features/teams/teamSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function ModalDeleteTeam({ isVisible, hideModal, getId }) {
-  /* const dispatch = useDispatch();
-  const id = getId(); */
+  const dispatch = useDispatch();
+  const id = getId();
+
+  const state = useSelector((state) => state.teams);
 
   return (
     <>
@@ -30,7 +32,8 @@ function ModalDeleteTeam({ isVisible, hideModal, getId }) {
               <button
                 className="bg-red-700 rounded p-2 hover:bg-red-800"
                 onClick={async () => {
-                  /* await dispatch(deleteAd(id)); */
+                  await dispatch(deleteTeam(id, state));
+                  await dispatch(fetchTeams(state));
                   hideModal(isVisible);
                 }}
               >

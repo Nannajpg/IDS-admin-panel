@@ -3,14 +3,12 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const Team = ({ id, isVisible, showModal }) => {
-  const team = useSelector(state => state.teams.find(team => team.id === id));
+  const team = useSelector(state => state.teams.teams.find(team => team.id === id));
 
   return (
     <div key={id} className="bg-neutral-800 p-4 rounded-md">
             <h3 className="text-center">{team.teamName}</h3>
             <img src={team.shield} alt="adImage" className="my-5 object-contain" />
-            <p className='mb-2'>Jugadores: </p>
-            {team.players.map((player) => (<p className='mb-2'>{player}</p>))}
             <p className="mb-4">Competicion: {team.event}</p>
             <div className="flex gap-x-2 ">
               <Link
