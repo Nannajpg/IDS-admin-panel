@@ -14,21 +14,20 @@ function StickerForm() {
         height: '',
         weight: '',
         appearanceRate: '',
-        img: '',
+        myFile: null,
     })
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const params = useParams()
     const stickers = useSelector(state => state.stickers)
-    console.log('Form:')
-    console.log(stickers)
+
 
     const handleChange = e => {
-        setSticker({
+        setSticker((sticker) => ({
             ...sticker,
             [e.target.name]: e.target.value,
-        })
+        }));
     }
 
     const handleSubmit = async (e) => {
@@ -53,9 +52,9 @@ function StickerForm() {
         <div className='flex items-center h-screen'>
             <form onSubmit={handleSubmit} className='bg-slate-300 max-w-sm p-4 rounded-md grid grid-cols-2'>
 
-                <label for='playerName' className='block text-xs font-bold mb-2'>Nombre de Jugador:</label>
+                <label htmlFor='playerName' className='block text-xs font-bold mb-2'>Nombre de Jugador:</label>
                 <input
-                    id='playerName'
+                    name='playerName'
                     type='text'
                     onChange={handleChange}
                     value={sticker.playerName}
@@ -63,9 +62,9 @@ function StickerForm() {
                     required
                 />
 
-                <label for='team' className='block text-xs font-bold mb-2'>Equipo al que Juega:</label>
+                <label htmlFor='team' className='block text-xs font-bold mb-2'>Equipo al que Juega:</label>
                 <input
-                    id='team'
+                    name='team'
                     type='text'
                     onChange={handleChange}
                     value={sticker.team}
@@ -73,9 +72,9 @@ function StickerForm() {
                     required
                 />
 
-                <label for='country' className='block text-xs font-bold mb-2'>País de donde Proviene:</label>
+                <label htmlFor='country' className='block text-xs font-bold mb-2'>País de donde Proviene:</label>
                 <input
-                    id='country'
+                    name='country'
                     type='text'
                     onChange={handleChange}
                     value={sticker.country}
@@ -83,9 +82,9 @@ function StickerForm() {
                     required
                 />
 
-                <label for='position' className='block text-xs font-bold mb-2'>Posición:</label>
+                <label htmlFor='position' className='block text-xs font-bold mb-2'>Posición:</label>
                 <select
-                    id='position'
+                    name='position'
                     onChange={handleChange}
                     value={sticker.position}
                     className='w-full p-1 border border-gray-300 focus:border-blue-500 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
@@ -97,9 +96,9 @@ function StickerForm() {
                     <option value='Delantero'>Delantero</option>
                 </select>
 
-                <label for='height' className='block text-xs font-bold mb-2'>Altura (cm):</label>
+                <label htmlFor='height' className='block text-xs font-bold mb-2'>Altura (cm):</label>
                 <input
-                    id='height'
+                    name='height'
                     type='number'
                     step={0.1} min={1} max={272}
                     onChange={handleChange}
@@ -108,9 +107,9 @@ function StickerForm() {
                     required
                 />
 
-                <label for='weight' className='block text-xs font-bold mb-2'>Peso (Kg):</label>
+                <label htmlFor='weight' className='block text-xs font-bold mb-2'>Peso (Kg):</label>
                 <input
-                    id='weight'
+                    name='weight'
                     type='number'
                     step={0.1} min={1} max={634}
                     onChange={handleChange}
@@ -119,9 +118,9 @@ function StickerForm() {
                     required
                 />
 
-                <label for='appearanceRate' className='block text-xs font-bold mb-2'>Tasa de Aparición (%):</label>
+                <label htmlFor='appearanceRate' className='block text-xs font-bold mb-2'>Tasa de Aparición (%):</label>
                 <input
-                    id='appearanceRate'
+                    name='appearanceRate'
                     type='number'
                     step={0.0001} min={0} max={1}
                     onChange={handleChange}
@@ -130,16 +129,19 @@ function StickerForm() {
                     required
                 />
 
-                <label className='block text-xs font-bold mb-2' for="file_input">
+                <label className='block text-xs font-bold mb-2' htmlFor="file_input">
                     Subir Archivo de Imagen
                 </label>
                 <input
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                     aria-describedby="file_input_help"
-                    id="file_input"
+                    name="file_input"
                     type="file"
                     accept='.jpg, .jpeg, .png'
-                    onChange={handleChange}
+                    onChange={(e) => setSticker((sticker) => ({
+                        ...sticker,
+                        myFile: e.target.files[0],
+                    }))}
                 />
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
                     Only PNG, JPG or JPEG
@@ -158,4 +160,4 @@ function StickerForm() {
     )
 }
 
-export default StickerForm
+export default StickerForm;
