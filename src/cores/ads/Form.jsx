@@ -10,6 +10,7 @@ const Form = ({ action, id, toEditAd }) => {
   const redirecToRef = useRef(null);
   const [imagen, setImagen] = useState();
   const [notValidUrl, setNotValidUrl] = useState(false);
+  const [imgToEdit, setImgToEdit] = useState();
 
   const navigate = useNavigate();
 
@@ -17,6 +18,7 @@ const Form = ({ action, id, toEditAd }) => {
     if (toEditAd) {
       announcerRef.current.value = toEditAd.announcer;
       setImagen(toEditAd.img);
+      setImgToEdit(true);
       adTypeRef.current.value = toEditAd.adType;
       redirecToRef.current.value = toEditAd.redirecTo;
     }
@@ -41,7 +43,11 @@ const Form = ({ action, id, toEditAd }) => {
   };
 
   return (
-    <form encType="multipart/form-data" onSubmit={handleSubmit} className="bg-zinc-800 max-w-sm p-4 mt-24">
+    <form
+      encType="multipart/form-data"
+      onSubmit={handleSubmit}
+      className="bg-zinc-800 max-w-sm p-4 mt-24"
+    >
       <label htmlFor="announcer" className="block text-xs font-bold mb-2">
         Titulo
       </label>
@@ -63,11 +69,12 @@ const Form = ({ action, id, toEditAd }) => {
         accept=".jpg, .jpeg, .png"
         ref={imgRef}
         className="w-full p-2 rounded-md bg-zinc-600 mb-2 file:rounded-md file:border-none file:bg-zinc-700 file:text-white hover:file:bg-zinc-800 hover:file:cursor-pointer"
-        required
+        required={toEditAd ? false : true}
         onChange={(e) => {
           const file = e.target.files[0];
-          if (file) { 
+          if (file) {
             setImagen(file);
+            setImgToEdit(false);
           }
         }}
       />
@@ -120,7 +127,9 @@ const Form = ({ action, id, toEditAd }) => {
       >
         Cancelar
       </button>
-      {imagen && <img src={toEditAd ? imagen : URL.createObjectURL(imagen)} alt="" />}
+      {imagen && (
+        <img src={imgToEdit ? imagen : URL.createObjectURL(imagen)} alt="" />
+      )}
     </form>
   );
 };
