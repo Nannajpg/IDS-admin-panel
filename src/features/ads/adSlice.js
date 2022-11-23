@@ -17,8 +17,8 @@ export const deleteAd = createAsyncThunk('@ads/deleteAd', async (id) => {
 })
 
 export const editAd = createAsyncThunk('@ads/editAd', async (ad) => {
-  await editBdAd(ad);
-  return ad;
+    const { announcer, adtype, redirecTo } = await editBdAd(ad);
+    return { announcer, adtype, redirecTo };
 })
 
 export const adsSlice = createSlice({
@@ -29,7 +29,7 @@ export const adsSlice = createSlice({
     amount: 0,
     page: 0,
     loading: 'idle',
-    ads: [{id:"1", announcer:"papajohns", image:"https://assets.stickpng.com/images/5842998fa6515b1e0ad75ae0.png", adType:"static", redirecTo:"https://tailwindcss.com/docs/padding"}]
+    ads: []
   },
   reducers: {
     editAd: (state, action) => {

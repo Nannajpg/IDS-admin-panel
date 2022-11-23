@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ValidUrl from "./ValidUrl";
 
-const Form = ({ action, id, toEditAdd }) => {
+const Form = ({ action, id, toEditAd }) => {
   const announcerRef = useRef(null);
   const imgRef = useRef(null);
   const adTypeRef = useRef(null);
@@ -14,13 +14,13 @@ const Form = ({ action, id, toEditAdd }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (toEditAdd) {
-      announcerRef.current.value = toEditAdd.announcer;
-      imgRef.current.value = toEditAdd.image; 
-      adTypeRef.current.value = toEditAdd.adType;
-      redirecToRef.current.value = toEditAdd.redirecTo;
+    if (toEditAd) {
+      announcerRef.current.value = toEditAd.announcer;
+      setImagen(toEditAd.img);
+      adTypeRef.current.value = toEditAd.adType;
+      redirecToRef.current.value = toEditAd.redirecTo;
     }
-  }, [toEditAdd]);
+  }, [toEditAd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +41,7 @@ const Form = ({ action, id, toEditAdd }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-zinc-800 max-w-sm p-4 mt-24">
+    <form encType="multipart/form-data" onSubmit={handleSubmit} className="bg-zinc-800 max-w-sm p-4 mt-24">
       <label htmlFor="announcer" className="block text-xs font-bold mb-2">
         Titulo
       </label>
@@ -66,10 +66,8 @@ const Form = ({ action, id, toEditAdd }) => {
         required
         onChange={(e) => {
           const file = e.target.files[0];
-          if (file) {
+          if (file) { 
             setImagen(file);
-          } else {
-            setImagen(null);
           }
         }}
       />
@@ -122,7 +120,7 @@ const Form = ({ action, id, toEditAdd }) => {
       >
         Cancelar
       </button>
-      {imagen && <img src={URL.createObjectURL(imagen)} alt="" />}
+      {imagen && <img src={toEditAd ? imagen : URL.createObjectURL(imagen)} alt="" />}
     </form>
   );
 };

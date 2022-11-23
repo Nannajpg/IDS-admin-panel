@@ -19,14 +19,13 @@ const EditForm = () => {
   useEffect(() => {
     if (id) {
       setAdFound(
-        ads.find((ad) => {
-          return ad.id === id;
-        })
+        ads.find(ad => ad.id === Number(id))
       );
     }
   }, []);
 
-  return <Form action={edit} id={id} toEditAdd={adFound} />;
+
+  return <Form action={edit} id={id} toEditAd={adFound} />;
 };
 
 export default EditForm;
