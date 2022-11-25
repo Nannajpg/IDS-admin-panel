@@ -2,20 +2,23 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export const stickerSlice = createSlice({
     name: 'stickers',
-    initialState: [],
+    initialState: {
+        currentPage: 0,
+        stickers: []
+    },
     reducers: {
         readStickers: (state, action) => {
             const id = action.payload.id
-            const foundSticker = state.find(sticker => sticker.id === id)
+            const foundSticker = state.stickers.find(sticker => sticker.id === id)
             if (!foundSticker){
-                state.push(action.payload)
+                state.stickers.push(action.payload)
             }
         },
         updateSticker: (state, action) => {
             const { id, playerName, team, country, position, height, weight, appearanceRate, img } = action.payload
             console.log('Update')
             console.log(action.payload)
-            const foundSticker = state.find(sticker => sticker.id === id)
+            const foundSticker = state.stickers.find(sticker => sticker.id === id)
             if (foundSticker) {
                 foundSticker.playerName = playerName
                 foundSticker.team = team
@@ -28,9 +31,9 @@ export const stickerSlice = createSlice({
             }
         },
         deleteSticker: (state, action) => {
-            const stickerFound = state.find(sticker => sticker.id === action.payload)
+            const stickerFound = state.stickers.find(sticker => sticker.id === action.payload)
             if (stickerFound) {
-                state.splice(state.indexOf(stickerFound), 1)
+                state.stickers.splice(state.stickers.indexOf(stickerFound), 1)
             }
         },
 
