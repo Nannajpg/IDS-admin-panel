@@ -1,7 +1,6 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import React from 'react';
-import UserForm from './cores/users/Form';
 import UsersList from './cores/users/UsersList';
 import Login from './cores/auth/Login';
 import EventsList from './cores/events/EventsList';

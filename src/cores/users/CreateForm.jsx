@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "./Form";
-import { addUser } from "../../features/users/userSlice";
 import * as usersServices from "../../services/users.services";
 
 
