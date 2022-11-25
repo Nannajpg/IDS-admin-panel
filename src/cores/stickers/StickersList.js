@@ -4,23 +4,21 @@ import { readStickers } from '../../features/stickers/stickerSlice'
 import StickerCard from './StickerCard';
 import { getAllStickers } from '../../services/axios';
 import { useDispatch, useSelector } from 'react-redux';
+import Pagination from './Pagination'
 
 const StickerList = () => {
     // const [loading, setLoading] = useState(false);
     const dispatch = useDispatch()
     let res;
 
-    let stickers = useSelector(state => state.stickers.stickers)
-    const [currentPage, setCurrentPage] = useState(0)
-    const [postPerPage, setPostPerPage] = useState(8)
+    let page = useSelector(state => state.stickers.page)
 
-    const lastPostIndex = currentPage * postPerPage
-    const firstPostIndex = lastPostIndex - postPerPage
-    const sticker = stickers.slice(firstPostIndex, lastPostIndex)
+    let stickers = useSelector(state => state.stickers.stickers)
+    const [postPerPage, setPostPerPage] = useState(8)
 
     useEffect(() => {
         (async () => {
-            res = await getAllStickers();
+            res = await getAllStickers(page);
             // await setLoading(false);
             console.log("meme: "+JSON.stringify(res.data.stickers));
             if (res.data.stickers.length>0){
@@ -30,7 +28,7 @@ const StickerList = () => {
                 }
             }
         })();
-    }, [])
+    }, [dispatch, page])
 
     return (
         <div className='w-4/6'>
@@ -39,13 +37,9 @@ const StickerList = () => {
                 {console.log("nananana: "+JSON.stringify(stickers))}
                 {stickers.map(sticker => <StickerCard sticker={sticker} key={sticker.id}/>)}
             </div>
-            {/* <div className='py-4'>
-                <Pagination
-                    totalPosts={stickers.length}
-                    postsPerPage={postPerPage}
-                    setCurrentPage={setCurrentPage}
-                    currentPage={currentPage} />
-            </div>  */}
+            <div className='py-4'>
+                <Pagination postsPerPage={postPerPage} />
+            </div>  
         </div>
     )
 }

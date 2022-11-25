@@ -20,7 +20,7 @@ function StickerForm() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const params = useParams()
-    const stickers = useSelector(state => state.stickers)
+    const stickers = useSelector(state => state.stickers.stickers)
 
 
     const handleChange = e => {

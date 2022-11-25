@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 export const stickerSlice = createSlice({
     name: 'stickers',
     initialState: {
-        currentPage: 0,
+        amount: 9,
+        page: 0,
         stickers: []
     },
     reducers: {
@@ -16,8 +17,6 @@ export const stickerSlice = createSlice({
         },
         updateSticker: (state, action) => {
             const { id, playerName, team, country, position, height, weight, appearanceRate, img } = action.payload
-            console.log('Update')
-            console.log(action.payload)
             const foundSticker = state.stickers.find(sticker => sticker.id === id)
             if (foundSticker) {
                 foundSticker.playerName = playerName
@@ -36,10 +35,19 @@ export const stickerSlice = createSlice({
                 state.stickers.splice(state.stickers.indexOf(stickerFound), 1)
             }
         },
-
+        nextPage: (state, action) => {
+            state.page++;
+        },
+        prevPage: (state, action) => {
+            state.page--;
+        },
+        setPage: (state, action) => {
+            state.stickers = [];
+            state.page = action.payload;
+        },
     },
 })
 
-export const { readStickers, updateSticker, deleteSticker } = stickerSlice.actions
+export const { readStickers, updateSticker, deleteSticker, nextPage, prevPage, setPage } = stickerSlice.actions
 
 export default stickerSlice.reducer

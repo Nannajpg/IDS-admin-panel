@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 function StickersListHeader() {
-    const stickers = useSelector(state => state.stickers)
+    const stickers = useSelector(state => state.stickers.stickers)
 
     return (
         <header className='flex justify-between item-center py-4'>
