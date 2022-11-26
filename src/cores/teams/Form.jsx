@@ -1,18 +1,22 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Form = ({ action, id, toEditTeam }) => {
   const teamNameRef = useRef(null);
   const badgeRef = useRef(null);
   const eventRef = useRef(null);
+  const [imagen, setImagen] = useState();
+  const [imgToEdit, setImgToEdit] = useState();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(toEditTeam)
+    console.log(toEditTeam);
     if (toEditTeam) {
       teamNameRef.current.value = toEditTeam.name;
       eventRef.current.value = toEditTeam.idEvents;
+      setImagen(toEditTeam.badge);
+      setImgToEdit(true);
     }
   }, [toEditTeam]);
 
@@ -31,7 +35,11 @@ const Form = ({ action, id, toEditTeam }) => {
   };
 
   return (
-    <form encType="multipart/form-data" onSubmit={handleSubmit} className="bg-zinc-800 w-1/3 p-4 mt-24">
+    <form
+      encType="multipart/form-data"
+      onSubmit={handleSubmit}
+      className="bg-zinc-800 w-1/3 p-4 mt-24"
+    >
       <label htmlFor="teamName" className="block text-xs font-bold mb-2">
         Nombre del equipo
       </label>
@@ -54,7 +62,14 @@ const Form = ({ action, id, toEditTeam }) => {
         accept=".jpg, .jpeg, .png"
         ref={badgeRef}
         className="w-full p-2 rounded-md bg-zinc-600 mb-2 file:rounded-md file:border-none file:bg-zinc-700 file:text-white hover:file:bg-zinc-800 hover:file:cursor-pointer"
-        required
+        required={toEditTeam ? false : true}
+        onChange={(e) => {
+          const file = e.target.files[0];
+          if (file) {
+            setImagen(file);
+            setImgToEdit(false);
+          }
+        }}
       />
 
       <label htmlFor="event" className="block text-xs font-bold mb-2">
@@ -80,6 +95,9 @@ const Form = ({ action, id, toEditTeam }) => {
       >
         Cancelar
       </button>
+      {imagen && (
+        <img src={imgToEdit ? imagen : URL.createObjectURL(imagen)} alt="" />
+      )}
     </form>
   );
 };

@@ -8,13 +8,13 @@ const TeamsListHeader = () => {
   const teams = useSelector((state) => state.teams);
 
   return (
-    <header className="flex justify-between items-center mt-5">
+    <header className="flex justify-between items-center mt-5 w-full">
       <h1>Equipos: {teams.amount}</h1>
       <SearchBar />
       <FilterSelect />
       <Link
         to="/newTeam"
-        className="bg-indigo-600 px-2 py-1 rounded-sm text-sm mb-2"
+        className="bg-indigo-600 p-2 rounded text-sm mb-2"
       >
         Crear Equipo
       </Link>

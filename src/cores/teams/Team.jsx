@@ -21,7 +21,7 @@ const Team = ({ id, isVisible, showModal }) => {
                 onClick={() => showModal(isVisible, id)}
                 className="bg-red-500 px-2 py-1 text-xs rounded-md self-center"
               >
-                Borrar
+                Eliminar
               </button>
             </div>
           </div>
