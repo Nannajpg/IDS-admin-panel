@@ -5,21 +5,25 @@ const initialState = [];
 
 export const eventSlice = createSlice({
     name: 'events',
-    initialState,
+    initialState: {
+        amount: 0,
+        page: 0,
+        events: []
+    },
     reducers:{
         resetEvents: (state, _) => {
-            state = [];
+            state.events = [];
         },
         addEvent: (state, { payload }) => {
             const { id } = payload;
-            const foundSticker = state.find(event => event.id === id);
+            const foundSticker = state.events.find(event => event.id === id);
             if (!foundSticker) {
-                state.push(payload);
+                state.events.push(payload);
             }
         },
         editEvent: (state, action) =>{
             const { id, eventName, status } = action.payload
-            const foundEvent = state.find(event => event.id === id)
+            const foundEvent = state.events.find(event => event.id === id)
             
             if(foundEvent){
                 foundEvent.id = id;
@@ -28,13 +32,20 @@ export const eventSlice = createSlice({
             }
         },
         deleteEvent: (state, { payload }) => {
-            const eventFound = state.find(event => event.id === payload)
+            const eventFound = state.events.find(event => event.id === payload)
             if (eventFound) {
-                state.splice(state.indexOf(eventFound), 1)
+                state.events.splice(state.events.indexOf(eventFound), 1)
             }
-        }
+        },
+        setPage: (state, action) => {
+            state.stickers = [];
+            state.page = action.payload;
+        },
+        setAmount: (state, action) => {
+            state.amount = action.payload;
+        },
     }
 })
 
-export const { initEvents, addEvent, editEvent, deleteEvent, resetEvents } = eventSlice.actions
+export const { initEvents, addEvent, editEvent, deleteEvent, resetEvents, setAmount, setPage } = eventSlice.actions
 export default eventSlice.reducer

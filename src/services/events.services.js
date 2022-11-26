@@ -1,9 +1,20 @@
 import axios from "axios";
 const BASE_URL = "http://localhost:3000/events/";
 
-export const fetchEvents = async () => {
+
+export const getEventsAmount = async (page = 0) => {
   try {
-    const res = await axios.get(BASE_URL);
+      const res = await axios.get(BASE_URL+"amount");
+      return res;
+  } catch (error) {
+      console.log("Error ", error);
+  }
+}
+
+
+export const fetchEvents = async (page = 0) => {
+  try {
+    const res = await axios.get(BASE_URL+"?size=9&page="+page);
     return res.data;
   } catch (e) {
     throw new Error('error fetcheando eventos');
