@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const stickerSlice = createSlice({
     name: 'stickers',
     initialState: {
-        amount: 9,
+        amount: 0,
         page: 0,
         stickers: []
     },
@@ -45,9 +45,12 @@ export const stickerSlice = createSlice({
             state.stickers = [];
             state.page = action.payload;
         },
+        setAmount: (state, action) => {
+            state.amount = action.payload;
+        },
     },
 })
 
-export const { readStickers, updateSticker, deleteSticker, nextPage, prevPage, setPage } = stickerSlice.actions
+export const { readStickers, updateSticker, deleteSticker, nextPage, prevPage, setPage, setAmount } = stickerSlice.actions
 
 export default stickerSlice.reducer

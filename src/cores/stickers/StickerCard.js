@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { deleteSticker } from '../../features/stickers/stickerSlice'
-import { getAllStickers, deletSticker } from '../../services/axios';
-import Pagination from './Pagination'
+import { deletSticker } from '../../services/stickers.services';
 
 function StickerCard({ sticker }) {
-
+    
     const dispatch = useDispatch();
     const stickers = useSelector(state => state.stickers.stickers);
-    console.log(sticker)
 
     const handleDelete = async (id) => {
         if (window.confirm('¿Desea eliminar ese Sticker?')) {
@@ -21,7 +19,7 @@ function StickerCard({ sticker }) {
     }
 
     return (
-        <><div key={sticker.id} className='bg-slate-400 p-4 rounded-md'>
+        <div key={sticker.id} className='bg-slate-400 p-4 rounded-md'>
             <img src={sticker.img} alt='stickerImg' className='w-25' />
             <p className='text-sm'>Nombre: {sticker.playerName}</p>
             <p className='text-sm'>Equipo: {sticker.team}</p>
@@ -46,14 +44,7 @@ function StickerCard({ sticker }) {
                     </button>
                 </div>
             </header>
-        </div>{/* <div className='py-4'>
-                <Pagination
-                    totalPosts={stickers.length}
-                    postsPerPage={postPerPage}
-                    setCurrentPage={setCurrentPage}
-                    currentPage={currentPage} />
-            </div> */}
-            </>
+        </div>
     )
 }
 

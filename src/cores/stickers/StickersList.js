@@ -1,40 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import StickersListHeader from './StickersListHeader'
-import { readStickers } from '../../features/stickers/stickerSlice'
+import { readStickers, setAmount } from '../../features/stickers/stickerSlice'
 import StickerCard from './StickerCard';
-import { getAllStickers } from '../../services/axios';
+import { getAllStickers, getStickersAmount } from '../../services/stickers.services';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from './Pagination'
 
 const StickerList = () => {
-    // const [loading, setLoading] = useState(false);
+    
     const dispatch = useDispatch()
-    let res;
+    const postPerPage = 8;
 
-    let page = useSelector(state => state.stickers.page)
-
-    let stickers = useSelector(state => state.stickers.stickers)
-    const [postPerPage, setPostPerPage] = useState(8)
+    const page = useSelector(state => state.stickers.page)
+    const stickers = useSelector(state => state.stickers.stickers)
 
     useEffect(() => {
         (async () => {
-            res = await getAllStickers(page);
-            // await setLoading(false);
-            console.log("meme: "+JSON.stringify(res.data.stickers));
+            const res = await getAllStickers(page);
+            const amount = await getStickersAmount();
             if (res.data.stickers.length>0){
-                console.log("enter")
                 for (let i = 0; i < res.data.stickers.length; i++) {
                     dispatch(readStickers(res.data.stickers[i]))
                 }
+                dispatch(setAmount(amount.data.stickers.count));
             }
         })();
-    }, [dispatch, page])
+    }, [dispatch, page, stickers])
 
     return (
         <div className='w-4/6'>
             <StickersListHeader />
             <div className='grid grid-cols-4 gap-4'>
-                {console.log("nananana: "+JSON.stringify(stickers))}
                 {stickers.map(sticker => <StickerCard sticker={sticker} key={sticker.id}/>)}
             </div>
             <div className='py-4'>

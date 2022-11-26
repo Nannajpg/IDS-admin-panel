@@ -5,6 +5,7 @@ import { setPage } from '../../features/stickers/stickerSlice'
 import './Pagination.css'
 
 const Pagination = ({ postsPerPage }) => {
+    
     const totalPosts = useSelector(state => state.stickers.amount)
     const currentPage = (useSelector(state => state.stickers.page)+1)
     const dispatch = useDispatch()

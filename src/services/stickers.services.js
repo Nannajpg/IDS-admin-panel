@@ -4,8 +4,16 @@ const BASE_URL = "http://localhost:3000/stickers";
 
 export const getAllStickers = async (page = 0) => {
     try {
-        console.log(page);
         const res = await axios.get(BASE_URL+"?size=8&page="+page);
+        return res;
+    } catch (error) {
+        console.log("Error ", error);
+    }
+}
+
+export const getStickersAmount = async (page = 0) => {
+    try {
+        const res = await axios.get(BASE_URL+"/amount");
         return res;
     } catch (error) {
         console.log("Error ", error);
