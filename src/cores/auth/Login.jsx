@@ -5,7 +5,7 @@ import useLoginForm from "./useLoginForm";
 
 function Login() {
 
-  const { handleChange, handleSubmit } = useLoginForm();
+  const { handleChange, handleSubmit, error } = useLoginForm();
 
   const { success } = useSelector(state => state.auth);
 
@@ -16,6 +16,9 @@ function Login() {
       <section className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
         <img src={logo} alt="" className="h-32 float-right" />
         <h1 className="py-3 text-2xl">Inicio de Sesión</h1>
+        {error && (
+          <p className="text-xs whitespace-nowrap text-red-600 my-3">{`${error}`}</p>
+        )}
         <form>
           <label htmlFor="email" className="block text-sm font-bold mb-2">
             Email:
