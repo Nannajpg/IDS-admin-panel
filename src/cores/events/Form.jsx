@@ -12,7 +12,7 @@ function EventForm({ action, id }) {
 
     const navigate = useNavigate();
     const params = useParams();
-    const events = useSelector(state => state.events)
+    const events = useSelector(state => state.events.events)
 
     const handleChange = (e) => {
         setEvent({

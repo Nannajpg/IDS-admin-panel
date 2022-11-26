@@ -1,17 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { deleteEvent } from "../../features/events/eventSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteEvent, setAmount } from "../../features/events/eventSlice";
 import * as eventsServices from "../../services/events.services";
 
 const Event = ({ event }) => {
 
   const dispatch = useDispatch();
+  const amount = useSelector(state => state.events.amount)
 
   const handleDelete = async (id) => {
       try {
+        dispatch(setAmount(amount-1));
+
         await eventsServices.deleteEvent(id);
         dispatch(deleteEvent(id));
+
       } catch (e) {
         console.log(e);
       }

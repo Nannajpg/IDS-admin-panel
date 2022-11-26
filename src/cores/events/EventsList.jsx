@@ -28,7 +28,7 @@ function EventsList() {
             }
         }
         getEvents();
-    }, [dispatch, page])
+    }, [dispatch, page, amount])
 
     return (
         <div className='w-4/6'>
