@@ -9,6 +9,7 @@ function App() {
       <div className="flex items-center justify-center h-full">
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<h1>menu uwu</h1>} />
             <Route path="/teams" element={<TeamsList />} />
             <Route path="/newTeam" element={<CreateFormTeam />} />
             <Route path="/editTeam/:id" element={<EditFormTeam />} />

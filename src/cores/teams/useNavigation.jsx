@@ -3,20 +3,19 @@ import { nextPage, prevPage } from "../../features/teams/teamSlice";
 
 const useNavigation = () => {
 
-  const state = useSelector((state) => state.teams);
+  const teams = useSelector((state) => state.teams);
   const dispatch = useDispatch();
 
-  const currentPage = state.page;
+  const currentPage = teams.page;
 
-  const pagesAmount = Math.ceil(state.amount / 6);
+  const pagesAmount = Math.ceil(teams.amount / 6);
 
   const toNextPage = () => {
-    if (state.page < pagesAmount - 1) dispatch(nextPage());
+    if (teams.page < pagesAmount - 1) dispatch(nextPage());
   }
 
   const toPrevPage = () => {
-    if (state.page > 0) dispatch(prevPage()); 
-
+    if (teams.page > 0) dispatch(prevPage()); 
   }
 
   return { currentPage, toNextPage, toPrevPage }; 

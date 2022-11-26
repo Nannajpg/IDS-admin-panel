@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const EditFormTeam = () => {
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const teams = useSelector((state) => state.teams.teams);
   const [teamFound, setTeamFound] = useState();
 
@@ -20,11 +20,11 @@ const EditFormTeam = () => {
     if (id) {
       setTeamFound(
         teams.find((team) => {
-          return team.id === id;
+          return team.id === Number(id);
         })
       );
     }
-  }, []);
+  }, [id, teams]);
 
   return <Form action={edit} id={id} toEditTeam={teamFound} />;
 };

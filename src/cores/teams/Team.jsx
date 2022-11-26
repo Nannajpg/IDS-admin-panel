@@ -7,9 +7,9 @@ const Team = ({ id, isVisible, showModal }) => {
 
   return (
     <div key={id} className="bg-neutral-800 p-4 rounded-md">
-            <h3 className="text-center">{team.teamName}</h3>
-            <img src={team.shield} alt="adImage" className="my-5 object-contain" />
-            <p className="mb-4">Competicion: {team.event}</p>
+            <h3 className="text-center">{team.name}</h3>
+            <img src={team.badge} alt="adImage" className="my-5 object-contain" />
+            <p className="mb-4">Competicion: {team.idEvents}</p>
             <div className="flex gap-x-2 ">
               <Link
                 to={`/editTeam/` + team.id}

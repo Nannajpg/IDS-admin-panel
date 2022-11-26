@@ -3,8 +3,8 @@ import {
   fetchTeams as getAllTeams,
   createTeam,
   deleteTeam as deleteBdTeam,
-  editAd as editBdTeam,
-} from "../../services/axios";
+  editTeam as editBdTeam,
+} from "../../services/team.services";
 
 export const fetchTeams = createAsyncThunk(
   "@teams/fetchTeams",
@@ -28,41 +28,20 @@ export const deleteTeam = createAsyncThunk("@teams/deleteTeam", async (id) => {
 });
 
 export const editTeam = createAsyncThunk("@teams/editTeam", async (team) => {
-  await editBdTeam(team);
-  return team;
+  const data = await editBdTeam(team);
+  return data;
 });
+
+//id, name, badge    ,   totalTeams, pageNumber, pageSize
 
 export const teamSlice = createSlice({
   name: "@teams",
   initialState: {
-    event: "",
     search: "",
-    amount: 0,
+    totalTeams: 0,
     page: 0,
     loading: "idle",
-    teams: [
-      {
-        id: "1",
-        teamName: "Brasil",
-        shield:
-          "http://as00.epimg.net/img/comunes/fotos/fichas/equipos/large/1881.png",
-        event: "mundial",
-      },
-      {
-        id: "2",
-        teamName: "Real Madrid",
-        shield:
-          "http://as01.epimg.net/img/comunes/fotos/fichas/equipos/large/1.png",
-        event: "champions",
-      },
-      {
-        id: "3",
-        teamName: "Francia",
-        shield:
-          "http://as01.epimg.net/img/comunes/fotos/fichas/equipos/large/961.png",
-        event: "mundial",
-      },
-    ],
+    teams: [],
   },
   reducers: {
     editTeam: (state, action) => {
@@ -74,13 +53,13 @@ export const teamSlice = createSlice({
         foundTeam.event = event;
       }
     },
-    nextPage: (state, action) => {
+    nextPage: (state) => {
       state.page++;
     },
-    prevPage: (state, action) => {
+    prevPage: (state) => {
       state.page--;
     },
-    toFirstPage: (state, action) => {
+    toFirstPage: (state) => {
       state.page = 0;
     },
     toSearch: (state, action) => {

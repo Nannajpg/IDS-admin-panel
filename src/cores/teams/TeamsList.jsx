@@ -9,20 +9,22 @@ import Navigation from "./Navigation";
 import { fetchTeams } from "../../features/teams/teamSlice";
 
 const TeamsList = () => {
-  const state = useSelector((state) => state.teams);
+  const teams = useSelector((state) => state.teams);
   const dispatch = useDispatch(); 
 
   const { isVisible, toggleModal, getId } = useModal();
 
   useEffect(() => {
-    dispatch(fetchTeams(state));
-  }, [dispatch, state.page, state.event, state.search])
+    dispatch(fetchTeams(teams));
+
+  // eslint-disable-next-line
+  }, [dispatch, teams.page, teams.search])
 
   return (
     <div className="w-4/6">
       <TeamsListHeader />
       <div className="grid md:grid-cols-3 gap-4 grid-cols-1">
-        {state.teams.map((team) => (
+        {teams.teams.map((team) => (
           <Team id={team.id} key={team.id} showModal={toggleModal} />
         ))}
       </div>
