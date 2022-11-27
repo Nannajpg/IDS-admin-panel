@@ -1,9 +1,11 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:3000/matches/";
+// const BASE_URL = "http://localhost:3000/matches/";
+const BASE_URL = "http://localhost:3000/games";
 
 export const fetchMatches = async () => {
   try {
     const res = await axios.get(BASE_URL);
+    console.log(JSON.stringify(res.data))
     return res.data;
   } catch (e) {
     throw new Error('error fetcheando partidos');

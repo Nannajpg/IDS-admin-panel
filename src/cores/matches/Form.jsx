@@ -62,14 +62,14 @@ function MatchForm({ action, id }) {
             <label htmlFor="date" className="block text-sm font-bold mb-2">Fecha:</label>
             <input name='date' type="date" onChange={handleChange} className="w-full p-2 rounded-md bg-zinc-600 mb-2" required />
              
-            <label htmlFor="event" className="block text-sm font-bold mb-2">Evento:</label>
+            {/* <label htmlFor="event" className="block text-sm font-bold mb-2">Evento:</label>
             <select name="event" className="w-full p-2 rounded-md bg-zinc-600 mb-2" onChange={handleChange} placeholder="Evento" required>
                 <option defaultValue="">Evento</option>
                 <option value="FIFA World Cup 2022">FIFA World Cup 2022</option>
                 <option value="UEFA Champions League">UEFA Champions League</option>
                 <option value="CONMEBOL Libertadores">CONMEBOL Libertadores</option>
                 <option value="AFC Asian Cup">AFC Asian Cup</option>
-            </select>
+            </select> */}
 
             <label className='block text-sm mb-2 font-bold' htmlFor="file_input">
                     Subir Archivo de Excel

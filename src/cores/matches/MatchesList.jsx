@@ -1,29 +1,34 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { addMatch /*resetMatches */ } from '../../features/matches/matchSlice'
+import { addMatch, resetMatches, setAmount } from '../../features/matches/matchSlice'
 import * as matchesServices from '../../services/matches.services'
 import Match from './Match'
 
 function MatchesList() {
+    const postPerPage = 9;
+    const page = useSelector(state => state.users.page);
+    const amount = useSelector(state => state.users.amount);
 
-    const matches = useSelector(state => state.matches)
+    const matches = useSelector(state => state.matches.matches)
     const dispatch = useDispatch();
 
-    /*useEffect(() => {
+    useEffect(() => {
         dispatch(resetMatches());
         const getMatches = async () => {
             try {
                 const data = await matchesServices.fetchMatches();
-                data.forEach(match => {
+                data.games.forEach(match => {
                     dispatch(addMatch(match));
                 });
+                console.log(data.paginate.total)
+                dispatch(setAmount(data.paginate.total));
             } catch(e) {
                 console.log(e);
             }
         }
         getMatches();
-    }, [dispatch]) */
+    }, [dispatch])
 
     return (
         <div className='w-4/6'>

@@ -7,6 +7,7 @@ import * as matchesServices from "../../services/matches.services";
 const Match = ({ match }) => {
 
   const dispatch = useDispatch();
+  console.log(JSON.stringify(match))
 
   const handleDelete = async (id) => {
       try {
@@ -27,9 +28,9 @@ const Match = ({ match }) => {
         
       </header>
 
-      <p>Partido: {match.team1} vs {match.team2}</p>
-      <p>Estado: {match.status} </p>
-      <p>Evento: {match.event }</p>
+      <p>Partido: {match.teamOne.name} vs {match.teamTwo.name}</p>
+      <p>Fecha: {match.matchedAt} </p>
+      {/* <p>Evento: {match.event }</p> */}
 
       <div className="flex gap-x-2">
           <Link
