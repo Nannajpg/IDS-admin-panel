@@ -1,11 +1,7 @@
-@tailwind base; 
-@tailwind components; 
-@tailwind utilities; 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-* {
-  box-sizing: border-box;
-}
-
-html{
-  background-color: rgb(24 24 27);
+*{
+    font-family: 'Montserrat';
 }
