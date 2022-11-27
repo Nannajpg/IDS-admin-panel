@@ -7,7 +7,9 @@ import * as matchesServices from "../../services/matches.services";
 const Match = ({ match }) => {
 
   const dispatch = useDispatch();
-  console.log(JSON.stringify(match))
+  console.log(typeof(match.matchedAt))
+
+  
 
   const handleDelete = async (id) => {
       try {

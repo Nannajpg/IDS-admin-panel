@@ -4,20 +4,21 @@ import { Link } from 'react-router-dom'
 import { addMatch, resetMatches, setAmount } from '../../features/matches/matchSlice'
 import * as matchesServices from '../../services/matches.services'
 import Match from './Match'
+import Pagination from './Pagination'
 
 function MatchesList() {
     const postPerPage = 9;
-    const page = useSelector(state => state.users.page);
-    const amount = useSelector(state => state.users.amount);
+    const page = useSelector(state => state.matches.page);
+    const amount = useSelector(state => state.matches.amount);
 
     const matches = useSelector(state => state.matches.matches)
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(resetMatches());
+        // dispatch(resetMatches());
         const getMatches = async () => {
             try {
-                const data = await matchesServices.fetchMatches();
+                const data = await matchesServices.fetchMatches(page);
                 data.games.forEach(match => {
                     dispatch(addMatch(match));
                 });
@@ -28,7 +29,7 @@ function MatchesList() {
             }
         }
         getMatches();
-    }, [dispatch])
+    }, [dispatch, page, amount])
 
     return (
         <div className='w-4/6'>
@@ -44,6 +45,10 @@ function MatchesList() {
             <div className='grid grid-cols-3 gap-4'>
                 {matches.map(match => (<Match match={match} key={match.id}/>))}
             </div>
+
+            <div className='py-4'>
+                <Pagination postsPerPage={postPerPage} />
+            </div> 
         </div>
     )
 }
