@@ -1,9 +1,20 @@
 import axios from "axios";
 const BASE_URL = "http://localhost:3000/users/";
 
-export const fetchUsers = async (token) => {
+export const getUsersAmount = async (token) => {
   try {
-    const res = await axios.get(BASE_URL, {
+      const res = await axios.get(BASE_URL+"amount", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return res;
+  } catch (error) {
+      console.log("Error ", error);
+  }
+}
+
+export const fetchUsers = async (token, page) => {
+  try {
+    const res = await axios.get(BASE_URL+"?size=9&page="+page, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return res.data;

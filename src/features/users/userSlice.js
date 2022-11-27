@@ -5,24 +5,28 @@ const initialState = [];
 
 export const userSlice = createSlice({
     name: 'users',
-    initialState,
+    initialState: {
+        amount: 0,
+        page: 0,
+        users: []
+    },
     reducers:{
         initUsers: (state, { payload }) => {
-            payload.forEach(user => state.push(user));
+            payload.forEach(user => state.users.push(user));
         },
         resetUsers: (state, _) => {
-            state = [];
+            state.users = [];
         },
         addUser: (state, { payload }) => {
             const { id } = payload;
-            const foundUser = state.find(user => user.id === id);
+            const foundUser = state.users.find(user => user.id === id);
             if (!foundUser) {
-                state.push(payload);
+                state.users.push(payload);
             }
         },
         editUser: (state, action) =>{
             const { id, name, role, email, password } = action.payload
-            const foundUser = state.find(user => user.id === id)
+            const foundUser = state.users.find(user => user.id === id)
 
             if(foundUser){
                 foundUser.id = id;
@@ -33,13 +37,20 @@ export const userSlice = createSlice({
             }
         },
         deleteUser: (state, { payload }) => {
-            const userFound = state.find(user => user.id === payload)
+            const userFound = state.users.find(user => user.id === payload)
             if (userFound) {
-                state.splice(state.indexOf(userFound), 1)
+                state.users.splice(state.indexOf(userFound), 1)
             }
-        }
+        },
+        setPage: (state, action) => {
+            state.users = [];
+            state.page = action.payload;
+        },
+        setAmount: (state, action) => {
+            state.amount = action.payload;
+        },
     }
 })
 
-export const {resetUsers, addUser, editUser, deleteUser} = userSlice.actions
+export const {resetUsers, addUser, editUser, deleteUser, setAmount, setPage } = userSlice.actions
 export default userSlice.reducer
