@@ -10,6 +10,9 @@ import UserEditForm from './cores/users/EditForm';
 import UserCreateForm from './cores/users/CreateForm';
 import EventEditForm from './cores/events/EditForm';
 import EventCreateForm from './cores/events/CreateForm';
+import AdCreateForm from "./cores/ads/CreateForm";
+import AdEditForm from "./cores/ads/EditForm";
+import AdsList from "./cores/ads/AdsList";
 
 function App() {
 
@@ -27,6 +30,9 @@ function App() {
             <Route path="events" element={<EventsList/>} />
             <Route path="events/create" element={<EventCreateForm/>} />
             <Route path="events/edit/:id" element={<EventEditForm/>} />
+            <Route path="/ads" element={<AdsList />} />
+            <Route path="/newAd" element={<AdCreateForm />} />
+            <Route path="/editAd/:id" element={<AdEditForm />} />
           </Route>
         </Routes>
         </BrowserRouter>
@@ -36,5 +42,3 @@ function App() {
 }
 
 export default App;
-
-// xd

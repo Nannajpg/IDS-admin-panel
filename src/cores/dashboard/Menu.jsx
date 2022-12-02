@@ -17,11 +17,20 @@ const Menu = () => {
       >
         Gestionar Usuarios
       </Link>
-      <Link to="/events" className="bg-emerald-600 px-2 py-1 rounded-md">
+
+      <Link 
+        to="/events" className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2">
         Gestionar Eventos
       </Link>
+      <Link
+
+        to="/ads" className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2">
+        Gestionar Anuncios
+      </Link>
+
       <br />
       <br />
+
       <Link
         onClick={() => dispatch(logout())}
         to="/"
