@@ -13,6 +13,8 @@ import EventCreateForm from './cores/events/CreateForm';
 import AdCreateForm from "./cores/ads/CreateForm";
 import AdEditForm from "./cores/ads/EditForm";
 import AdsList from "./cores/ads/AdsList";
+import StickerForm from './cores/stickers/StickerForm';
+import StickersList from './cores/stickers/StickersList';
 
 function App() {
 
@@ -33,6 +35,9 @@ function App() {
             <Route path="/ads" element={<AdsList />} />
             <Route path="/newAd" element={<AdCreateForm />} />
             <Route path="/editAd/:id" element={<AdEditForm />} />
+            <Route path='/stickers' element={<StickersList />} />
+            <Route path='/create-sticker' element={<StickerForm />} />
+            <Route path='/edit-sticker/:id' element={<StickerForm />} />
           </Route>
         </Routes>
         </BrowserRouter>
