@@ -3,6 +3,7 @@ import usersReducer from '../features/users/userSlice'
 import eventsReducer from '../features/events/eventSlice'
 import authReducer from '../features/auth/authSlice'
 import adsReducer from "../features/ads/adSlice";
+import stickerReducer from "../features/stickers/stickerSlice";
 
 export const store = configureStore({
     reducer:{

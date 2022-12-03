@@ -28,6 +28,12 @@ const Menu = () => {
         Gestionar Anuncios
       </Link>
 
+      <Link
+
+        to="/stickers" className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2">
+        Gestionar Cromos
+      </Link>
+
       <br />
       <br />
 

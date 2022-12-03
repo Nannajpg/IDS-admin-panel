@@ -46,7 +46,7 @@ export const stickerSlice = createSlice({
             state.page = action.payload;
         },
         setAmount: (state, action) => {
-            state.amount = action.payload;
+            state.amount = action.payload.total;
         },
     },
 })

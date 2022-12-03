@@ -13,7 +13,7 @@ export const getAllStickers = async (page = 0) => {
 
 export const getStickersAmount = async (page = 0) => {
     try {
-        const res = await axios.get(BASE_URL+"/amount");
+        const res = await axios.get(BASE_URL+"/amount"); //"/amount" no exister
         return res;
     } catch (error) {
         console.log("Error ", error);

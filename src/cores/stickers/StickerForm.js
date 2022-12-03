@@ -39,7 +39,7 @@ function StickerForm() {
         } else {
             let res = await saveSticker(sticker);
         }
-        navigate('/')
+        navigate('/stickers')
     }
 
     useEffect(() => {
