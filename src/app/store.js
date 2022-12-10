@@ -4,6 +4,8 @@ import eventsReducer from '../features/events/eventSlice'
 import authReducer from '../features/auth/authSlice'
 import adsReducer from "../features/ads/adSlice";
 import stickerReducer from "../features/stickers/stickerSlice";
+import teamsReducer from "../features/teams/teamSlice";
+
 
 export const store = configureStore({
     reducer:{
@@ -12,6 +14,7 @@ export const store = configureStore({
         events: eventsReducer,
         ads: adsReducer,
         stickers: stickerReducer,
+        teams: teamsReducer
     },
     middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

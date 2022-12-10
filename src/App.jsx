@@ -15,6 +15,9 @@ import AdEditForm from "./cores/ads/EditForm";
 import AdsList from "./cores/ads/AdsList";
 import StickerForm from './cores/stickers/StickerForm';
 import StickersList from './cores/stickers/StickersList';
+import TeamsList from "./cores/teams/TeamsList";
+import CreateFormTeam from "./cores/teams/CreateFormTeam";
+import EditFormTeam from "./cores/teams/EditFormTeam";
 
 function App() {
 
@@ -38,6 +41,9 @@ function App() {
             <Route path='/stickers' element={<StickersList />} />
             <Route path='/create-sticker' element={<StickerForm />} />
             <Route path='/edit-sticker/:id' element={<StickerForm />} />
+            <Route path="/teams" element={<TeamsList />} />
+            <Route path="/newTeam" element={<CreateFormTeam />} />
+            <Route path="/editTeam/:id" element={<EditFormTeam />} />
           </Route>
         </Routes>
         </BrowserRouter>
