@@ -62,37 +62,65 @@ function StickerForm() {
                     required
                 />
 
-                <label htmlFor='team' className='block text-xs font-bold mb-2'>Equipo al que Juega:</label>
-                <input
-                    name='team'
-                    type='text'
-                    onChange={handleChange}
-                    value={sticker.team}
-                    className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                <label htmlFor='team' className='block text-xs font-bold mb-2'>Equipo al que pertenece:</label>
+                <select 
+                    name="team" 
+                    className="w-full p-1 border border-gray-300 focus:border-blue-500 rounded-md bg-slate-400 mb-2 hover:bg-slate-500" 
+                    onChange={handleChange} 
+                    placeholder="Equipo" 
                     required
-                />
+                >
+                    <option defaultValue="">Equipo</option>
+                    <option value="Paris Saint-Germain">Paris Saint-Germain</option>
+                    <option value="F.C. Barcelona">F.C. Barcelona</option>
+                    <option value="Real Madrid C.F.">Real Madrid C.F.</option>
+                    <option value="Liverpool F.C.">Liverpool F.C.</option>
+                    <option value="Manchester City">Manchester City</option>
+                    <option value="Manchester United">Manchester United</option>
+                </select>
 
-                <label htmlFor='country' className='block text-xs font-bold mb-2'>País de donde Proviene:</label>
-                <input
-                    name='country'
-                    type='text'
-                    onChange={handleChange}
-                    value={sticker.country}
-                    className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                <label htmlFor='country' className='block text-xs font-bold mb-2'>Nacionalidad:</label>
+                <select 
+                    name="country" 
+                    className="w-full p-1 border border-gray-300 focus:border-blue-500 rounded-md bg-slate-400 mb-2 hover:bg-slate-500" 
+                    onChange={handleChange} 
+                    placeholder="Nacionalidad" 
                     required
-                />
+                >
+                    <option defaultValue="">Nacionalidad</option>
+                    <option value="Alemania">Alemania</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Brasil">Brasil</option>
+                    <option value="España">España</option>
+                    <option value="Francia">Francia</option>
+                    <option value="Países Bajos">Países Bajos</option>
+                </select>
+
+                <label htmlFor='event' className='block text-xs font-bold mb-2'>Evento en el que participa:</label>
+                <select 
+                    name="event" 
+                    className="w-full p-1 border border-gray-300 focus:border-blue-500 rounded-md bg-slate-400 mb-2 hover:bg-slate-500" 
+                    onChange={handleChange} 
+                    placeholder="Evento" 
+                    required
+                >
+                    <option defaultValue="">Evento</option>
+                    <option value="UEFA Champions League">UEFA Champions League</option>
+                    <option value="LaLiga Santander">LaLiga Santander</option>
+                    <option value="Premier League">Premier League</option>
+                    <option value="FIFA World Cup 2022">FIFA World Cup 2022</option>
+                </select>
 
                 <label htmlFor='position' className='block text-xs font-bold mb-2'>Posición:</label>
                 <select
                     name='position'
                     onChange={handleChange}
-                    value={sticker.position}
                     className='w-full p-1 border border-gray-300 focus:border-blue-500 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
                 >
                     <option>Seleccione Posición...</option>
-                    <option value='Arquero'>Arquero</option>
+                    <option value='Arquero'>Portero</option>
                     <option value='Defensa'>Defensa</option>
-                    <option value='MedioCentro'>MedioCentro</option>
+                    <option value='MedioCentro'>Centrocampista</option>
                     <option value='Delantero'>Delantero</option>
                 </select>
 
@@ -122,7 +150,7 @@ function StickerForm() {
                 <input
                     name='appearanceRate'
                     type='number'
-                    step={0.0001} min={0} max={1}
+                    step={0.0001} min={0} max={100}
                     onChange={handleChange}
                     value={sticker.appearanceRate}
                     className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
@@ -149,7 +177,7 @@ function StickerForm() {
 
                 <div className='flex grid'>
                     <header className='mb-2'>
-                        <Link to='/' className='flex justify-center w-full bg-red-500 py-1 hover:bg-red-600'>
+                        <Link to='/stickers' className='flex justify-center w-full bg-red-500 py-1 hover:bg-red-600'>
                             Volver
                         </Link>
                     </header>

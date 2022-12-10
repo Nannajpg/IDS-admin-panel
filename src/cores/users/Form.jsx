@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 function Form({ action, id }) {
 
@@ -57,7 +58,11 @@ function Form({ action, id }) {
             <label htmlFor="password" className="block text-sm font-bold mb-2">Contraseña:</label>
             <input name='password' type="password" placeholder="Contraseña" onChange={handleChange} className="w-full p-2 rounded-md bg-zinc-600 mb-2" required/>
 
-            <button className="bg-emerald-600 px-2 py-1 rounded-md">Guardar</button>
+            <div>
+                <button className="bg-emerald-600 px-2 py-1 rounded-md">Guardar</button>
+
+                <Link to="/users" className="bg-red-500 px-2 py-1 rounded-md mx-8">Volver</Link>
+            </div>
         </form>
     )
 }

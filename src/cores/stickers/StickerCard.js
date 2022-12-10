@@ -25,9 +25,9 @@ function StickerCard({ sticker }) {
             <p className='text-sm'>Equipo: {sticker.team}</p>
             <p className='text-sm'>País: {sticker.country}</p>
             <p className='text-sm'>Posición: {sticker.position}</p>
-            <p className='text-sm'>Altura: {sticker.height}</p>
-            <p className='text-sm'>Peso: {sticker.weight}</p>
-            <p className='text-sm'>Probabilidad de Aparición: {sticker.appearanceRate}</p>
+            <p className='text-sm'>Altura: {sticker.height} cm</p>
+            <p className='text-sm'>Peso: {sticker.weight} Kg</p>
+            <p className='text-sm'>Probabilidad de Aparición: {sticker.appearanceRate}%</p>
             <header className='flex justify-between'>
                 <div className='flex grid grid-cols-2 gap-1'>
                     <Link
