@@ -8,7 +8,7 @@ const UserCard = ({ user }) => {
   
   const dispatch = useDispatch()
   const { userToken } = useSelector(state => state.auth);
-  const amount = useSelector(state => state.events.amount);
+  const amount = useSelector(state => state.events);
 
   const handleDelete = async (id) => {
       try{

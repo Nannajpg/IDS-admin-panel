@@ -47,9 +47,9 @@ function Form({ action, id }) {
             <label htmlFor="role" className="block text-sm font-bold mb-2">Rol:</label>
             <select name="role" className="w-full p-2 rounded-md bg-zinc-600 mb-2" onChange={handleChange} required placeholder="Rol del Usuario">
                 <option defaultValue="">Rol del Usuario</option>
-                <option value="Usuario">Usuario</option>
-                <option value="Administrador">Administrador</option>
-                <option value="Anunciante">Anunciante</option>
+                <option value="user">Usuario</option>
+                <option value="admin">Administrador</option>
+                <option value="advertiser">Anunciante</option>
             </select>
 
             <label htmlFor="email" className="block text-sm font-bold mb-2">Email:</label>

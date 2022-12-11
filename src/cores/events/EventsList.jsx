@@ -18,11 +18,10 @@ function EventsList() {
         const getEvents = async () => {
             try {
                 const data = await eventsServices.fetchEvents(page);
-                data.forEach(event => {
+                data.events.forEach(event => {
                     dispatch(addEvent(event));
                 });
-                const amount = await eventsServices.getEventsAmount();
-                dispatch(setAmount(amount.data.count));
+                dispatch(setAmount(data.paginate.total));
             } catch(e) {
                 console.log(e);
             }

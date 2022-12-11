@@ -22,8 +22,7 @@ function UsersList() {
                 data.users.forEach(user => {
                     dispatch(addUser(user));
                 });
-                const amount = await usersServices.getUsersAmount(userToken);
-                dispatch(setAmount(amount.data.users.count));
+                dispatch(setAmount(data.paginate.total));
             } catch(e) {
                 console.log(e);
             }

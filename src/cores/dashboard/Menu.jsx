@@ -34,6 +34,12 @@ const Menu = () => {
         Gestionar Cromos
       </Link>
 
+      <Link
+
+        to="/teams" className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2">
+        Gestionar Equipos
+      </Link>
+
       <br />
       <br />
 
