@@ -16,7 +16,7 @@ export const stickerSlice = createSlice({
             }
         },
         updateSticker: (state, action) => {
-            const { id, playerName, team, country, position, height, weight, appearanceRate, img } = action.payload
+            const { id, playerName, team, country, position, height, weight, appearanceRate, myFile } = action.payload
             const foundSticker = state.stickers.find(sticker => sticker.id === id)
             if (foundSticker) {
                 foundSticker.playerName = playerName
@@ -26,7 +26,7 @@ export const stickerSlice = createSlice({
                 foundSticker.height = height
                 foundSticker.weight = weight
                 foundSticker.appearanceRate = appearanceRate
-                foundSticker.img = img
+                foundSticker.img = URL.createObjectURL(myFile)
             }
         },
         deleteSticker: (state, action) => {
@@ -46,7 +46,7 @@ export const stickerSlice = createSlice({
             state.page = action.payload;
         },
         setAmount: (state, action) => {
-            state.amount = action.payload.total;
+            state.amount = action.payload;
         },
     },
 })

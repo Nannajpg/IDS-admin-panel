@@ -13,7 +13,7 @@ function Form({ action, id }) {
     });
     const navigate = useNavigate();
     const params = useParams();
-    const users = useSelector(state => state.users)
+    const users = useSelector(state => state.users.users)
 
     const handleChange = (e) => {
         setUser({

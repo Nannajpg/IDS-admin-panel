@@ -8,7 +8,7 @@ function StickerForm() {
 
     const [sticker, setSticker] = useState({
         playerName: '',
-        team: '',
+        teamId: 0,
         country: '',
         position: '',
         height: '',
@@ -21,6 +21,7 @@ function StickerForm() {
     const navigate = useNavigate()
     const params = useParams()
     const stickers = useSelector(state => state.stickers.stickers)
+    const token = useSelector(state => state.auth.userToken)
 
 
     const handleChange = e => {
@@ -34,10 +35,13 @@ function StickerForm() {
         e.preventDefault()
 
         if (params.id) {
-            let res = await editSticker(sticker, sticker.playerName);
+            let res = await editSticker(token, sticker, sticker.id);
+            console.log(sticker)
             dispatch(updateSticker(sticker))
+            console.log("entro en edit")
         } else {
-            let res = await saveSticker(sticker);
+            let res = await saveSticker(token, sticker);
+            console.log("entro en save")
         }
         navigate('/stickers')
     }
@@ -50,7 +54,7 @@ function StickerForm() {
 
     return (
         <div className='flex items-center h-screen'>
-            <form onSubmit={handleSubmit} className='bg-slate-300 max-w-sm p-4 rounded-md grid grid-cols-2'>
+            <form encType="multipart/form-data" onSubmit={handleSubmit} className='bg-slate-300 max-w-sm p-4 rounded-md grid grid-cols-2'>
 
                 <label htmlFor='playerName' className='block text-xs font-bold mb-2'>Nombre de Jugador:</label>
                 <input
@@ -62,16 +66,16 @@ function StickerForm() {
                     required
                 />
 
-                <label htmlFor='team' className='block text-xs font-bold mb-2'>Equipo al que pertenece:</label>
+                <label htmlFor='teamId' className='block text-xs font-bold mb-2'>Equipo al que pertenece:</label>
                 <select 
-                    name="team" 
+                    name="teamId" 
                     className="w-full p-1 border border-gray-300 focus:border-blue-500 rounded-md bg-slate-400 mb-2 hover:bg-slate-500" 
                     onChange={handleChange} 
                     placeholder="Equipo" 
                     required
                 >
                     <option defaultValue="">Equipo</option>
-                    <option value="Paris Saint-Germain">Paris Saint-Germain</option>
+                    <option value= {7}>Paris Saint-Germain</option>
                     <option value="F.C. Barcelona">F.C. Barcelona</option>
                     <option value="Real Madrid C.F.">Real Madrid C.F.</option>
                     <option value="Liverpool F.C.">Liverpool F.C.</option>
@@ -105,7 +109,7 @@ function StickerForm() {
                     required
                 >
                     <option defaultValue="">Evento</option>
-                    <option value="UEFA Champions League">UEFA Champions League</option>
+                    <option value={2}>UEFA Champions League</option>
                     <option value="LaLiga Santander">LaLiga Santander</option>
                     <option value="Premier League">Premier League</option>
                     <option value="FIFA World Cup 2022">FIFA World Cup 2022</option>

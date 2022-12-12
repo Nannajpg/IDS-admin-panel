@@ -11,27 +11,30 @@ const StickerList = () => {
     const dispatch = useDispatch()
     const postPerPage = 8;
 
-    const page = useSelector(state => state.stickers.page)
-    const stickers = useSelector(state => state.stickers.stickers)
+    const token = useSelector(state => state.auth.userToken)
+
+    const stickerState = useSelector(state => state.stickers)
+
 
     useEffect(() => {
         (async () => {
-            const res = await getAllStickers(page);
-            const amount = await getStickersAmount();
-            if (res.data.stickers.length>0){
-                for (let i = 0; i < res.data.stickers.length; i++) {
-                    dispatch(readStickers(res.data.stickers[i]))
+            const res = await getAllStickers(token, stickerState.page);
+            console.log(res.data)
+            if (res.data.stickers.rows.length>0){
+                for (let i = 0; i < res.data.stickers.rows.length; i++) {
+                    dispatch(readStickers(res.data.stickers.rows[i]))
                 }
-                dispatch(setAmount(amount.data.stickers.count));
+                dispatch(setAmount(res.data.stickers.count));
             }
         })();
-    }, [dispatch, page, stickers])
+    }, [dispatch, stickerState.page, stickerState.stickers])
 
     return (
         <div className='w-4/6'>
-            <StickersListHeader />
+            {console.log(stickerState)}
+            <StickersListHeader amount={stickerState.amount} />
             <div className='grid grid-cols-4 gap-4'>
-                {stickers.map(sticker => <StickerCard sticker={sticker} key={sticker.id}/>)}
+                {stickerState.stickers.map(sticker => <StickerCard sticker={sticker} key={sticker.id}/>)}
             </div>
             <div className='py-4'>
                 <Pagination postsPerPage={postPerPage} />

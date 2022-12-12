@@ -1,10 +1,9 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-function StickersListHeader() {
-    const amount = useSelector(state => state.stickers.amount)
-
+function StickersListHeader({amount}) {    
     return (
+
         <header className='flex justify-between item-center py-4'>
             <Link to="/dashboard" className="bg-emerald-600 px-2 py-1 text-sm rounded-md mx-2">Volver</Link>
             <h1>Stickers: {amount}</h1>
