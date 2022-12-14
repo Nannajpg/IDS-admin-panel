@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/stickers";
+const BASE_URL = "https://backend-staging.playoffside.online/stickers";
 
 export const getAllStickers = async (token, page = 0) => {
     try {

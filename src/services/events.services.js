@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:3000/events/";
+const BASE_URL = "https://backend-staging.playoffside.online/events/";
 
 
 export const getEventsAmount = async (page = 0) => {

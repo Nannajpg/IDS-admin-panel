@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:3000/users/";
+const BASE_URL = "https://backend-staging.playoffside.online/users/";
 
 export const getUsersAmount = async (token) => {
   try {

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/ads";
+const BASE_URL = "https://backend-staging.playoffside.online/ads";
 const FETCH_URL = `${BASE_URL}/search?size=6&page=`;
 
 export const fetchAds = async (page = 0, adtype, search) => {

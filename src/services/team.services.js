@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = 'http://localhost:3000/teams';
+const BASE_URL = 'https://backend-staging.playoffside.online/teams';
 const FETCH_URL = `${BASE_URL}?size=6&page=`;
 
 export const fetchTeams = async (page = 0, eventid = '', teamname = '') => {

@@ -1,6 +1,6 @@
 import axios from "axios";
-const URL_LOGIN = "http://localhost:3000/auth/login";
-const URL_SIGNUP = "http://localhost:3000/auth/register";
+const URL_LOGIN = "https://backend-staging.playoffside.online/auth/login";
+const URL_SIGNUP = "https://backend-staging.playoffside.online/auth/register";
 
 export const login = async ({ email, password }) => {
     try {
