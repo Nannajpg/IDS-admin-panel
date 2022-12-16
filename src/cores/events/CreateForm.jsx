@@ -7,14 +7,11 @@ const CreateForm = () => {
 
   const create = async (event) => {
     try {
-      if (event.status === "Activo"){
-        event.status = true;
-      } else {
-        event.status = false;
-      }
+      return await eventsServices.createEvent({
+        ...event,
+        status: (event.status === 'Activo')
+      });
 
-      const data = await eventsServices.createEvent(event);
-      return data;
     } catch (error) {
       if (error?.response?.data) {
         alert(error?.response?.data.message);

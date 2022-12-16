@@ -23,19 +23,16 @@ const Menu = () => {
         Gestionar Eventos
       </Link>
       <Link
-
         to="/ads" className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2">
         Gestionar Anuncios
       </Link>
 
       <Link
-
         to="/stickers" className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2">
         Gestionar Cromos
       </Link>
 
       <Link
-
         to="/teams" className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2">
         Gestionar Equipos
       </Link>

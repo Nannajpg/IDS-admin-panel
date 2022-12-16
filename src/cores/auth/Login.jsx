@@ -23,7 +23,6 @@ function Login() {
           <input
             type="email"
             id="email"
-            /* autoComplete="off" */
             name="email"
             onChange={handleChange}
             required

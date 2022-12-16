@@ -21,16 +21,3 @@ export const store = configureStore({
       serializableCheck: false,
     }),
 })
-    
-/* import { configureStore } from '@reduxjs/toolkit'
-import stickerReducer from '../features/stickers/stickerSlice'
-
-export const store = configureStore({
-    reducer: {
-        stickers: stickerReducer,
-    },
-    middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
-}) */

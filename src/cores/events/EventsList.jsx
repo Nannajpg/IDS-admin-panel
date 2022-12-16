@@ -8,9 +8,7 @@ import Pagination from './Pagination'
 
 function EventsList() {
     const postPerPage = 9;
-    const page = useSelector(state => state.events.page);
-    const events = useSelector(state => state.events.events);
-    const amount = useSelector(state => state.events.amount)
+    const { page, events, amount } = useSelector(state => state.events);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -40,7 +38,7 @@ function EventsList() {
             </header>
 
             <div className='grid grid-cols-3 gap-4'>
-                {events.map(event => (<Event event={event} key={event.id}/>))}
+            {events.map(event => (<Event event={event} key={'event-'+event.id}/>))}
             </div>
 
             <div className='py-4'>
