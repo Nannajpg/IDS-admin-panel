@@ -143,7 +143,12 @@ function StickerForm() {
                     required
                 >
                 </select>
-                <Select label={'Evento'} onChange={changeEventId} value={sticker.eventId} options={eventsOptions} ></Select>
+                <Select 
+                    label={'Evento'}
+                    onChange={changeEventId}
+                    value={sticker.eventId}
+                    options={eventsOptions} 
+                />
 
                 <label htmlFor='position' className='block text-xs font-bold mb-2'>Posición:</label>
                 <select
