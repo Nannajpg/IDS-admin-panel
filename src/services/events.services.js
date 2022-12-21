@@ -11,6 +11,15 @@ export const getEventsAmount = async (page = 0) => {
   }
 }
 
+export const fetchAllEvents = async (page = 0, perPage = 9) => {
+  try {
+    const res = await axios.get(BASE_URL+'all');
+    return res.data;
+  } catch(e) {
+    throw new Error('Error al obtener todos los eventos');
+  }
+}
+
 export const fetchEvents = async (page = 0, perPage = 9) => {
   try {
     const res = await axios.get(BASE_URL+'?page='+page+'&size='+perPage);

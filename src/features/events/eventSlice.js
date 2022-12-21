@@ -9,6 +9,7 @@ export const eventSlice = createSlice({
         amount: 0,
         page: 0,
         events: [],
+        eventsAll: [],
         totalPages: 0
     },
     reducers:{
@@ -17,6 +18,9 @@ export const eventSlice = createSlice({
         },
         setEvents: (state, action) => {
             state.events = action.payload;
+        },
+        setAllEvents: (state, action) => {
+            state.eventsAll = action.payload;
         },
         editEvent: (state, action) =>{
             const { id, eventName, status } = action.payload
@@ -47,5 +51,5 @@ export const eventSlice = createSlice({
     }
 })
 
-export const { initEvents, setEvents, editEvent, deleteEvent, resetEvents, setAmount, setPage, setTotalPages } = eventSlice.actions
+export const { initEvents, setEvents, setAllEvents, editEvent, deleteEvent, resetEvents, setAmount, setPage, setTotalPages } = eventSlice.actions
 export default eventSlice.reducer

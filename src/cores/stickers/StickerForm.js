@@ -1,11 +1,21 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateSticker } from '../../features/stickers/stickerSlice'
+import { setAllEvents } from '../../features/events/eventSlice'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { saveSticker, editSticker } from '../../services/stickers.services';
+import { fetchAllEvents } from '../../services/events.services';
 import Select from '../../components/select';
+import Loading from 'react-fullscreen-loading';
 
 function StickerForm() {
+
+    const events = useSelector(state => state.events.eventsAll);
+    const eventsOptions = events.map((event) => ({
+        id: event.id,
+        name: event.eventName,
+    }));
+    const [loading, setLoading] = useState(false);
 
     const [sticker, setSticker] = useState({
         playerName: '',
@@ -24,6 +34,20 @@ function StickerForm() {
     const stickers = useSelector(state => state.stickers.stickers)
     const token = useSelector(state => state.auth.userToken)
 
+    useEffect(() => {
+        setLoading(true);
+        const getOptionsAllEvents = async () => {
+            try {
+                const allEvents = await fetchAllEvents();
+                dispatch(setAllEvents(allEvents));
+            } catch (error) {
+                // Mostrar un error
+            } finally {
+                setLoading(false);
+            }
+        };
+        getOptionsAllEvents();
+    }, []);
 
     const handleChange = e => {
         setSticker((sticker) => ({
@@ -63,6 +87,7 @@ function StickerForm() {
 
     return (
         <div className='flex items-center h-screen'>
+            <Loading loading={loading} background="#2ecc71" loaderColor="#3498db" />
             <form encType="multipart/form-data" onSubmit={handleSubmit} className='bg-slate-300 max-w-sm p-4 rounded-md grid grid-cols-2'>
 
                 <label htmlFor='playerName' className='block text-xs font-bold mb-2'>Nombre de Jugador:</label>
@@ -118,12 +143,7 @@ function StickerForm() {
                     required
                 >
                 </select>
-                <Select label={'Evento'} onChange={changeEventId} value={sticker.eventId} options={[
-                    { id: 2, name: 'UEFA Champions League' },
-                    { id: 3, name: 'LaLiga Santander' },
-                    { id: 4, name: 'Premier League' },
-                    { id: 5, name: 'FIFA World Cup 2022' }
-                ]} ></Select>
+                <Select label={'Evento'} onChange={changeEventId} value={sticker.eventId} options={eventsOptions} ></Select>
 
                 <label htmlFor='position' className='block text-xs font-bold mb-2'>Posición:</label>
                 <select
