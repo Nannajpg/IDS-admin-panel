@@ -11,13 +11,12 @@ export const getEventsAmount = async (page = 0) => {
   }
 }
 
-
-export const fetchEvents = async (page = 0) => {
+export const fetchEvents = async (page = 0, perPage = 9) => {
   try {
-    const res = await axios.get(BASE_URL+"?size=9&page="+page);
+    const res = await axios.get(BASE_URL+'?page='+page+'&size='+perPage);
     return res.data;
-  } catch (e) {
-    throw new Error('error fetcheando eventos');
+  } catch(e) {
+    throw new Error('Error al obtener eventos');
   }
 }
 

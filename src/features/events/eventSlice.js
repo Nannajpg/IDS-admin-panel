@@ -8,18 +8,15 @@ export const eventSlice = createSlice({
     initialState: {
         amount: 0,
         page: 0,
-        events: []
+        events: [],
+        totalPages: 0
     },
     reducers:{
         resetEvents: (state, _) => {
             state.events = [];
         },
-        addEvent: (state, { payload }) => {
-            const { id } = payload;
-            const foundSticker = state.events.find(event => event.id === id);
-            if (!foundSticker) {
-                state.events.push(payload);
-            }
+        setEvents: (state, action) => {
+            state.events = action.payload;
         },
         editEvent: (state, action) =>{
             const { id, eventName, status } = action.payload
@@ -44,8 +41,11 @@ export const eventSlice = createSlice({
         setAmount: (state, action) => {
             state.amount = action.payload;
         },
+        setTotalPages: (state, action) => {
+            state.totalPages = action.payload;
+        },
     }
 })
 
-export const { initEvents, addEvent, editEvent, deleteEvent, resetEvents, setAmount, setPage } = eventSlice.actions
+export const { initEvents, setEvents, editEvent, deleteEvent, resetEvents, setAmount, setPage, setTotalPages } = eventSlice.actions
 export default eventSlice.reducer

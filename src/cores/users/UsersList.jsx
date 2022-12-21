@@ -19,7 +19,7 @@ function UsersList() {
         const getUsers = async () => {
             try {
                 const data = await usersServices.fetchUsers(userToken, page);
-                data.users.forEach(user => {
+                data.items.forEach(user => {
                     dispatch(addUser(user));
                 });
                 dispatch(setAmount(data.paginate.total));
