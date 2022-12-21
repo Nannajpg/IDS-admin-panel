@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateSticker } from '../../features/stickers/stickerSlice'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { saveSticker, editSticker } from '../../services/stickers.services';
+import Select from '../../components/select';
 
 function StickerForm() {
 
@@ -28,6 +29,14 @@ function StickerForm() {
         setSticker((sticker) => ({
             ...sticker,
             [e.target.name]: e.target.value,
+        }));
+    }
+
+    
+    const changeEventId = value => {
+        setSticker((sticker) => ({
+            ...sticker,
+            eventId: value,
         }));
     }
 
@@ -108,12 +117,13 @@ function StickerForm() {
                     placeholder="Evento" 
                     required
                 >
-                    <option defaultValue="">Evento</option>
-                    <option value={2}>UEFA Champions League</option>
-                    <option value="LaLiga Santander">LaLiga Santander</option>
-                    <option value="Premier League">Premier League</option>
-                    <option value="FIFA World Cup 2022">FIFA World Cup 2022</option>
                 </select>
+                <Select label={'Evento'} onChange={changeEventId} value={sticker.eventId} options={[
+                    { id: 2, name: 'UEFA Champions League' },
+                    { id: 3, name: 'LaLiga Santander' },
+                    { id: 4, name: 'Premier League' },
+                    { id: 5, name: 'FIFA World Cup 2022' }
+                ]} ></Select>
 
                 <label htmlFor='position' className='block text-xs font-bold mb-2'>Posición:</label>
                 <select
