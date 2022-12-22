@@ -13,7 +13,7 @@ const Navigation = () => {
       <button onClick={toPrevPage}>
         <BsFillArrowLeftCircleFill size={"2rem"} />
       </button>
-      <h1 className="text-2xl px-5">{currentPage}</h1>
+      <h1 className="text-2xl px-5">{currentPage + 1}</h1>
       <button onClick={toNextPage}>
         <BsFillArrowRightCircleFill size={"2rem"} />
       </button>

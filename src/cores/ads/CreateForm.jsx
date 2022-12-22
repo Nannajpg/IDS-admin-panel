@@ -1,14 +1,16 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Form from './Form'
-import { uploadAd } from '../../features/ads/adSlice'
+import { createAd } from '../../features/ads/adSlice'
+import * as adsServices from '../../services/ads'
 
 const CreateForm = () => {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.userToken);
 
-  const create = (ad) => {
-    return dispatch(uploadAd(ad));
-
+  const create = async (ad) => {
+    await adsServices.createAd(token, ad);
+    dispatch(createAd(ad));
   }
 
   return (

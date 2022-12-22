@@ -1,26 +1,23 @@
 import axios from "axios";
 
 const BASE_URL = "http://localhost:3000/ads";
-const FETCH_URL = `${BASE_URL}/search?size=6&page=`;
+const FETCH_URL = `${BASE_URL}/search?size=3&page=`;
 
-export const fetchAds = async (page = 0, adtype, search) => {
+export const fetchAds = async (token, { page = 0, adtype, search }) => {
   if (adtype === "") adtype = "&adtype[]=static&adtype[]=float";
   else adtype = `&adtype=${adtype}`;
   if (search === "") search = "&announcer=.*";
   else search = `&announcer=${search}`;
-  const res = await axios.get(FETCH_URL + page + adtype + search);
-
-  res.data.ads.forEach(ad => ad.img = BASE_URL.slice(0,22) + ad.img);
-
+  const res = await axios.get(FETCH_URL + page + adtype + search, {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  });
+  console.log(res.data)
   return res.data;
 };
 
-export const getSingleAd = async (id) => {
-  const res = await axios.get(BASE_URL + `/${id}`);
-  return res.data;
-};
-
-export const createAd = async (ad) => {
+export const createAd = async (token, ad) => {
   const { announcer, adType, redirecTo, img } = ad;
   const myFile = img;
 
@@ -31,18 +28,22 @@ export const createAd = async (ad) => {
       "Content-Type": "multipart/form-data",
       Accept: "application/json",
       type: "formData",
+      Authorization: 'Bearer ' + token
     },
   });
-  console.log(res.data);
   return res.data;
 };
 
-export const deleteAd = async (id) => {
-  const res = await axios.delete(BASE_URL + `/${id}`);
+export const deleteAd = async (token, id) => {
+  const res = await axios.delete(BASE_URL + `/${id}`, {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  });
   return res;
 };
 
-export const editAd = async ({ ad, id }) => {
+export const editAd = async (token, { ad, id }) => {
   const { announcer, adType, redirecTo, img } = ad;
   const myFile = img;
 
@@ -53,6 +54,7 @@ export const editAd = async ({ ad, id }) => {
       "Content-Type": "multipart/form-data",
       Accept: "application/json",
       type: "formData",
+      Authorization: 'Bearer ' + token
     },
   });
 
