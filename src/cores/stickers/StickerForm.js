@@ -66,14 +66,13 @@ function StickerForm() {
         e.preventDefault()
         console.log(params.id)
         if (params.id) {
-            let res = await editSticker(token, sticker, sticker.id);
-            console.log(sticker)
-            dispatch(updateSticker(sticker))
-            console.log("entro en edit")
+            await editSticker(token, sticker, sticker.id);
+            
         } else {
-            let res = await saveSticker(token, sticker);
+            await saveSticker(token, sticker);
             console.log("entro en save")
         }
+        console.log("xd")
         navigate('/stickers')
     }
 

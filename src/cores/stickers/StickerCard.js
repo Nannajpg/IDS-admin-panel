@@ -18,7 +18,6 @@ function StickerCard({ sticker }) {
             dispatch(deleteSticker(id))
         }
     }
-    console.log(sticker)
     return (
         <div key={sticker.id} className='bg-slate-400 p-4 rounded-md'>
             <img src={sticker.img} alt='stickerImg' className='w-25' />

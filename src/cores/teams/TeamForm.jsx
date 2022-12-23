@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAllEvents } from '../../features/events/eventSlice'
-import { editTeam as editarTeam} from '../../features/teams/teamSlice'
+import { editTeam } from '../../features/teams/teamSlice'
 import { useNavigate, useParams, Link } from 'react-router-dom'
-import { createTeam, editTeam } from '../../services/team.services';
+import * as teamServices from '../../services/team.services';
 import { fetchAllEvents } from '../../services/events.services';
 import Select from '../../components/select';
 
@@ -18,7 +18,7 @@ function TeamForm() {
   
 
   const [team, setTeam] = useState({
-      teamName:"",
+      name:"",
       myFile: "",
       idEvents: 0,
   })
@@ -62,13 +62,10 @@ function TeamForm() {
       e.preventDefault()
       console.log(params.id)
       if (params.id) {
-          let res = await editarTeam(team, team.id);
           console.log(team)
-          dispatch(editTeam(team))
-          console.log("entro en edit")
-          console.log(team.idEvents)
+          let res = await teamServices.editTeam(team, team.id);
       } else {
-          let res = await createTeam(team);
+          let res = await teamServices.createTeam(team);
           console.log("entro en save")
       }
       navigate('/teams')
@@ -84,12 +81,12 @@ function TeamForm() {
       <div className='flex items-center h-screen'>
           <form encType="multipart/form-data" onSubmit={handleSubmit} className='bg-slate-300 max-w-sm p-4 rounded-md grid grid-cols-2'>
             {console.log(events)}
-              <label htmlFor='teamName' className='block text-xs font-bold mb-2'>Nombre del equipo:</label>
+              <label htmlFor='name' className='block text-xs font-bold mb-2'>Nombre del equipo:</label>
               <input
-                  name='teamName'
+                  name='name'
                   type='text'
                   onChange={handleChange}
-                  value={team.teamName}
+                  value={team.name}
                   className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
                   required
               />

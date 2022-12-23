@@ -38,7 +38,7 @@ export const deleteTeam = async (id) => {
   return res;
 }
 
-export const editTeam = async ({ team, id }) => {
+export const editTeam = async ( team, id ) => {
 
   console.log(team, id)
 

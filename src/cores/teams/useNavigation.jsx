@@ -8,10 +8,8 @@ const useNavigation = () => {
 
   const currentPage = teams.page;
 
-  const pagesAmount = Math.ceil(teams.amount / 6);
-
   const toNextPage = () => {
-    if (teams.page < pagesAmount - 1) dispatch(nextPage());
+    if (teams.page < teams.pages) dispatch(nextPage());
   }
 
   const toPrevPage = () => {
