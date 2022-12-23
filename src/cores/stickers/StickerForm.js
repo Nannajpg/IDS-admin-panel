@@ -6,16 +6,16 @@ import { useNavigate, useParams, Link } from 'react-router-dom'
 import { saveSticker, editSticker } from '../../services/stickers.services';
 import { fetchAllEvents } from '../../services/events.services';
 import Select from '../../components/select';
-import Loading from 'react-fullscreen-loading';
 
 function StickerForm() {
 
-    const events = useSelector(state => state.events.eventsAll);
-    const eventsOptions = events.map((event) => ({
+    const events = useSelector(state => state.events.eventsAll.items);
+        const eventsOptions = events.map((event) => ({
         id: event.id,
         name: event.eventName,
     }));
-    const [loading, setLoading] = useState(false);
+
+    
 
     const [sticker, setSticker] = useState({
         playerName: '',
@@ -35,7 +35,6 @@ function StickerForm() {
     const token = useSelector(state => state.auth.userToken)
 
     useEffect(() => {
-        setLoading(true);
         const getOptionsAllEvents = async () => {
             try {
                 const allEvents = await fetchAllEvents();
@@ -43,7 +42,6 @@ function StickerForm() {
             } catch (error) {
                 // Mostrar un error
             } finally {
-                setLoading(false);
             }
         };
         getOptionsAllEvents();
@@ -87,7 +85,6 @@ function StickerForm() {
 
     return (
         <div className='flex items-center h-screen'>
-            <Loading loading={loading} background="#2ecc71" loaderColor="#3498db" />
             <form encType="multipart/form-data" onSubmit={handleSubmit} className='bg-slate-300 max-w-sm p-4 rounded-md grid grid-cols-2'>
 
                 <label htmlFor='playerName' className='block text-xs font-bold mb-2'>Nombre de Jugador:</label>
@@ -133,22 +130,14 @@ function StickerForm() {
                     <option value="Francia">Francia</option>
                     <option value="Países Bajos">Países Bajos</option>
                 </select>
-
-                <label htmlFor='event' className='block text-xs font-bold mb-2'>Evento en el que participa:</label>
-                <select 
-                    name="event" 
-                    className="w-full p-1 border border-gray-300 focus:border-blue-500 rounded-md bg-slate-400 mb-2 hover:bg-slate-500" 
-                    onChange={handleChange} 
-                    placeholder="Evento" 
-                    required
-                >
-                </select>
+    
                 <Select 
-                    label={'Evento'}
+                    label={"Evento en el que participa"}
                     onChange={changeEventId}
                     value={sticker.eventId}
                     options={eventsOptions} 
                 />
+                
 
                 <label htmlFor='position' className='block text-xs font-bold mb-2'>Posición:</label>
                 <select
