@@ -37,7 +37,11 @@ const Form = ({ action, id, toEditAd }) => {
       imgRef.current.value = null;
       adTypeRef.current.value = "";
       redirecToRef.current.value = "";
-      await action(ad, id);
+      try {
+        await action(ad, id);
+      } catch (e) {
+        alert(e.message)
+      }
       navigate("/ads");
     }
   };

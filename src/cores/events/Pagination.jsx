@@ -8,11 +8,12 @@ const Pagination = ({ postsPerPage }) => {
     
     const totalPosts = useSelector(state => state.events.amount)
     const currentPage = (useSelector(state => state.events.page)+1)
+    const totalPages = (useSelector(state => state.events.totalPages))
     const dispatch = useDispatch()
 
     let pages = []
 
-    for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+    for (let i = 1; i <= totalPages; i++) {
         pages.push(i)
     }
 

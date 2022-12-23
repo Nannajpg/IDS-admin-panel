@@ -48,7 +48,7 @@ export const deleteUser = async (id, token) => {
 
 export const editUser = async (id, token, user) => {
   try {
-    const res = await axios.put((BASE_URL+id), user, {
+    await axios.put((BASE_URL+id), user, {
       headers: { "Authorization": `Bearer ${token}` },
     });
     user.id = Number(id);

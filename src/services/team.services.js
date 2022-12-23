@@ -8,6 +8,7 @@ export const fetchTeams = async (page = 0, eventid = '', teamname = '') => {
   else eventid = `&eventid=${eventid}`;
   if (teamname === '') teamname = '&teamname=.*'
   else teamname = `&teamname=${teamname}`
+  
   const { data } = await axios.get(FETCH_URL + page + eventid + teamname);
   console.log(data);
   return data;

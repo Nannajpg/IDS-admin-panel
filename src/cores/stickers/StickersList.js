@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Pagination from './Pagination'
 
 const StickerList = () => {
-    
+
     const dispatch = useDispatch()
     const postPerPage = 8;
 
@@ -15,19 +15,20 @@ const StickerList = () => {
 
     const stickerState = useSelector(state => state.stickers)
 
-
     useEffect(() => {
-        (async () => {
+        const getStickers = async () => {
             const res = await getAllStickers(token, stickerState.page);
             console.log(res.data)
-            if (res.data.stickers.rows.length>0){
-                for (let i = 0; i < res.data.stickers.rows.length; i++) {
-                    dispatch(readStickers(res.data.stickers.rows[i]))
+            if (res.data.items.length>0){
+                for (let i = 0; i < res.data.items.length; i++) {
+                    dispatch(readStickers(res.data.items[i]))
                 }
-                dispatch(setAmount(res.data.stickers.count));
+                dispatch(setAmount(res.data.paginate.total));
             }
-        })();
-    }, [dispatch, stickerState.page, stickerState.stickers])
+        }
+
+        getStickers();
+    }, [dispatch, stickerState.page, stickerState.stickers, token])
 
     return (
         <div className='w-4/6'>
@@ -42,4 +43,5 @@ const StickerList = () => {
         </div>
     )
 }
-export default StickerList
+
+export default StickerList;

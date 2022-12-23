@@ -1,10 +1,21 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateSticker } from '../../features/stickers/stickerSlice'
+import { setAllEvents } from '../../features/events/eventSlice'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { saveSticker, editSticker } from '../../services/stickers.services';
+import { fetchAllEvents } from '../../services/events.services';
+import Select from '../../components/select';
 
 function StickerForm() {
+
+    const events = useSelector(state => state.events.eventsAll.items);
+        const eventsOptions = events.map((event) => ({
+        id: event.id,
+        name: event.eventName,
+    }));
+
+    
 
     const [sticker, setSticker] = useState({
         playerName: '',
@@ -23,11 +34,31 @@ function StickerForm() {
     const stickers = useSelector(state => state.stickers.stickers)
     const token = useSelector(state => state.auth.userToken)
 
+    useEffect(() => {
+        const getOptionsAllEvents = async () => {
+            try {
+                const allEvents = await fetchAllEvents();
+                dispatch(setAllEvents(allEvents));
+            } catch (error) {
+                // Mostrar un error
+            } finally {
+            }
+        };
+        getOptionsAllEvents();
+    }, []);
 
     const handleChange = e => {
         setSticker((sticker) => ({
             ...sticker,
             [e.target.name]: e.target.value,
+        }));
+    }
+
+    
+    const changeEventId = value => {
+        setSticker((sticker) => ({
+            ...sticker,
+            eventId: value,
         }));
     }
 
@@ -99,21 +130,14 @@ function StickerForm() {
                     <option value="Francia">Francia</option>
                     <option value="Países Bajos">Países Bajos</option>
                 </select>
-
-                <label htmlFor='event' className='block text-xs font-bold mb-2'>Evento en el que participa:</label>
-                <select 
-                    name="event" 
-                    className="w-full p-1 border border-gray-300 focus:border-blue-500 rounded-md bg-slate-400 mb-2 hover:bg-slate-500" 
-                    onChange={handleChange} 
-                    placeholder="Evento" 
-                    required
-                >
-                    <option defaultValue="">Evento</option>
-                    <option value={2}>UEFA Champions League</option>
-                    <option value="LaLiga Santander">LaLiga Santander</option>
-                    <option value="Premier League">Premier League</option>
-                    <option value="FIFA World Cup 2022">FIFA World Cup 2022</option>
-                </select>
+    
+                <Select 
+                    label={"Evento en el que participa"}
+                    onChange={changeEventId}
+                    value={sticker.eventId}
+                    options={eventsOptions} 
+                />
+                
 
                 <label htmlFor='position' className='block text-xs font-bold mb-2'>Posición:</label>
                 <select
