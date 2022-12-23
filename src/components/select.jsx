@@ -13,9 +13,11 @@ function SelectComponent({ label, placeholder, options, value, onChange }) {
                 placeholder={placeholder ? placeholder : ''} 
                 required
             >
-                { options.map(option => <option 
+                { options.map(option => 
+                <option 
                     defaultValue={option.id}
                     selected={option.id === value}
+                    value={option.id}
                 >{option.name}</option>) }
             </select>
         </>

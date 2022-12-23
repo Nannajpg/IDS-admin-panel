@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import Form from "./Form";
+import TeamForm from "./TeamForm";
 import { uploadTeam } from "../../features/teams/teamSlice";
 
 const CreateFormTeam = () => {
@@ -10,7 +10,7 @@ const CreateFormTeam = () => {
     return dispatch(uploadTeam(team));
   };
 
-  return <Form action={create} />;
+  return <TeamForm action={create} />;
 };
 
 export default CreateFormTeam;

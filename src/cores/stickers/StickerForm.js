@@ -9,7 +9,7 @@ import Select from '../../components/select';
 
 function StickerForm() {
 
-    const events = useSelector(state => state.events.eventsAll.items);
+    const events = useSelector(state => state.events.eventsAll);
         const eventsOptions = events.map((event) => ({
         id: event.id,
         name: event.eventName,
@@ -38,7 +38,7 @@ function StickerForm() {
         const getOptionsAllEvents = async () => {
             try {
                 const allEvents = await fetchAllEvents();
-                dispatch(setAllEvents(allEvents));
+                dispatch(setAllEvents(allEvents.items));
             } catch (error) {
                 // Mostrar un error
             } finally {
@@ -58,13 +58,13 @@ function StickerForm() {
     const changeEventId = value => {
         setSticker((sticker) => ({
             ...sticker,
-            eventId: value,
+            eventId: parseInt(value),
         }));
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
+        console.log(params.id)
         if (params.id) {
             let res = await editSticker(token, sticker, sticker.id);
             console.log(sticker)

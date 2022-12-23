@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_URL = 'http://localhost:3000/teams';
 const FETCH_URL = `${BASE_URL}?size=6&page=`;
 
-export const fetchTeams = async (page = 0, eventid = '', teamname = '') => {
+export const fetchTeams = async (page = 0, eventid = "", teamname = '') => {
   if (eventid === '') eventid = '&eventid=%';
   else eventid = `&eventid=${eventid}`;
   if (teamname === '') teamname = '&teamname=.*'

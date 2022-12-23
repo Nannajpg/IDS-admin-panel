@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Form from "./Form";
+import TeamForm from "./TeamForm";
 import { editTeam } from "../../features/teams/teamSlice"; 
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -26,7 +26,7 @@ const EditFormTeam = () => {
     }
   }, [id, teams]);
 
-  return <Form action={edit} id={id} toEditTeam={teamFound} />;
+  return <TeamForm action={edit} id={id} toEditTeam={teamFound} />;
 };
 
 export default EditFormTeam;

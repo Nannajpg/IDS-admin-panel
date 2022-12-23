@@ -45,11 +45,11 @@ export const teamSlice = createSlice({
   },
   reducers: {
     editTeam: (state, action) => {
-      const { id, teamName, shield, event } = action.payload;
+      const { id, teamName, badge, event } = action.payload;
       const foundTeam = state.find((team) => team.id === id);
       if (foundTeam) {
         foundTeam.teamName = teamName;
-        foundTeam.shield = shield;
+        foundTeam.badge = badge;
         foundTeam.event = event;
       }
     },
