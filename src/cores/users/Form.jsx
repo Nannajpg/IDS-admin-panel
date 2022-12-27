@@ -42,7 +42,7 @@ function Form({ action, id }) {
             <label htmlFor="name" className="block text-xl font-bold mb-2 ">Usuarios</label>
             
             <label htmlFor="name" className="block text-sm font-bold mb-2">Nombre:</label>
-            <input name='name' type="text" placeholder="Nombre" onChange={handleChange} className="w-full p-2 rounded-md bg-zinc-600 mb-2" required/>
+            <input name='name' type="text" placeholder="Nombre" onChange={handleChange} className="w-full p-2 rounded-md bg-zinc-600 mb-2" value={users.name} required/>
 
             <label htmlFor="role" className="block text-sm font-bold mb-2">Rol:</label>
             <select name="role" className="w-full p-2 rounded-md bg-zinc-600 mb-2" onChange={handleChange} required placeholder="Rol del Usuario">

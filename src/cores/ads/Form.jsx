@@ -37,6 +37,7 @@ const Form = ({ action, id, toEditAd }) => {
       imgRef.current.value = null;
       adTypeRef.current.value = "";
       redirecToRef.current.value = "";
+      console.log(ad)
       try {
         await action(ad, id);
       } catch (e) {

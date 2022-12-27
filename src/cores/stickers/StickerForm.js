@@ -110,7 +110,6 @@ function StickerForm() {
     return (
         <div className='flex items-center h-screen'>
             <form encType="multipart/form-data" onSubmit={handleSubmit} className='bg-slate-300 max-w-sm p-4 rounded-md grid grid-cols-2'>
-            {console.log(teams)}
                 <label htmlFor='playerName' className='block text-xs font-bold mb-2'>Nombre de Jugador:</label>
                 <input
                     name='playerName'

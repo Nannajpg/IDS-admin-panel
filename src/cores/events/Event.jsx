@@ -21,6 +21,7 @@ const Event = ({ event }) => {
       }
       
   };
+  
 
   return (
     <div key={event.id} className="bg-neutral-800 p-4 rounded-md">
