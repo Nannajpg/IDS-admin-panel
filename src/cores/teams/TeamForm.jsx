@@ -93,7 +93,7 @@ function TeamForm() {
             
               <Select 
                   label={"Evento en el que participa"}
-                  placeholder="Evento"
+                  placeholder="Eventos"
                   options={eventsOptions} 
                   value={team.idEvent}
                   onChange={changeEventId}

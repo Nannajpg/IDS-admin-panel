@@ -14,6 +14,8 @@ function SelectComponent({ label, placeholder, options, value, onChange }) {
                 defaultValue=""
                 required
             >
+                <option value="" selected>{placeholder}</option>
+                
                 { options.map(option => 
                 <option 
                     selected={option.id === value}

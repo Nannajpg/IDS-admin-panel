@@ -105,7 +105,7 @@ function StickerForm() {
                     required
                 >
                     <option defaultValue="">Equipo</option>
-                    <option value= {7}>Paris Saint-Germain</option>
+                    <option value= {5}>Paris Saint-Germain</option>
                     <option value="F.C. Barcelona">F.C. Barcelona</option>
                     <option value="Real Madrid C.F.">Real Madrid C.F.</option>
                     <option value="Liverpool F.C.">Liverpool F.C.</option>
