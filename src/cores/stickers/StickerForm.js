@@ -6,15 +6,21 @@ import { useNavigate, useParams, Link } from 'react-router-dom'
 import { saveSticker, editSticker } from '../../services/stickers.services';
 import { fetchAllEvents } from '../../services/events.services';
 import Select from '../../components/select';
-
+import {fetchAllTeams} from '../../services/team.services'
+import {fetchTeams} from '../../features/teams/teamSlice'
 function StickerForm() {
 
     const events = useSelector(state => state.events.eventsAll);
-        const eventsOptions = events.map((event) => ({
+    const eventsOptions = events.map((event) => ({
         id: event.id,
         name: event.eventName,
     }));
 
+    const teams = useSelector(state => state.teams.teams);
+    const teamsOptions = teams.map((team) =>({
+        id:team.id,
+        name:team.name,
+    }));
     
 
     const [sticker, setSticker] = useState({
@@ -47,6 +53,19 @@ function StickerForm() {
         getOptionsAllEvents();
     }, []);
 
+    useEffect(() => {
+        const getOptionsAllTeams = async () => {
+            try {
+                const allTeams = await fetchAllTeams();
+                dispatch(fetchTeams(allTeams));
+            } catch (error) {
+                // Mostrar un error
+            } finally {
+            }
+        };
+        getOptionsAllTeams();
+    }, []);
+
     const handleChange = e => {
         setSticker((sticker) => ({
             ...sticker,
@@ -59,6 +78,12 @@ function StickerForm() {
         setSticker((sticker) => ({
             ...sticker,
             eventId: parseInt(value),
+        }));
+    }
+    const changeTeamId = value => {
+        setSticker((sticker) => ({
+            ...sticker,
+            teamId: parseInt(value),
         }));
     }
 
@@ -85,7 +110,7 @@ function StickerForm() {
     return (
         <div className='flex items-center h-screen'>
             <form encType="multipart/form-data" onSubmit={handleSubmit} className='bg-slate-300 max-w-sm p-4 rounded-md grid grid-cols-2'>
-
+            {console.log(teams)}
                 <label htmlFor='playerName' className='block text-xs font-bold mb-2'>Nombre de Jugador:</label>
                 <input
                     name='playerName'
@@ -95,23 +120,7 @@ function StickerForm() {
                     className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
                     required
                 />
-
-                <label htmlFor='teamId' className='block text-xs font-bold mb-2'>Equipo al que pertenece:</label>
-                <select 
-                    name="teamId" 
-                    className="w-full p-1 border border-gray-300 focus:border-blue-500 rounded-md bg-slate-400 mb-2 hover:bg-slate-500" 
-                    onChange={handleChange} 
-                    placeholder="Equipo" 
-                    required
-                >
-                    <option defaultValue="">Equipo</option>
-                    <option value= {5}>Paris Saint-Germain</option>
-                    <option value="F.C. Barcelona">F.C. Barcelona</option>
-                    <option value="Real Madrid C.F.">Real Madrid C.F.</option>
-                    <option value="Liverpool F.C.">Liverpool F.C.</option>
-                    <option value="Manchester City">Manchester City</option>
-                    <option value="Manchester United">Manchester United</option>
-                </select>
+                
 
                 <label htmlFor='country' className='block text-xs font-bold mb-2'>Nacionalidad:</label>
                 <select 
@@ -137,6 +146,12 @@ function StickerForm() {
                     options={eventsOptions} 
                 />
                 
+                <Select 
+                    label={"Equipo al que pertenece"}
+                    onChange={changeTeamId}
+                    value={sticker.teamId}
+                    options={teamsOptions} 
+                />
 
                 <label htmlFor='position' className='block text-xs font-bold mb-2'>Posición:</label>
                 <select

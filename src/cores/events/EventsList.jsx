@@ -6,17 +6,15 @@ import { setEvents, setAmount, setTotalPages } from '../../features/events/event
 import { fetchEvents } from '../../services/events.services'
 import Event from './Event'
 import Pagination from './Pagination'
-import Loading from 'react-fullscreen-loading';
+
 
 function EventsList() {
     const postPerPage = 9;
-    const [loading, setLoading] = useState(false);
     const { page, events, amount } = useSelector(state => state.events);
     const dispatch = useDispatch();
 
     const getEvents = useCallback(async () => {
         console.log('Obteniendo eventos...')
-        setLoading(true);
         try {
             const result = await fetchEvents(page, postPerPage);
             dispatch(setEvents(result.items));
@@ -34,7 +32,6 @@ function EventsList() {
                 theme: "light",
             });
         } finally {
-            setLoading(false);
         }
     }, [page, dispatch]);
 
@@ -44,7 +41,6 @@ function EventsList() {
 
     return (
         <div className='w-4/6'>
-            <Loading loading={loading} background="#2ecc71" loaderColor="#3498db" />
 
             <header className='flex justify-between items-center py-4'>
                 <Link to="/dashboard" className="bg-emerald-600 px-2 py-1 text-sm rounded-md mx-2">Volver</Link>

@@ -14,6 +14,11 @@ export const fetchTeams = async (page = 0, eventid = "", teamname = '') => {
   return data;
 }
 
+export const fetchAllTeams = async () => {
+  const {data}  = await axios.get(BASE_URL + "/all");
+  return data;
+}
+
 export const getSingleTeam = async (id) => {
   const res = await axios.get(BASE_URL + `/${id}`)
   return res.data;
