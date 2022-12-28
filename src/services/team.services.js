@@ -27,32 +27,45 @@ export const getSingleTeam = async (id) => {
 export const createTeam = async (team) => {
 
   console.log(team)
-
-  const res = await axios.post(BASE_URL, team, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Accept: "application/json",
-      type: "formData",
-    }
-  });
-  return res.data;
+  try{
+    const res = await axios.post(BASE_URL, team, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Accept: "application/json",
+        type: "formData",
+      }
+    });
+    return res.data;
+  }
+  catch (error) {
+    console.log(error.message)
+  }
 };
 
 export const deleteTeam = async (id) => {
-  const res = await axios.delete(BASE_URL + `/${id}`);
+  try {
+    const res = await axios.delete(BASE_URL + `/${id}`);
   return res;
+  } catch (error) {
+    console.log(error.message)
+  }
+
 }
 
 export const editTeam = async ( team, id ) => {
 
   console.log(team, id)
-
-  const { data } = await axios.put(BASE_URL + `/${id}`, team, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Accept: "application/json",
-      type: "formData",
-    }
-  });
-  return data;
+  try {
+    const { data } = await axios.put(BASE_URL + `/${id}`, team, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Accept: "application/json",
+        type: "formData",
+      }
+    });
+    return data;
+  } catch (error) {
+    console.log(error.message)
+  }
+ 
 }

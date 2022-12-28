@@ -24,7 +24,7 @@ const AdsList = () => {
       alert(e);
     }
   })()
-  }, []);
+  }, [adsState.amount]);
 
 
   return (

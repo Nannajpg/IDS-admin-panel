@@ -30,8 +30,10 @@ function TeamForm() {
   const token = useSelector(state => state.auth.userToken)
 
   useEffect(() => {
+    console.log("holaxd")
       const getOptionsAllEvents = async () => {
           try {
+              console.log("hola"+token)
               const allEvents = await fetchAllEvents();
               dispatch(setAllEvents(allEvents.items));
           } catch (error) {

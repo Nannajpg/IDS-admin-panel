@@ -46,9 +46,9 @@ export const deleteAd = async (token, id) => {
 export const editAd = async (token, { ad, id }) => {
   const { announcer, adType, redirecTo, img } = ad;
   const myFile = img;
-
+  
   const adData = { announcer, adType, redirecTo, myFile };
-
+  console.log(adData)
   const res = await axios.put(BASE_URL + `/${id}`, adData, {
     headers: {
       "Content-Type": "multipart/form-data",
