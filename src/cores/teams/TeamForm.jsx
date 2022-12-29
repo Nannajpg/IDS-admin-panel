@@ -10,7 +10,7 @@ import Select from '../../components/select';
 function TeamForm() {
 
     const events = useSelector(state => state.events.eventsAll);
-
+    const {userToken} = useSelector(state => state.auth)
     const eventsOptions = events.map((event) => ({
       id: event.id,
       name: event.eventName,
@@ -27,13 +27,11 @@ function TeamForm() {
   const navigate = useNavigate()
   const params = useParams()
   const teams = useSelector(state => state.teams.teams)
-  const token = useSelector(state => state.auth.userToken)
 
   useEffect(() => {
     console.log("holaxd")
       const getOptionsAllEvents = async () => {
           try {
-              console.log("hola"+token)
               const allEvents = await fetchAllEvents();
               dispatch(setAllEvents(allEvents.items));
           } catch (error) {
@@ -65,9 +63,9 @@ function TeamForm() {
       console.log(params.id)
       if (params.id) {
           console.log(team)
-          let res = await teamServices.editTeam(team, team.id);
+          let res = await teamServices.editTeam(userToken, team, team.id);
       } else {
-          let res = await teamServices.createTeam(team);
+          let res = await teamServices.createTeam(userToken, team);
           console.log("entro en save")
       }
       navigate('/teams')

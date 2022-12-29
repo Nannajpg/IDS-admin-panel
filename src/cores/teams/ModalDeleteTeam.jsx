@@ -7,6 +7,7 @@ function ModalDeleteTeam({ isVisible, hideModal, getId }) {
   const id = getId();
 
   const state = useSelector((state) => state.teams);
+  const {userToken} = useSelector((state) => state.auth)
 
   return (
     <>
@@ -32,8 +33,9 @@ function ModalDeleteTeam({ isVisible, hideModal, getId }) {
               <button
                 className="bg-red-700 rounded p-2 hover:bg-red-800"
                 onClick={async () => {
-                  await dispatch(deleteTeam(id, state));
-                  await dispatch(fetchTeams(state));
+                  console.log("el id es:" + id);
+                  await dispatch(deleteTeam({userToken, id}));
+                  await dispatch(fetchTeams(userToken, state));
                   hideModal(isVisible);
                 }}
               >
