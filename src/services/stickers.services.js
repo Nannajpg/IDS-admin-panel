@@ -1,6 +1,7 @@
 import axios from "axios";
+import { API_URL } from "../config.js";
 
-const BASE_URL = "http://localhost:3000/stickers";
+const BASE_URL = API_URL+"/stickers";
 
 export const getAllStickers = async (token, page = 0) => {
     try {

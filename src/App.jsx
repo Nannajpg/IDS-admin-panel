@@ -19,8 +19,8 @@ import TeamsList from "./cores/teams/TeamsList";
 import CreateFormTeam from "./cores/teams/CreateFormTeam";
 import EditFormTeam from "./cores/teams/EditFormTeam";
 
-function App() {
 
+function App() {
   return (
     <div className='bg-zinc-900 h-screen text-white'>
       <div className='flex items-center justify-center h-full'>

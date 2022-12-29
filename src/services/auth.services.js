@@ -1,6 +1,8 @@
 import axios from "axios";
-const URL_LOGIN = "http://localhost:3000/auth/login";
-const URL_SIGNUP = "http://localhost:3000/auth/register";
+import { API_URL } from "../config.js";
+
+const URL_LOGIN = API_URL+"/auth/login";
+const URL_SIGNUP = API_URL+"/auth/register";
 
 export const login = async ({ email, password }) => {
     try {

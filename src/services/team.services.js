@@ -1,6 +1,7 @@
 import axios from "axios";
+import { API_URL } from "../config.js";
 
-const BASE_URL = 'http://localhost:3000/teams';
+const BASE_URL = API_URL+'/teams';
 const FETCH_URL = `${BASE_URL}?size=6&page=`;
 
 export const fetchTeams = async (page = 0, eventid = "", teamname = '') => {

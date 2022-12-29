@@ -1,11 +1,15 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:3000/users/";
+import { API_URL } from "../config.js";
+
+const BASE_URL = API_URL+"/users/";
+
 
 export const getUsersAmount = async (token) => {
   try {
       const res = await axios.get(BASE_URL+"amount", {
         headers: { Authorization: `Bearer ${token}` },
       });
+
       return res;
   } catch (error) {
       console.log("Error ", error);

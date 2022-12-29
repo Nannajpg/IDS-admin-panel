@@ -1,6 +1,7 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:3000/events/";
+import { API_URL } from "../config.js";
 
+const BASE_URL = API_URL+"/events/";
 
 export const getEventsAmount = async (page = 0) => {
   try {
