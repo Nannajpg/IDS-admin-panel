@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 
 const EditForm = () => {
   const dispatch = useDispatch();
-
+  const {userToken} = useSelector(state => state.auth)
   const events = useSelector((state)=> state.events.eventsAll)
   const { id } = useParams();
   const [eventFound, setEventFound] = useState();
@@ -21,7 +21,7 @@ const EditForm = () => {
       } else {
         event.status = false;
       }
-      await eventsServices.editEvent(event, id);
+      await eventsServices.editEvent(userToken, event, id);
       dispatch(editEvent(event));
 
     } catch (error) {

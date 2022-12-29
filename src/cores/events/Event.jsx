@@ -8,12 +8,13 @@ const Event = ({ event }) => {
 
   const dispatch = useDispatch();
   const amount = useSelector(state => state.events.amount)
-
+  const {userToken} = useSelector(state => state.auth)
+  
   const handleDelete = async (id) => {
       try {
         dispatch(setAmount(amount-1));
 
-        await eventsServices.deleteEvent(id);
+        await eventsServices.deleteEvent(userToken, id);
         dispatch(deleteEvent(id));
 
       } catch (e) {

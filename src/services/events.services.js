@@ -4,45 +4,55 @@ import { API_URL } from "../config.js";
 const BASE_URL = API_URL+"/events/";
 
 
-export const getEventsAmount = async (page = 0) => {
+export const getEventsAmount = async (token, page = 0) => {
   try {
-      const res = await axios.get(BASE_URL+"amount");
+      const res = await axios.get(BASE_URL+"amount", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       return res;
   } catch (error) {
       console.log("Error ", error);
   }
 }
 
-export const fetchAllEvents = async (page = 0, perPage = 9) => {
+export const fetchAllEvents = async (token, page = 0, perPage = 9) => {
   try {
-    const res = await axios.get(BASE_URL+'all');
+    const res = await axios.get(BASE_URL+'all', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return res.data;
   } catch(e) {
     throw new Error('Error al obtener todos los eventos');
   }
 }
 
-export const fetchEvents = async (page = 0, perPage = 9) => {
+export const fetchEvents = async (token, page = 0, perPage = 9) => {
   try {
-    const res = await axios.get(BASE_URL+'?page='+page+'&size='+perPage);
+    const res = await axios.get(BASE_URL+'?page='+page+'&size='+perPage, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return res.data;
   } catch(e) {
     throw new Error('Error al obtener eventos');
   }
 }
 
-export const createEvent = async (event) => {
+export const createEvent = async (token, event) => {
   try {
-      const res = await axios.post(BASE_URL, event);
+      const res = await axios.post(BASE_URL, event, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       return res.data;
   } catch (error) {
       console.log(error.message);
   }
 }
 
-export const editEvent = async (event, id) => {
+export const editEvent = async (token, event, id) => {
   try {
-    const res = await axios.put(BASE_URL + id, event)
+    const res = await axios.put(BASE_URL + id, event, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
     event.id = Number(id);
     return event;
   } catch(e) {
@@ -50,9 +60,11 @@ export const editEvent = async (event, id) => {
   }
 }
 
-export const deleteEvent = async (id) => {
+export const deleteEvent = async (token, id) => {
   try {
-    const res = await axios.delete(BASE_URL + id);
+    const res = await axios.delete(BASE_URL + id, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return res;
   } catch (e) {
     throw new Error('error eliminando evento');

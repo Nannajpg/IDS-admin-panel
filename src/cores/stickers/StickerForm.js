@@ -15,7 +15,7 @@ function StickerForm() {
         id: event.id,
         name: event.eventName,
     }));
-
+    
     const teams = useSelector(state => state.teams.teams);
     const teamsOptions = teams.map((team) =>({
         id:team.id,
@@ -43,7 +43,7 @@ function StickerForm() {
     useEffect(() => {
         const getOptionsAllEvents = async () => {
             try {
-                const allEvents = await fetchAllEvents();
+                const allEvents = await fetchAllEvents(token);
                 dispatch(setAllEvents(allEvents.items));
             } catch (error) {
                 // Mostrar un error
@@ -56,7 +56,7 @@ function StickerForm() {
     useEffect(() => {
         const getOptionsAllTeams = async () => {
             try {
-                const allTeams = await fetchAllTeams();
+                const allTeams = await fetchAllTeams(token);
                 dispatch(fetchTeams(allTeams));
             } catch (error) {
                 // Mostrar un error
