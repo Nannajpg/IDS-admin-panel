@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+
 const Team = ({ id, isVisible, showModal }) => {
   const team = useSelector(state => state.teams.teams.find(team => team.id === id));
-
   return (
     <div key={id} className="bg-neutral-800 p-4 rounded-md">
             <h3 className="text-center">{team.name}</h3>

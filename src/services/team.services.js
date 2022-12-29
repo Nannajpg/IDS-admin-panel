@@ -1,31 +1,39 @@
 import axios from "axios";
+
 import { API_URL } from "../config.js";
 
 const BASE_URL = API_URL+'/teams';
 const FETCH_URL = `${BASE_URL}?size=6&page=`;
 
-export const fetchTeams = async (page = 0, eventid = "", teamname = '') => {
+export const fetchTeams = async (token, page = 0, eventid = "", teamname = '') => {
   if (eventid === '') eventid = '&eventid=%';
   else eventid = `&eventid=${eventid}`;
   if (teamname === '') teamname = '&teamname=.*'
   else teamname = `&teamname=${teamname}`
-  
-  const { data } = await axios.get(FETCH_URL + page + eventid + teamname);
+
+  const { data } = await axios.get(FETCH_URL + page + eventid + teamname,{
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  console.log(token);
   console.log(data);
   return data;
 }
 
-export const fetchAllTeams = async () => {
-  const {data}  = await axios.get(BASE_URL + "/all");
+export const fetchAllTeams = async (token) => {
+  const {data}  = await axios.get(BASE_URL + "/all", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   return data;
 }
 
-export const getSingleTeam = async (id) => {
-  const res = await axios.get(BASE_URL + `/${id}`)
+export const getSingleTeam = async (token, id) => {
+  const res = await axios.get(BASE_URL + `/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
   return res.data;
 }
 
-export const createTeam = async (team) => {
+export const createTeam = async (token, team) => {
 
   console.log(team)
   try{
@@ -34,6 +42,7 @@ export const createTeam = async (team) => {
         "Content-Type": "multipart/form-data",
         Accept: "application/json",
         type: "formData",
+        Authorization: `Bearer ${token}`,
       }
     });
     return res.data;
@@ -43,9 +52,11 @@ export const createTeam = async (team) => {
   }
 };
 
-export const deleteTeam = async (id) => {
+export const deleteTeam = async (token, id) => {
   try {
-    const res = await axios.delete(BASE_URL + `/${id}`);
+    const res = await axios.delete(BASE_URL + `/${id}`,{
+      headers: { Authorization: `Bearer ${token}` },
+    });
   return res;
   } catch (error) {
     console.log(error.message)
@@ -53,7 +64,7 @@ export const deleteTeam = async (id) => {
 
 }
 
-export const editTeam = async ( team, id ) => {
+export const editTeam = async ( token, team, id ) => {
 
   console.log(team, id)
   try {
@@ -62,6 +73,7 @@ export const editTeam = async ( team, id ) => {
         "Content-Type": "multipart/form-data",
         Accept: "application/json",
         type: "formData",
+        Authorization: `Bearer ${token}`,
       }
     });
     return data;

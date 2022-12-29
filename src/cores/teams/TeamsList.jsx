@@ -7,16 +7,17 @@ import useModal from "./useModal";
 import { useEffect } from "react";
 import Navigation from "./Navigation";
 import { fetchTeams } from "../../features/teams/teamSlice";
+import * as teamServices from '../../services/team.services';
 
 const TeamsList = () => {
   const teams = useSelector((state) => state.teams);
   const dispatch = useDispatch(); 
+  const {userToken} = useSelector(state => state.auth);
 
   const { isVisible, toggleModal, getId } = useModal();
 
   useEffect(() => {
-    dispatch(fetchTeams(teams));
-
+    dispatch(fetchTeams(userToken, teams));
   // eslint-disable-next-line
   }, [dispatch, teams.page, teams.search])
 

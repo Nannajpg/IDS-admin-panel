@@ -3,6 +3,7 @@ import { API_URL } from "../config.js";
 
 const BASE_URL = API_URL+"/events/";
 
+
 export const getEventsAmount = async (page = 0) => {
   try {
       const res = await axios.get(BASE_URL+"amount");

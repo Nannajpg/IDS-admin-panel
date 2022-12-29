@@ -8,23 +8,24 @@ import {
 
 export const fetchTeams = createAsyncThunk(
   "@teams/fetchTeams",
-  async ({ page, event, search }) => {
-    const res = await getAllTeams(page, event, search);
+  async (token, { page, event, search }) => {
+    const res = await getAllTeams(token, page, event, search);
     return res;
   }
 );
 
 export const uploadTeam = createAsyncThunk(
   "@teams/uploadTeam",
-  async (team) => {
-    const res = await createTeam(team);
+  async (token, team) => {
+    console.log(team)
+    const res = await createTeam(token, team);
     return res;
   }
 );
 
-export const deleteTeam = createAsyncThunk("@teams/deleteTeam", async (id) => {
-  await deleteBdTeam(id);
-  return id;
+export const deleteTeam = createAsyncThunk("@teams/deleteTeam", async ({userToken, id}) => {
+  await deleteBdTeam(userToken, id);
+  return 0;
 });
 
 //id, name, badge    ,   totalTeams, pageNumber, pageSize
