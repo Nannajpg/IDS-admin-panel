@@ -6,9 +6,7 @@ import { uploadTeam } from "../../features/teams/teamSlice";
 const CreateFormTeam = () => {
   const dispatch = useDispatch();
   const {userToken} = useSelector(state => state.auth)
-  console.log(userToken)
   const create = (team) => {
-    console.log(userToken)
     return dispatch(uploadTeam({userToken, team}));
   };
 

@@ -29,7 +29,6 @@ function TeamForm() {
   const teams = useSelector(state => state.teams.teams)
 
   useEffect(() => {
-    console.log("holaxd")
       const getOptionsAllEvents = async () => {
           try {
               const allEvents = await fetchAllEvents(userToken);
@@ -55,18 +54,14 @@ function TeamForm() {
           ...team,
           idEvents: parseInt(value),
       }));
-      console.log(team.idEvents)
   }
 
   const handleSubmit = async (e) => {
       e.preventDefault()
-      console.log(params.id)
       if (params.id) {
-          console.log(team)
           let res = await teamServices.editTeam(userToken, team, team.id);
       } else {
           let res = await teamServices.createTeam(userToken, team);
-          console.log("entro en save")
       }
       navigate('/teams')
   }
@@ -80,7 +75,6 @@ function TeamForm() {
   return (
       <div className='flex items-center h-screen'>
           <form encType="multipart/form-data" onSubmit={handleSubmit} className='bg-slate-300 max-w-sm p-4 rounded-md grid grid-cols-2'>
-            {console.log(events)}
               <label htmlFor='name' className='block text-xs font-bold mb-2'>Nombre del equipo:</label>
               <input
                   name='name'

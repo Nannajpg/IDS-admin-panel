@@ -14,7 +14,6 @@ function EventsList() {
     const dispatch = useDispatch();
     const {userToken} = useSelector(state => state.auth)
     const getEvents = useCallback(async () => {
-        console.log('Obteniendo eventos...')
         try {
             const result = await fetchEvents(userToken, page, postPerPage);
             dispatch(setEvents(result.items));

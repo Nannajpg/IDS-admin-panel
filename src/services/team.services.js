@@ -14,7 +14,6 @@ export const fetchTeams = async (token, page = 0, eventid = "", teamname = '') =
   const { data } = await axios.get(FETCH_URL + page + eventid + teamname,{
     headers: { Authorization: `Bearer ${token}` },
   });
-  console.log("8====D",FETCH_URL + page + eventid + teamname)
   return data;
 }
 
@@ -34,7 +33,6 @@ export const getSingleTeam = async (token, id) => {
 
 export const createTeam = async (token, team) => {
 
-  console.log(team)
   try{
     const res = await axios.post(BASE_URL, team, {
       headers: {
@@ -64,8 +62,6 @@ export const deleteTeam = async (token, id) => {
 }
 
 export const editTeam = async ( token, team, id ) => {
-
-  console.log(team, id)
   try {
     const { data } = await axios.put(BASE_URL + `/${id}`, team, {
       headers: {

@@ -46,9 +46,6 @@ export const saveSticker = async (token, sticker) => {
 
 export const editSticker = async (token, sticker, id) => {
     try {
-        console.log(sticker)
-        console.log(id)
-        console.log(token)
         const res = await axios.put(BASE_URL+"/"+id, sticker, {
             headers:{
                 Authorization: "Bearer " + token, 

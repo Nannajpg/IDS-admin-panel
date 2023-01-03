@@ -14,7 +14,6 @@ export const fetchAds = async (token, { page = 0, adtype, search }) => {
       Authorization: 'Bearer ' + token
     }
   });
-  console.log(res.data)
   return res.data;
 };
 
@@ -49,7 +48,6 @@ export const editAd = async (token, { ad, id }) => {
   const myFile = img;
   
   const adData = { announcer, adType, redirecTo, myFile };
-  console.log(adData)
   const res = await axios.put(BASE_URL + `/${id}`, adData, {
     headers: {
       "Content-Type": "multipart/form-data",

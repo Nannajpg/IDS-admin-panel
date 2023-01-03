@@ -16,7 +16,6 @@ export const login = async ({ email, password }) => {
 export const signup = async (user) => {
     try {
         const res = await axios.post(URL_SIGNUP, user);
-        console.log(res);
         if (!res.ok) {
             throw Error("Fetch fallido");
         }

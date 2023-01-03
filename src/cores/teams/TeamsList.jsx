@@ -17,7 +17,6 @@ const TeamsList = () => {
   const { isVisible, toggleModal, getId } = useModal();
 
   useEffect(() => {
-    console.log(teams)
     dispatch(fetchTeams({
       userToken,
       page: teams.page,

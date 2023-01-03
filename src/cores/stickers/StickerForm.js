@@ -89,15 +89,12 @@ function StickerForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(params.id)
         if (params.id) {
             await editSticker(userToken, sticker, sticker.id);
             
         } else {
             await saveSticker(userToken, sticker);
-            console.log("entro en save")
         }
-        console.log("xd")
         navigate('/stickers')
     }
 
