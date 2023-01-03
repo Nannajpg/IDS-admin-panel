@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import StickersListHeader from './StickersListHeader'
-import { readStickers, setAmount } from '../../features/stickers/stickerSlice'
+import { readStickers, setAmount, setTotalPages } from '../../features/stickers/stickerSlice'
 import StickerCard from './StickerCard';
 import { getAllStickers, getStickersAmount } from '../../services/stickers.services';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,9 +18,9 @@ const StickerList = () => {
     useEffect(() => {
         const getStickers = async () => {
             const res = await getAllStickers(token, stickerState.page);
-            console.log(res.data)
             if (res.data.items.length>0){
                 for (let i = 0; i < res.data.items.length; i++) {
+                    dispatch(setTotalPages(res.data.paginate.pages))
                     dispatch(readStickers(res.data.items[i]))
                 }
                 dispatch(setAmount(res.data.paginate.total));
@@ -32,7 +32,6 @@ const StickerList = () => {
 
     return (
         <div className='w-4/6'>
-            {console.log(stickerState)}
             <StickersListHeader amount={stickerState.amount} />
             <div className='grid grid-cols-4 gap-4'>
                 {stickerState.stickers.map(sticker => <StickerCard sticker={sticker} key={sticker.id}/>)}

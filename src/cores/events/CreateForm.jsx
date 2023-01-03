@@ -1,13 +1,15 @@
 import React from "react";
 import Form from "./Form";
 import * as eventsServices from "../../services/events.services";
+import { useSelector } from "react-redux";
 
 
 const CreateForm = () => {
-
+  const {userToken} = useSelector(state => state.auth)
   const create = async (event) => {
     try {
-      return await eventsServices.createEvent({
+      
+      return await eventsServices.createEvent(userToken, {
         ...event,
         status: (event.status === 'Activo')
       });

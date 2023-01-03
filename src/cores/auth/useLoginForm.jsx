@@ -1,7 +1,7 @@
 
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import useForm from '../../components/useForm';
+import useForm from '../../hooks/useForm';
 import { login } from '../../features/auth/authSlice';
 import * as authServices from '../../services/auth.services';
 

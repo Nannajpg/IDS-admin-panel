@@ -26,7 +26,7 @@ const EditForm = () => {
   }
 
   return (
-    <Form action={edit} id={id} />
+    <Form action={edit} id={id}  />
   )
 }
 

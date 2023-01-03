@@ -1,6 +1,8 @@
 import axios from "axios";
-const URL_LOGIN = "https://backend-staging.playoffside.online/auth/login";
-const URL_SIGNUP = "https://backend-staging.playoffside.online/auth/register";
+import { API_URL } from "../config.js";
+
+const URL_LOGIN = API_URL+"/auth/login";
+const URL_SIGNUP = API_URL+"/auth/register";
 
 export const login = async ({ email, password }) => {
     try {
@@ -14,7 +16,6 @@ export const login = async ({ email, password }) => {
 export const signup = async (user) => {
     try {
         const res = await axios.post(URL_SIGNUP, user);
-        console.log(res);
         if (!res.ok) {
             throw Error("Fetch fallido");
         }

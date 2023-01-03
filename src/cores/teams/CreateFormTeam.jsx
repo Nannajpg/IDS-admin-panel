@@ -1,16 +1,16 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import Form from "./Form";
+import { useDispatch, useSelector } from "react-redux";
+import TeamForm from "./TeamForm";
 import { uploadTeam } from "../../features/teams/teamSlice";
 
 const CreateFormTeam = () => {
   const dispatch = useDispatch();
-
+  const {userToken} = useSelector(state => state.auth)
   const create = (team) => {
-    return dispatch(uploadTeam(team));
+    return dispatch(uploadTeam({userToken, team}));
   };
 
-  return <Form action={create} />;
+  return <TeamForm action={create} />;
 };
 
 export default CreateFormTeam;

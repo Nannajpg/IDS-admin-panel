@@ -1,5 +1,7 @@
 import axios from "axios";
-const BASE_URL = "https://backend-staging.playoffside.online/users/";
+import { API_URL } from "../config.js";
+
+const BASE_URL = API_URL+"/users/";
 
 export const getUsersAmount = async (token) => {
   try {

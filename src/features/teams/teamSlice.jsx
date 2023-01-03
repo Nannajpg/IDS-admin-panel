@@ -8,28 +8,24 @@ import {
 
 export const fetchTeams = createAsyncThunk(
   "@teams/fetchTeams",
-  async ({ page, event, search }) => {
-    const res = await getAllTeams(page, event, search);
+  async ({userToken, page, event, search }) => {
+    
+    const res = await getAllTeams(userToken, page, event, search);
     return res;
   }
 );
 
 export const uploadTeam = createAsyncThunk(
   "@teams/uploadTeam",
-  async (team) => {
-    const res = await createTeam(team);
+  async ({userToken, team}) => {
+    const res = await createTeam(userToken, team);
     return res;
   }
 );
 
-export const deleteTeam = createAsyncThunk("@teams/deleteTeam", async (id) => {
-  await deleteBdTeam(id);
-  return id;
-});
-
-export const editTeam = createAsyncThunk("@teams/editTeam", async (team) => {
-  const data = await editBdTeam(team);
-  return data;
+export const deleteTeam = createAsyncThunk("@teams/deleteTeam", async ({userToken, id}) => {
+  await deleteBdTeam(userToken, id);
+  return 0;
 });
 
 //id, name, badge    ,   totalTeams, pageNumber, pageSize
@@ -38,18 +34,22 @@ export const teamSlice = createSlice({
   name: "@teams",
   initialState: {
     search: "",
-    totalTeams: 0,
+    total: 0,
     page: 0,
+    pages: 0,
+    perPage: 0,
     loading: "idle",
     teams: [],
   },
+
+
   reducers: {
     editTeam: (state, action) => {
-      const { id, teamName, shield, event } = action.payload;
+      const { id, teamName, badge, event } = action.payload;
       const foundTeam = state.find((team) => team.id === id);
       if (foundTeam) {
         foundTeam.teamName = teamName;
-        foundTeam.shield = shield;
+        foundTeam.badge = badge;
         foundTeam.event = event;
       }
     },
@@ -75,14 +75,17 @@ export const teamSlice = createSlice({
     });
     builder.addCase(fetchTeams.fulfilled, (state, action) => {
       if (state.loading === "pending") {
-        state.teams = action.payload.teams;
-        state.amount = action.payload.totalTeams;
+        state.teams = action.payload.items;
+        state.total = action.payload.paginate.total;
+        state.page = action.payload.paginate.page;
+        state.pages = action.payload.paginate.pages;
+        state.perPage = action.payload.paginate.perPage;
         state.loading = "idle";
       }
     });
   },
 });
 
-export const { nextPage, prevPage, toFirstPage, toSearch, toFilter } =
+export const { nextPage, prevPage, toFirstPage, toSearch, toFilter, editTeam } =
   teamSlice.actions;
 export default teamSlice.reducer;

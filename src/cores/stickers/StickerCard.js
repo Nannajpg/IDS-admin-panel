@@ -13,17 +13,16 @@ function StickerCard({ sticker }) {
     const handleDelete = async (id) => {
         if (window.confirm('¿Desea eliminar ese Sticker?')) {
             const stickerToDelete = stickers.find(sticker => sticker.id == id)
-            console.log(JSON.stringify(stickerToDelete));
             await deletSticker(token, stickerToDelete.id);
             dispatch(deleteSticker(id))
         }
     }
-    console.log(sticker)
     return (
+        
         <div key={sticker.id} className='bg-slate-400 p-4 rounded-md'>
             <img src={sticker.img} alt='stickerImg' className='w-25' />
             <p className='text-sm'>Nombre: {sticker.playerName}</p>
-            <p className='text-sm'>Equipo: {sticker.teamId}</p>
+            <p className='text-sm'>Equipo: {sticker.team.name}</p>
             <p className='text-sm'>País: {sticker.country}</p>
             <p className='text-sm'>Posición: {sticker.position}</p>
             <p className='text-sm'>Altura: {sticker.height} cm</p>
