@@ -38,12 +38,12 @@ function StickerForm() {
     const navigate = useNavigate()
     const params = useParams()
     const stickers = useSelector(state => state.stickers.stickers)
-    const token = useSelector(state => state.auth.userToken)
+    const {userToken} = useSelector(state => state.auth)
 
     useEffect(() => {
         const getOptionsAllEvents = async () => {
             try {
-                const allEvents = await fetchAllEvents(token);
+                const allEvents = await fetchAllEvents(userToken);
                 dispatch(setAllEvents(allEvents.items));
             } catch (error) {
                 // Mostrar un error
@@ -56,7 +56,7 @@ function StickerForm() {
     useEffect(() => {
         const getOptionsAllTeams = async () => {
             try {
-                const allTeams = await fetchAllTeams(token);
+                const allTeams = await fetchAllTeams(userToken);
                 dispatch(fetchTeams(allTeams));
             } catch (error) {
                 // Mostrar un error
@@ -91,10 +91,10 @@ function StickerForm() {
         e.preventDefault()
         console.log(params.id)
         if (params.id) {
-            await editSticker(token, sticker, sticker.id);
+            await editSticker(userToken, sticker, sticker.id);
             
         } else {
-            await saveSticker(token, sticker);
+            await saveSticker(userToken, sticker);
             console.log("entro en save")
         }
         console.log("xd")

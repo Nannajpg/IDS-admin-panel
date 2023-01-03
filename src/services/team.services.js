@@ -3,7 +3,7 @@ import axios from "axios";
 import { API_URL } from "../config.js";
 
 const BASE_URL = API_URL+'/teams';
-const FETCH_URL = `${BASE_URL}?size=6&page=`;
+const FETCH_URL = `${BASE_URL}?size=3&page=`;
 
 export const fetchTeams = async (token, page = 0, eventid = "", teamname = '') => {
   if (eventid === '') eventid = '&eventid=%';
@@ -14,8 +14,7 @@ export const fetchTeams = async (token, page = 0, eventid = "", teamname = '') =
   const { data } = await axios.get(FETCH_URL + page + eventid + teamname,{
     headers: { Authorization: `Bearer ${token}` },
   });
-  console.log(token);
-  console.log(data);
+  console.log("8====D",FETCH_URL + page + eventid + teamname)
   return data;
 }
 

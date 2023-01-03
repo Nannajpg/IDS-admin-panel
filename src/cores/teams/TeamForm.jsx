@@ -32,7 +32,7 @@ function TeamForm() {
     console.log("holaxd")
       const getOptionsAllEvents = async () => {
           try {
-              const allEvents = await fetchAllEvents();
+              const allEvents = await fetchAllEvents(userToken);
               dispatch(setAllEvents(allEvents.items));
           } catch (error) {
               // Mostrar un error

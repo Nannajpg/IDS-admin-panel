@@ -9,7 +9,7 @@ const CreateFormTeam = () => {
   console.log(userToken)
   const create = (team) => {
     console.log(userToken)
-    return dispatch(uploadTeam(userToken, team));
+    return dispatch(uploadTeam({userToken, team}));
   };
 
   return <TeamForm action={create} />;

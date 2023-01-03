@@ -5,7 +5,8 @@ export const stickerSlice = createSlice({
     initialState: {
         amount: 0,
         page: 0,
-        stickers: []
+        totalPages: 0,
+        stickers: [] 
     },
     reducers: {
         readStickers: (state, action) => {
@@ -48,9 +49,12 @@ export const stickerSlice = createSlice({
         setAmount: (state, action) => {
             state.amount = action.payload;
         },
+        setTotalPages: (state, action) => {
+            state.totalPages = action.payload;
+        },
     },
 })
 
-export const { readStickers, updateSticker, deleteSticker, nextPage, prevPage, setPage, setAmount } = stickerSlice.actions
+export const { readStickers, updateSticker, deleteSticker, nextPage, prevPage, setPage, setAmount, setTotalPages } = stickerSlice.actions
 
 export default stickerSlice.reducer

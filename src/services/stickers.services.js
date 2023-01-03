@@ -6,7 +6,7 @@ const BASE_URL = API_URL+"/stickers";
 
 export const getAllStickers = async (token, page = 0) => {
     try {
-        const res = await axios.get(BASE_URL+"?size=8&page="+page, {
+        const res = await axios.get(BASE_URL+"?size=4&page="+page, {
             headers:{
                 Authorization: "Bearer " + token,
             }

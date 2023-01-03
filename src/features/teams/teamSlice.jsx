@@ -8,17 +8,18 @@ import {
 
 export const fetchTeams = createAsyncThunk(
   "@teams/fetchTeams",
-  async (token, { page, event, search }) => {
-    const res = await getAllTeams(token, page, event, search);
+  async ({userToken, page, event, search }) => {
+    
+    const res = await getAllTeams(userToken, page, event, search);
     return res;
   }
 );
 
 export const uploadTeam = createAsyncThunk(
   "@teams/uploadTeam",
-  async (token, team) => {
+  async ({userToken, team}) => {
     console.log(team)
-    const res = await createTeam(token, team);
+    const res = await createTeam(userToken, team);
     return res;
   }
 );
@@ -34,9 +35,10 @@ export const teamSlice = createSlice({
   name: "@teams",
   initialState: {
     search: "",
-    totalTeams: 0,
+    total: 0,
     page: 0,
     pages: 0,
+    perPage: 0,
     loading: "idle",
     teams: [],
   },
@@ -74,10 +76,12 @@ export const teamSlice = createSlice({
     });
     builder.addCase(fetchTeams.fulfilled, (state, action) => {
       if (state.loading === "pending") {
-        state.teams = action.payload.teams;
-        state.totalTeams = action.payload.paginate.totalTeams;
-        state.page = action.payload.paginate.pageNumber;
+        console.log("indicativo:", action.payload)
+        state.teams = action.payload.items;
+        state.total = action.payload.paginate.total;
+        state.page = action.payload.paginate.page;
         state.pages = action.payload.paginate.pages;
+        state.perPage = action.payload.paginate.perPage;
         state.loading = "idle";
       }
     });

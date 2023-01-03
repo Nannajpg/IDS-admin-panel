@@ -14,7 +14,6 @@ const useNavigation = () => {
 
   const toPrevPage = () => {
     if (state.page > 0) dispatch(prevPage()); 
-
   }
 
   return { currentPage, toNextPage, toPrevPage }; 

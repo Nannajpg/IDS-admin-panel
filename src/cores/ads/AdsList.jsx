@@ -18,13 +18,13 @@ const AdsList = () => {
 
   useEffect(() => {
     (async () => { try {
-      const data = await inventoryServices.fetchAds(token, adsState)
-      dispatch(storeAllAds(data))
+      const data = await inventoryServices.fetchAds(token, adsState);
+      dispatch(storeAllAds(data));
     } catch (e) {
       alert(e);
     }
   })()
-  }, [adsState.amount]);
+  }, [adsState.amount, adsState.page]);
 
 
   return (
