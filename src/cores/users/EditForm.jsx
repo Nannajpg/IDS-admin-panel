@@ -21,12 +21,12 @@ const EditForm = () => {
         alert(error?.response?.data.message);
       }else{
           alert("Error del servidor al editar usuario")
-        }
       }
+    }
   }
 
   return (
-    <Form action={edit} id={id} />
+    <Form action={edit} id={id}  />
   )
 }
 

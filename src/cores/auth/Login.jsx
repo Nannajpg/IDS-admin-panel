@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import logo from "./assets/offsidelogo.png";
 import useLoginForm from "./useLoginForm";
 
@@ -24,7 +23,6 @@ function Login() {
           <input
             type="email"
             id="email"
-            /* autoComplete="off" */
             name="email"
             onChange={handleChange}
             required

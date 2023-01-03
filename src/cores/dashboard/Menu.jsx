@@ -9,27 +9,42 @@ const Menu = () => {
 
   return (
     <section className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
-      <h1 className="text-center text-lg font-bold">¡Bienvenido!</h1>
+      <h1 className="text-center text-lg font-bold">¡Bienvenido al Panel Administrativo de Offside!</h1>
       <br />
       <Link
         to="/users"
         className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2 "
       >
-        Gestionar Usuarios
+        Usuarios
       </Link>
+
       <Link 
-        to="/events" 
-        className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2">
-        Gestionar Eventos
+        to="/events" className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2">
+        Eventos
       </Link>
-      <Link 
-        to="/matches" 
-        className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2"
-        >
-        Gestionar Partidos
+      <Link
+        to="/ads" className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2">
+        Anuncios
       </Link>
+
+      <Link
+        to="/stickers" className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2">
+        Cromos
+      </Link>
+
+      <Link
+        to="/teams" className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2">
+        Equipos
+      </Link>
+
+      <Link
+        to="/matches" className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2">
+        Partidos
+      </Link>
+
       <br />
       <br />
+
       <Link
         onClick={() => dispatch(logout())}
         to="/"

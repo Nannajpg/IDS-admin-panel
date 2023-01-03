@@ -1,34 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
 
-
-/* const initialState = [
-    {
-        id: "1",
-        team1: "Brasil",
-        team2: "Serbia",
-        myFile: null,
-        status: "En Juego",
-        event:"FIFA World Cup 2022",
-    },
-    {
-        id: "2",
-        team1: "España",
-        team2: "Alemania",
-        myFile: null,
-        status: "Culminado",
-        event:"FIFA World Cup 2022",
-    },
-    {
-        id: "3",
-        team1: "Francia",
-        team2: "Italia",
-        myFile: null,
-        status: "Sin Comenzar",
-        event:"FIFA World Cup 2022",
-    },1
-
-] */
-
 export const matchSlice = createSlice({
     name: 'matches',
     initialState: {

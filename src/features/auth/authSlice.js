@@ -4,11 +4,11 @@ const initialState = {
   userInfo: {}, 
   userToken: null, 
   success: false,
-  error: null
+  error: null,
 };
 
 const authSlice = createSlice({
-  name: 'user',
+  name: 'auth',
   initialState,
   reducers: {
     'login': (state, { payload }) => {

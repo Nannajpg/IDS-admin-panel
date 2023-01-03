@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 function EventForm({ action, id }) {
 
@@ -12,7 +13,7 @@ function EventForm({ action, id }) {
 
     const navigate = useNavigate();
     const params = useParams();
-    const events = useSelector(state => state.events)
+    const events = useSelector(state => state.events.events)
 
     const handleChange = (e) => {
         setEvent({
@@ -35,7 +36,7 @@ function EventForm({ action, id }) {
 
     return (
         <form onSubmit={handleSubmit} className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
-            
+
             <label htmlFor="name" className="block text-xl font-bold mb-2 ">Eventos</label>
 
             <label htmlFor="name" className="block text-sm font-bold mb-2">Nombre:</label>
@@ -48,7 +49,12 @@ function EventForm({ action, id }) {
                 <option value="Activo">Activo</option>
             </select>
 
-            <button className="bg-emerald-600 px-2 py-1 rounded-md">Guardar</button>
+            <div>
+                <button className="bg-emerald-600 px-2 py-1 rounded-md">Guardar</button>
+
+                <Link to="/events" className="bg-red-500 px-2 py-1 rounded-md mx-8">Volver</Link>
+            </div>
+            
         </form>
     )
 }

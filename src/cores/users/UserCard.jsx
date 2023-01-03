@@ -2,19 +2,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as usersServices from "../../services/users.services";
-import { deleteUser } from "../../features/users/userSlice";
+import { deleteUser, setAmount } from "../../features/users/userSlice";
 
 const UserCard = ({ user }) => {
-
+  
   const dispatch = useDispatch()
   const { userToken } = useSelector(state => state.auth);
-
-console.log("id: "+user.id)
+  const amount = useSelector(state => state.events);
 
   const handleDelete = async (id) => {
       try{
+        dispatch(setAmount(amount-1));
+
         await usersServices.deleteUser(id, userToken);
-        dispatch(deleteUser(id))
+        dispatch(deleteUser(id));
       }catch(e){
         console.log(e);
       }

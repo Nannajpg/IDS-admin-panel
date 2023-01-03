@@ -1,17 +1,24 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import React from 'react';
-import UserForm from './cores/users/Form';
 import UsersList from './cores/users/UsersList';
 import Login from './cores/auth/Login';
 import EventsList from './cores/events/EventsList';
-import MatchesList from './cores/matches/MatchesList';
 import Auth from './cores/auth/Auth';
 import Menu from './cores/dashboard/Menu';
 import UserEditForm from './cores/users/EditForm';
 import UserCreateForm from './cores/users/CreateForm';
 import EventEditForm from './cores/events/EditForm';
 import EventCreateForm from './cores/events/CreateForm';
+import AdCreateForm from "./cores/ads/CreateForm";
+import AdEditForm from "./cores/ads/EditForm";
+import AdsList from "./cores/ads/AdsList";
+import StickerForm from './cores/stickers/StickerForm';
+import StickersList from './cores/stickers/StickersList';
+import TeamsList from "./cores/teams/TeamsList";
+import CreateFormTeam from "./cores/teams/CreateFormTeam";
+import EditFormTeam from "./cores/teams/EditFormTeam";
+import MatchesList from './cores/matches/MatchesList';
 import MatchEditForm from './cores/matches/EditForm';
 import MatchCreateForm from './cores/matches/CreateForm';
 
@@ -31,6 +38,15 @@ function App() {
             <Route path="events" element={<EventsList/>} />
             <Route path="events/create" element={<EventCreateForm/>} />
             <Route path="events/edit/:id" element={<EventEditForm/>} />
+            <Route path="/ads" element={<AdsList />} />
+            <Route path="/newAd" element={<AdCreateForm />} />
+            <Route path="/editAd/:id" element={<AdEditForm />} />
+            <Route path='/stickers' element={<StickersList />} />
+            <Route path='/create-sticker' element={<StickerForm />} />
+            <Route path='/edit-sticker/:id' element={<StickerForm />} />
+            <Route path="/teams" element={<TeamsList />} />
+            <Route path="/newTeam" element={<CreateFormTeam />} />
+            <Route path="/editTeam/:id" element={<EditFormTeam />} />
             <Route path="matches" element={<MatchesList/>} />
             <Route path="matches/create" element={<MatchCreateForm/>} />
             <Route path="matches/edit/:id" element={<MatchEditForm/>} />
