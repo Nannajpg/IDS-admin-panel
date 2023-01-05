@@ -9,14 +9,15 @@ import { editAd } from "../../features/ads/adSlice";
 const EditForm = () => {
   const dispatch = useDispatch();
   const ads = useSelector((state) => state.ads.ads);
-  const token = useSelector((state) => state.auth.userToken);
+  const userToken = useSelector((state) => state.auth.userToken);
   const [adFound, setAdFound] = useState();
 
   const { id } = useParams();
 
   const edit = async (ad, id) => {
-    await adsServices.editAd(token, { ad, id });
-    dispatch(editAd())
+    console.log({userToken})
+    await adsServices.editAd(userToken, { ad, id });
+    dispatch(editAd({userToken, ad, id}))
   };
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const EditForm = () => {
   }, []);
 
 
-  return <Form action={edit} id={id} toEditAd={adFound} />;
+  return <Form onSubmit={edit} id={id} toEditAd={adFound} />;
 };
 
 export default EditForm;

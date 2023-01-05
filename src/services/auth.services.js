@@ -1,20 +1,29 @@
 import axios from "axios";
-const URL_LOGIN = "http://localhost:3000/auth/login";
-const URL_SIGNUP = "http://localhost:3000/auth/register";
+import { API_URL } from "../config.js";
+
+const URL_LOGIN = API_URL+"/auth/login";
+const URL_SIGNUP = API_URL+"/auth/register";
 
 export const login = async ({ email, password }) => {
     try {
         const { data } = await axios.post(URL_LOGIN, { email, password });
+        if (!data.user || !data.token){
+            throw new Error ("Ha ocurrido un error con el backend");
+        }
         return data;
     } catch (error) {
-        throw new Error('Datos incorrectos');
+        if (error.response) {
+            throw new Error(
+              error?.response?.data?.message || "Error desconocido del servidor"
+            );
+        }
+        throw error;
     }
 }
 
 export const signup = async (user) => {
     try {
         const res = await axios.post(URL_SIGNUP, user);
-        console.log(res);
         if (!res.ok) {
             throw Error("Fetch fallido");
         }

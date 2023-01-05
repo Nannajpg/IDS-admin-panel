@@ -1,10 +1,12 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/stickers";
+import { API_URL } from "../config.js";
+
+const BASE_URL = API_URL+"/stickers";
 
 export const getAllStickers = async (token, page = 0) => {
     try {
-        const res = await axios.get(BASE_URL+"?size=8&page="+page, {
+        const res = await axios.get(BASE_URL+"?size=4&page="+page, {
             headers:{
                 Authorization: "Bearer " + token,
             }
@@ -44,9 +46,6 @@ export const saveSticker = async (token, sticker) => {
 
 export const editSticker = async (token, sticker, id) => {
     try {
-        console.log(sticker)
-        console.log(id)
-        console.log(token)
         const res = await axios.put(BASE_URL+"/"+id, sticker, {
             headers:{
                 Authorization: "Bearer " + token, 

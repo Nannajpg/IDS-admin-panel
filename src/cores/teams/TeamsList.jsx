@@ -17,9 +17,14 @@ const TeamsList = () => {
   const { isVisible, toggleModal, getId } = useModal();
 
   useEffect(() => {
-    dispatch(fetchTeams(userToken, teams));
+    dispatch(fetchTeams({
+      userToken,
+      page: teams.page,
+      pages: teams.pages,
+      search: teams.search,
+  }));
   // eslint-disable-next-line
-  }, [dispatch, teams.page, teams.search])
+  }, [dispatch, teams.page, teams.search, teams.pages])
 
   return (
     <div className="w-4/6">

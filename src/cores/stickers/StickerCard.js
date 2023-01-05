@@ -13,7 +13,6 @@ function StickerCard({ sticker }) {
     const handleDelete = async (id) => {
         if (window.confirm('¿Desea eliminar ese Sticker?')) {
             const stickerToDelete = stickers.find(sticker => sticker.id == id)
-            console.log(JSON.stringify(stickerToDelete));
             await deletSticker(token, stickerToDelete.id);
             dispatch(deleteSticker(id))
         }

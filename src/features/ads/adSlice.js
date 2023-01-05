@@ -4,8 +4,9 @@ import {
   editAd as editBdAd,
 } from "../../services/ads";
 
-export const editAd = createAsyncThunk("@ads/editAd", async (ad) => {
-  const { announcer, adtype, redirecTo } = await editBdAd(ad);
+export const editAd = createAsyncThunk("@ads/editAd", async ({userToken, ad, id}) => {
+  console.log(userToken)
+  const { announcer, adtype, redirecTo } = await editBdAd(userToken, {ad, id});
   return { announcer, adtype, redirecTo };
 });
 
@@ -26,10 +27,10 @@ export const adsSlice = createSlice({
       state.pages = Math.ceil(payload.totalAds / payload.pageSize);
       state.ads = payload.ads;
     },
-    createAd: (state) => {
+    increaseAmount: (state) => {
       state.amount = state.amount + 1;
     },
-    deleteAd: (state) => {
+    reduceAmount: (state) => {
       state.amount = state.amount - 1;
     },
     editAd: (state) => {
@@ -53,6 +54,6 @@ export const adsSlice = createSlice({
   }
 });
 
-export const { storeAllAds, createAd, deleteAd, nextPage, prevPage, toFirstPage, toSearch, toFilter } =
+export const { storeAllAds, increaseAmount, reduceAmount, nextPage, prevPage, toFirstPage, toSearch, toFilter } =
   adsSlice.actions;
 export default adsSlice.reducer;

@@ -1,5 +1,7 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:3000/users/";
+import { API_URL } from "../config.js";
+
+const BASE_URL = API_URL+"/users/";
 
 export const getUsersAmount = async (token) => {
   try {
@@ -31,7 +33,7 @@ export const createUser = async (user, token) => {
     return data;
   } catch (e) {
     console.log(e.message);
-    throw new Error('error creando usuario');
+    throw new Error(e.message);
   }
 };
 

@@ -4,15 +4,15 @@ import { setPage } from '../../features/stickers/stickerSlice'
 
 import './Pagination.css'
 
-const Pagination = ({ postsPerPage }) => {
+const Pagination = () => {
     
-    const totalPosts = useSelector(state => state.stickers.amount)
     const currentPage = (useSelector(state => state.stickers.page)+1)
+    const totalPages = useSelector(state => state.stickers.totalPages)
     const dispatch = useDispatch()
 
     let pages = []
 
-    for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+    for (let i = 1; i <= totalPages; i++) {
         pages.push(i)
     }
 

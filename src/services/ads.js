@@ -1,6 +1,7 @@
 import axios from "axios";
+import { API_URL } from "../config.js";
 
-const BASE_URL = "http://localhost:3000/ads";
+const BASE_URL = API_URL+"/ads";
 const FETCH_URL = `${BASE_URL}/search?size=3&page=`;
 
 export const fetchAds = async (token, { page = 0, adtype, search }) => {
@@ -13,7 +14,6 @@ export const fetchAds = async (token, { page = 0, adtype, search }) => {
       Authorization: 'Bearer ' + token
     }
   });
-  console.log(res.data)
   return res.data;
 };
 
@@ -48,7 +48,6 @@ export const editAd = async (token, { ad, id }) => {
   const myFile = img;
   
   const adData = { announcer, adType, redirecTo, myFile };
-  console.log(adData)
   const res = await axios.put(BASE_URL + `/${id}`, adData, {
     headers: {
       "Content-Type": "multipart/form-data",

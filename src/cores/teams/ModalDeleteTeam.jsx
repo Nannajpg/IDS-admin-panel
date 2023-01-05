@@ -33,7 +33,6 @@ function ModalDeleteTeam({ isVisible, hideModal, getId }) {
               <button
                 className="bg-red-700 rounded p-2 hover:bg-red-800"
                 onClick={async () => {
-                  console.log("el id es:" + id);
                   await dispatch(deleteTeam({userToken, id}));
                   await dispatch(fetchTeams(userToken, state));
                   hideModal(isVisible);

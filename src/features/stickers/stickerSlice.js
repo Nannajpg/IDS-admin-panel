@@ -5,7 +5,8 @@ export const stickerSlice = createSlice({
     initialState: {
         amount: 0,
         page: 0,
-        stickers: []
+        totalPages: 0,
+        stickers: [] 
     },
     reducers: {
         readStickers: (state, action) => {
@@ -16,12 +17,11 @@ export const stickerSlice = createSlice({
             }
         },
         updateSticker: (state, action) => {
-            const { id, playerName, team, country, position, height, weight, appearanceRate, myFile } = action.payload
+            const { id, playerName, team, position, height, weight, appearanceRate, myFile } = action.payload
             const foundSticker = state.stickers.find(sticker => sticker.id === id)
             if (foundSticker) {
                 foundSticker.playerName = playerName
                 foundSticker.team = team
-                foundSticker.country = country
                 foundSticker.position = position
                 foundSticker.height = height
                 foundSticker.weight = weight
@@ -48,9 +48,12 @@ export const stickerSlice = createSlice({
         setAmount: (state, action) => {
             state.amount = action.payload;
         },
+        setTotalPages: (state, action) => {
+            state.totalPages = action.payload;
+        },
     },
 })
 
-export const { readStickers, updateSticker, deleteSticker, nextPage, prevPage, setPage, setAmount } = stickerSlice.actions
+export const { readStickers, updateSticker, deleteSticker, nextPage, prevPage, setPage, setAmount, setTotalPages } = stickerSlice.actions
 
 export default stickerSlice.reducer

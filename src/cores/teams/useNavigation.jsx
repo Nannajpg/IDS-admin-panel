@@ -7,7 +7,6 @@ const useNavigation = () => {
   const dispatch = useDispatch();
 
   const currentPage = teams.page;
-
   const toNextPage = () => {
     if (teams.page < teams.pages) dispatch(nextPage());
   }

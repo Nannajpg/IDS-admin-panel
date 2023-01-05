@@ -12,11 +12,10 @@ function EventsList() {
     const postPerPage = 9;
     const { page, events, amount } = useSelector(state => state.events);
     const dispatch = useDispatch();
-
+    const {userToken} = useSelector(state => state.auth)
     const getEvents = useCallback(async () => {
-        console.log('Obteniendo eventos...')
         try {
-            const result = await fetchEvents(page, postPerPage);
+            const result = await fetchEvents(userToken, page, postPerPage);
             dispatch(setEvents(result.items));
             dispatch(setAmount(result.paginate.total));
             dispatch(setTotalPages(result.paginate.pages));

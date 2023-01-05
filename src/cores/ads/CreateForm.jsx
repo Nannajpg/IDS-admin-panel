@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Form from './Form'
-import { createAd } from '../../features/ads/adSlice'
+import { increaseAmount } from '../../features/ads/adSlice'
 import * as adsServices from '../../services/ads'
 
 const CreateForm = () => {
@@ -10,11 +10,11 @@ const CreateForm = () => {
 
   const create = async (ad) => {
     await adsServices.createAd(token, ad);
-    dispatch(createAd(ad));
+    dispatch(increaseAmount());
   }
 
   return (
-    <Form action={create}/>
+    <Form onSubmit={create}/>
   )
 }
 

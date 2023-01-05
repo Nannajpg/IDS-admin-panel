@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ValidUrl from "./ValidUrl";
 
-const Form = ({ action, id, toEditAd }) => {
+const Form = ({ onSubmit, id, toEditAd }) => {
   const announcerRef = useRef(null);
   const imgRef = useRef(null);
   const adTypeRef = useRef(null);
@@ -37,9 +37,8 @@ const Form = ({ action, id, toEditAd }) => {
       imgRef.current.value = null;
       adTypeRef.current.value = "";
       redirecToRef.current.value = "";
-      console.log(ad)
       try {
-        await action(ad, id);
+        await onSubmit(ad, id);
       } catch (e) {
         alert(e.message)
       }

@@ -9,20 +9,19 @@ import { useState, useEffect } from "react";
 
 const EditForm = () => {
   const dispatch = useDispatch();
-
+  const {userToken} = useSelector(state => state.auth)
   const events = useSelector((state)=> state.events.eventsAll)
   const { id } = useParams();
   const [eventFound, setEventFound] = useState();
 
   const edit = async (event, id) => {
     try {
-      if (event.status === "Activo"){
-        event.status = true;
-      } else {
-        event.status = false;
+      const eventData = {
+      ...event,
+      status: !!(event.status === "Activo")
       }
-      await eventsServices.editEvent(event, id);
-      dispatch(editEvent(event));
+      await eventsServices.editEvent(userToken, eventData, id);
+      dispatch(editEvent(eventData));
 
     } catch (error) {
       if (error?.response?.data) {
