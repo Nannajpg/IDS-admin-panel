@@ -5,7 +5,8 @@ import Form from './Form';
 import * as eventsServices from '../../services/events.services';
 import { editEvent } from '../../features/events/eventSlice';
 import { useState, useEffect } from "react";
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditForm = () => {
   const dispatch = useDispatch();
@@ -23,15 +24,16 @@ const EditForm = () => {
       }
       await eventsServices.editEvent(userToken, event, id);
       dispatch(editEvent(event));
-
     } catch (error) {
-      if (error?.response?.data) {
-        alert(error?.response?.data.message);
-      }else{
-          alert("Error del servidor al editar evento")
+        if (error.response) {
+          throw new Error(
+            error?.response?.data.message || "Error al editar evento"
+          );
+        }
+      toast.error(error.message);
       }
     }
-  }
+  
   useEffect(() => {
     if (id) {
       setEventFound(

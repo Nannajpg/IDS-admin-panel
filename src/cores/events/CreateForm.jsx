@@ -2,26 +2,25 @@ import React from "react";
 import Form from "./Form";
 import * as eventsServices from "../../services/events.services";
 import { useSelector } from "react-redux";
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateForm = () => {
   const {userToken} = useSelector(state => state.auth)
   const create = async (event) => {
     try {
-      
       return await eventsServices.createEvent(userToken, {
         ...event,
-        status: (event.status === 'Activo')
+        status: (event.status === 'Ativo')
       });
-
     } catch (error) {
-      if (error?.response?.data) {
-        alert(error?.response?.data.message);
-      }else{
-          alert("Error del servidor al editar usuario")
+      if (error.response) {
+        throw new Error(
+          error?.response?.data.message
+        );
       }
+      toast.error(error.message);
     }
-    
   };
 
   return <Form action={create} />;

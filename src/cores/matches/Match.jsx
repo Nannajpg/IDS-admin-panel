@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteMatch } from "../../features/matches/matchSlice";
 import * as matchesServices from "../../services/matches.services";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Match = ({ match }) => {
 
@@ -15,9 +17,13 @@ const Match = ({ match }) => {
       try {
         await matchesServices.deleteMatch(id);
         dispatch(deleteMatch(id));
-      } catch (e) {
-        console.log(e);
-      }
+      } catch (error) {
+        if (error.response) {
+        throw new Error(
+            error?.response?.data?.message || "Error desconocido del servidor"
+        );
+        } toast.error(error.message);
+    }
       
   };
 

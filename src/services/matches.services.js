@@ -1,6 +1,6 @@
 import axios from "axios";
-// const BASE_URL = "http://localhost:3000/matches/";
-const BASE_URL = "http://localhost:3000/games/";
+import { API_URL } from "../config.js";
+const BASE_URL =  API_URL+"/games/";
 
 export const fetchMatches = async (page) => {
   try {

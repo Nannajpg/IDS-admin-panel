@@ -8,6 +8,8 @@ import useModal from "./useModal";
 import Navigation from "./Navigation";
 import * as inventoryServices from "../../services/ads";
 import { storeAllAds } from "../../features/ads/adSlice";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdsList = () => {
   const adsState = useSelector((state) => state.ads);
@@ -20,9 +22,13 @@ const AdsList = () => {
     (async () => { try {
       const data = await inventoryServices.fetchAds(token, adsState);
       dispatch(storeAllAds(data));
-    } catch (e) {
-      alert(e);
-    }
+    } catch (error) {
+      if (error.response) {
+      throw new Error(
+          error?.response?.data?.message || "Error obteniendo anuncios"
+      );
+      } toast.error(error.message);
+  }
   })()
   }, [adsState.amount, adsState.page]);
 

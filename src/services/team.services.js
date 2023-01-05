@@ -32,7 +32,6 @@ export const getSingleTeam = async (token, id) => {
 }
 
 export const createTeam = async (token, team) => {
-
   try{
     const res = await axios.post(BASE_URL, team, {
       headers: {
@@ -42,23 +41,38 @@ export const createTeam = async (token, team) => {
         Authorization: `Bearer ${token}`,
       }
     });
+    if (!res.data) {
+      throw new Error("No se han recibido bien los datos del servidor :(");
+    }
     return res.data;
   }
   catch (error) {
-    console.log(error.message)
+    if (error.response) {
+    throw new Error(
+        error?.response?.data?.message || "Error creando equipo"
+      );
+    } throw error;
   }
 };
 
 export const deleteTeam = async (token, id) => {
   try {
-    const res = await axios.delete(BASE_URL + `/${id}`,{
+    const res = await axios.delete(BASE_URL + `/${800}`,{
       headers: { Authorization: `Bearer ${token}` },
     });
+    if (!res.data) {
+      throw new Error("No se han recibido bien los datos del servidor :(");
+    }
   return res;
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error desconocido del servidor"
+      );
+    }
+    throw error;
   }
-
 }
 
 export const editTeam = async ( token, team, id ) => {
@@ -75,5 +89,4 @@ export const editTeam = async ( token, team, id ) => {
   } catch (error) {
     console.log(error.message)
   }
- 
 }

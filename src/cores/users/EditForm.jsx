@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Form from './Form';
 import * as usersServices from '../../services/users.services';
 import { editUser } from '../../features/users/userSlice';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditForm = () => {
   const dispatch = useDispatch();
@@ -17,11 +18,12 @@ const EditForm = () => {
       await usersServices.editUser(id, userToken, user);
       dispatch(editUser(user));
     } catch (error) {
-      if (error?.response?.data) {
-        alert(error?.response?.data.message);
-      }else{
-          alert("Error del servidor al editar usuario")
+      if (error.response) {
+        throw new Error(
+          error?.response?.data.message || "Error al editar usuario"
+        );
       }
+      toast.error(error.message);
     }
   }
 

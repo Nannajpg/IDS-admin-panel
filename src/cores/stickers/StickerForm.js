@@ -8,8 +8,10 @@ import { fetchAllEvents } from '../../services/events.services';
 import Select from '../../components/select';
 import {fetchAllTeams} from '../../services/team.services'
 import {fetchTeams} from '../../features/teams/teamSlice'
-function StickerForm() {
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+function StickerForm() {
     const events = useSelector(state => state.events.eventsAll);
     const eventsOptions = events.map((event) => ({
         id: event.id,
@@ -44,9 +46,13 @@ function StickerForm() {
             try {
                 const allEvents = await fetchAllEvents(userToken);
                 dispatch(setAllEvents(allEvents.items));
-            } catch (error) {
-                // Mostrar un error
-            } finally {
+            }catch (error) {
+                if (error.response) {
+                throw new Error(
+                    error?.response?.data?.message || "Error desconocido del servidor"
+                );
+                } toast.error(error.message);
+            }finally {
             }
         };
         getOptionsAllEvents();
@@ -58,8 +64,12 @@ function StickerForm() {
                 const allTeams = await fetchAllTeams(userToken);
                 dispatch(fetchTeams(allTeams));
             } catch (error) {
-                // Mostrar un error
-            } finally {
+                if (error.response) {
+                throw new Error(
+                    error?.response?.data?.message || "Error desconocido del servidor"
+                );
+                } toast.error(error.message);
+            }  finally {
             }
         };
         getOptionsAllTeams();

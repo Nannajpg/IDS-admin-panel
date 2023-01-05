@@ -5,6 +5,8 @@ import { addMatch, resetMatches, setAmount } from '../../features/matches/matchS
 import * as matchesServices from '../../services/matches.services'
 import Match from './Match'
 import Pagination from './Pagination'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MatchesList() {
     const postPerPage = 9;
@@ -24,8 +26,12 @@ function MatchesList() {
                 });
                 console.log(data.paginate.total)
                 dispatch(setAmount(data.paginate.total));
-            } catch(e) {
-                console.log(e);
+            } catch (error) {
+                if (error.response) {
+                throw new Error(
+                    error?.response?.data?.message || "Error desconocido del servidor"
+                );
+                } toast.error(error.message);
             }
         }
         getMatches();

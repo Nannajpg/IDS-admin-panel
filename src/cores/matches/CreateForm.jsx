@@ -9,11 +9,14 @@ const CreateForm = () => {
 
 
     try {
-      
       const data = await matchesServices.createMatch(match);
       return data;
-    } catch(e) {
-      console.log(e);
+    } catch (error) {
+        if (error.response) {
+        throw new Error(
+            error?.response?.data?.message || "Error desconocido del servidor"
+        );
+      } throw error;
     }
   };
 

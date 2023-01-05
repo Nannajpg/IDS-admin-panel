@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as usersServices from "../../services/users.services";
 import { deleteUser, setAmount } from "../../features/users/userSlice";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UserCard = ({ user }) => {
   
@@ -16,8 +18,12 @@ const UserCard = ({ user }) => {
 
         await usersServices.deleteUser(id, userToken);
         dispatch(deleteUser(id));
-      }catch(e){
-        console.log(e);
+      } catch (error) {
+        if (error.response) {
+          throw new Error(
+            error?.response?.data.message 
+          );
+        }toast.error(error.message);
       }
   }
 
