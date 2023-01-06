@@ -18,21 +18,43 @@ export const fetchTeams = async (token, page = 0, eventid = "", teamname = '') =
 }
 
 export const fetchAllTeams = async (token) => {
-  const {data}  = await axios.get(BASE_URL + "/all", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return data;
+  try {
+    const {data}  = await axios.get(BASE_URL + "/all", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!data.success) {
+      throw new Error("No se han recibido bien los datos del servidor :(");
+    }
+      return data;
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al obtener equipos"
+      );
+    } throw error;
+  }
 }
 
 export const getSingleTeam = async (token, id) => {
-  const res = await axios.get(BASE_URL + `/${id}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  })
-  return res.data;
+  try {
+    const res = await axios.get(BASE_URL + `/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+  }); 
+  if (!res.success) {
+      throw new Error("No se han recibido bien los datos del servidor :(");
+  }
+return res.data;
+} catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al obtener equipo"
+      );
+    } throw error;
+  }
 }
 
 export const createTeam = async (token, team) => {
-  try{
+  try {
     const res = await axios.post(BASE_URL, team, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -41,19 +63,17 @@ export const createTeam = async (token, team) => {
         Authorization: `Bearer ${token}`,
       }
     });
-    if (!res.data) {
-      throw new Error("No se han recibido bien los datos del servidor :(");
-    }
+      if (!res.data) {
+        throw new Error("No se han recibido bien los datos del servidor :(");
+      }
     return res.data;
-  }
-  catch (error) {
-    if (error.response) {
+  }catch(error) {
+  if (error.response){
     throw new Error(
-        error?.response?.data?.message || "Error creando equipo"
-      );
+      error?.response?.data?.message || "Error al crear equipo");
     } throw error;
   }
-};
+}
 
 export const deleteTeam = async (token, id) => {
   try {
@@ -65,10 +85,9 @@ export const deleteTeam = async (token, id) => {
     }
   return res;
   } catch (error) {
-    console.log(error.message);
     if (error.response) {
       throw new Error(
-        error?.response?.data?.message || "Error desconocido del servidor"
+        error?.response?.data?.message || "Error al eliminar equipo"
       );
     }
     throw error;
@@ -85,8 +104,16 @@ export const editTeam = async ( token, team, id ) => {
         Authorization: `Bearer ${token}`,
       }
     });
+    if (!data.success || !data.message) {
+      throw new Error("No se han recibido bien los datos del servidor :(");
+    }
     return data;
   } catch (error) {
-    console.log(error.message)
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al editar equipo"
+      );
+    }
+    throw error;
   }
 }

@@ -5,38 +5,68 @@ const BASE_URL =  API_URL+"/games/";
 export const fetchMatches = async (page) => {
   try {
     const res = await axios.get(BASE_URL);
-    console.log(page)
+      if (!res.data.items || !res.data.success) {
+        throw new Error("No se han recibido bien los datos del servidor :(");
+      }
     return res.data;
-  } catch (e) {
-    throw new Error('error fetcheando partidos');
-  }
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al obtener partidos"
+      );
+    }
+    throw error;
+  } 
 }
 
 export const createMatch = async (match) => {
   try {
-      const res = await axios.post(BASE_URL, match);
-      console.log(res.data);
-      return res.data;
+      const { data } = await axios.post(BASE_URL, match);
+        if (!data.items || !data.success) {
+          throw new Error("No se han recibido bien los datos del servidor :(");
+        }
+      return data;
   } catch (error) {
-      console.log(error.message);
-  }
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al obtener partidos"
+      );
+    }
+    throw error;
+  } 
 }
 
 export const editMatch = async (match, id) => {
   try {
     const res = await axios.put(BASE_URL + id, match)
     match.id = Number(id);
+      if (!res.data.items || !res.data.success) {
+        throw new Error("No se han recibido bien los datos del servidor :(");
+      }
     return match;
-  } catch(e) {
-    throw new Error('error editando partido');
-  }
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al obtener partidos"
+      );
+    }
+    throw error;
+  } 
 }
 
 export const deleteMatch = async (id) => {
   try {
     const res = await axios.delete(BASE_URL + id);
+      if (!res.data.items || !res.data.success) {
+        throw new Error("No se han recibido bien los datos del servidor :(");
+      }
     return res;
-  } catch (e) {
-    throw new Error('error eliminando partido');
-  }
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al obtener partidos"
+      );
+    }
+    throw error;
+  } 
 }
