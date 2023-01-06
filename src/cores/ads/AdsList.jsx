@@ -8,14 +8,11 @@ import useModal from "./useModal";
 import Navigation from "./Navigation";
 import * as inventoryServices from "../../services/ads";
 import { storeAllAds } from "../../features/ads/adSlice";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
 
 const AdsList = () => {
   const adsState = useSelector((state) => state.ads);
   const token = useSelector((state) => state.auth.userToken);
   const dispatch = useDispatch();
-  const notify = () => toast("YOEL GUTIERREZ ES NOVIO DE MAXWELL");
 
   const { isVisible, toggleModal, getId } = useModal();
 
@@ -44,10 +41,7 @@ const AdsList = () => {
         getId={getId}
       />
       <Navigation />
-      <div>
-        <button onClick={notify}>YOELITO</button>
-        <ToastContainer />
-      </div>
+      
     </div>
   );
 };
