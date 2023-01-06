@@ -7,6 +7,7 @@ import Match from './Match'
 import Pagination from './Pagination'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setLoading } from "../../features/global/globalSlice";
 
 function MatchesList() {
     const postPerPage = 9;
@@ -20,6 +21,7 @@ function MatchesList() {
         // dispatch(resetMatches());
         const getMatches = async () => {
             try {
+                dispatch(setLoading(true));
                 const data = await matchesServices.fetchMatches(page);
                 data.games.forEach(match => {
                     dispatch(addMatch(match));
@@ -32,6 +34,8 @@ function MatchesList() {
                     error?.response?.data?.message || "Error desconocido del servidor"
                 );
                 } toast.error(error.message);
+            } finally {
+                dispatch(setLoading(false));
             }
         }
         getMatches();

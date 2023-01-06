@@ -10,6 +10,7 @@ import {fetchAllTeams} from '../../services/team.services'
 import {fetchTeams} from '../../features/teams/teamSlice'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setLoading } from "../../features/global/globalSlice";
 
 function StickerForm() {
     const events = useSelector(state => state.events.eventsAll);
@@ -44,6 +45,7 @@ function StickerForm() {
     useEffect(() => {
         const getOptionsAllEvents = async () => {
             try {
+                dispatch(setLoading(true));
                 const allEvents = await fetchAllEvents(userToken);
                 dispatch(setAllEvents(allEvents.items));
             }catch (error) {
@@ -53,6 +55,7 @@ function StickerForm() {
                 );
                 } toast.error(error.message);
             }finally {
+                dispatch(setLoading(false));
             }
         };
         getOptionsAllEvents();
@@ -61,6 +64,7 @@ function StickerForm() {
     useEffect(() => {
         const getOptionsAllTeams = async () => {
             try {
+                //dispatch(setLoading(true));
                 const allTeams = await fetchAllTeams(userToken);
                 dispatch(fetchTeams(allTeams));
             } catch (error) {
@@ -70,6 +74,7 @@ function StickerForm() {
                 );
                 } toast.error(error.message);
             }  finally {
+                dispatch(setLoading(false));
             }
         };
         getOptionsAllTeams();

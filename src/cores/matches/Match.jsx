@@ -5,16 +5,16 @@ import { deleteMatch } from "../../features/matches/matchSlice";
 import * as matchesServices from "../../services/matches.services";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setLoading } from "../../features/global/globalSlice";
 
 const Match = ({ match }) => {
 
   const dispatch = useDispatch();
   console.log(typeof(match.matchedAt))
 
-  
-
   const handleDelete = async (id) => {
       try {
+        dispatch(setLoading(true));
         await matchesServices.deleteMatch(id);
         dispatch(deleteMatch(id));
       } catch (error) {
@@ -23,8 +23,9 @@ const Match = ({ match }) => {
             error?.response?.data?.message || "Error desconocido del servidor"
         );
         } toast.error(error.message);
+    } finally {
+      dispatch(setLoading(false));
     }
-      
   };
 
   return (

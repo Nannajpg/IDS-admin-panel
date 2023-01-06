@@ -8,6 +8,7 @@ import { fetchAllEvents } from "../../services/events.services";
 import Select from "../../components/select";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { setLoading } from "../../features/global/globalSlice";
 
 function TeamForm() {
   const events = useSelector((state) => state.events.eventsAll);
@@ -31,6 +32,7 @@ function TeamForm() {
   useEffect(() => {
     const getOptionsAllEvents = async () => {
       try {
+        dispatch(setLoading(true));
         const allEvents = await fetchAllEvents(userToken);
         dispatch(setAllEvents(allEvents.items));
       } catch (error) {
@@ -40,7 +42,8 @@ function TeamForm() {
           );
         }toast.error(error.message);
       } finally {
-        }
+        dispatch(setLoading(false));
+      }
     };
     getOptionsAllEvents();
   }, []);

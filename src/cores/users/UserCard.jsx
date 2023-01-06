@@ -5,6 +5,7 @@ import * as usersServices from "../../services/users.services";
 import { deleteUser, setAmount } from "../../features/users/userSlice";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setLoading } from "../../features/global/globalSlice";
 
 const UserCard = ({ user }) => {
   
@@ -14,8 +15,8 @@ const UserCard = ({ user }) => {
 
   const handleDelete = async (id) => {
       try{
+        dispatch(setLoading(true));
         dispatch(setAmount(amount-1));
-
         await usersServices.deleteUser(id, userToken);
         dispatch(deleteUser(id));
       } catch (error) {
@@ -24,6 +25,8 @@ const UserCard = ({ user }) => {
             error?.response?.data.message 
           );
         }toast.error(error.message);
+      } finally {
+        dispatch(setLoading(false));
       }
   }
 

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteEvent, setAmount } from "../../features/events/eventSlice";
 import * as eventsServices from "../../services/events.services";
+import { setLoading } from "../../features/global/globalSlice";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,6 +15,7 @@ const Event = ({ event }) => {
   
   const handleDelete = async (id) => {
       try {
+        dispatch(setLoading(true));
         dispatch(setAmount(amount-1));
         await eventsServices.deleteEvent(userToken, id);
         dispatch(deleteEvent(id));
@@ -23,6 +25,8 @@ const Event = ({ event }) => {
             error?.response?.data.message || "Error eliminando evento"
           );
         } toast.error(error.message);
+      } finally {
+        dispatch(setLoading(false));
       }
   };
   

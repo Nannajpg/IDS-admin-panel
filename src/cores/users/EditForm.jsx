@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Form from './Form';
 import * as usersServices from '../../services/users.services';
 import { editUser } from '../../features/users/userSlice';
+import { setLoading } from "../../features/global/globalSlice";
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css'
 
 const EditForm = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const EditForm = () => {
 
   const edit = async (user, id) => {
     try {
+      dispatch(setLoading(true));
       await usersServices.editUser(id, userToken, user);
       dispatch(editUser(user));
     } catch (error) {
@@ -24,6 +26,8 @@ const EditForm = () => {
         );
       }
       toast.error(error.message);
+    } finally {
+      dispatch(setLoading(false));
     }
   }
 

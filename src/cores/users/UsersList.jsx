@@ -5,6 +5,7 @@ import { addUser, resetUsers, setAmount} from '../../features/users/userSlice'
 import * as usersServices from "../../services/users.services";
 import UserCard from './UserCard'
 import Pagination from './Pagination'
+import { setLoading } from "../../features/global/globalSlice";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,6 +21,7 @@ function UsersList() {
         dispatch(resetUsers());
         const getUsers = async () => {
             try {
+                dispatch(setLoading(true));
                 const data = await usersServices.fetchUsers(userToken, page);
                 console.log(userToken)
                 data.items.forEach(user => {
@@ -30,6 +32,8 @@ function UsersList() {
                 if (error.response) {
                     throw new Error(error?.response?.data.message);
                 } toast.error(error.message);
+            } finally {
+                dispatch(setLoading(false));
             }
         }
         getUsers();

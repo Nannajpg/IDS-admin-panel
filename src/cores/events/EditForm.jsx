@@ -7,6 +7,7 @@ import { editEvent } from '../../features/events/eventSlice';
 import { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setLoading } from "../../features/global/globalSlice";
 
 const EditForm = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const EditForm = () => {
 
   const edit = async (event, id) => {
     try {
+      dispatch(setLoading(true));
       if (event.status === "Activo"){
         event.status = true;
       } else {
@@ -31,6 +33,8 @@ const EditForm = () => {
           );
         }
       toast.error(error.message);
+      } finally {
+        dispatch(setLoading(false));
       }
     }
   
