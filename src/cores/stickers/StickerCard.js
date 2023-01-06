@@ -2,18 +2,16 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { deleteSticker } from '../../features/stickers/stickerSlice'
-import { deletSticker } from '../../services/stickers.services';
+import * as stickerServices from '../../services/stickers.services';
 
 function StickerCard({ sticker }) {
     
     const dispatch = useDispatch();
-    const stickers = useSelector(state => state.stickers.stickers);
     const token = useSelector(state => state.auth.userToken)
 
     const handleDelete = async (id) => {
         if (window.confirm('¿Desea eliminar ese Sticker?')) {
-            const stickerToDelete = stickers.find(sticker => sticker.id == id)
-            await deletSticker(token, stickerToDelete.id);
+            await stickerServices.deleteSticker(token, id);
             dispatch(deleteSticker(id))
         }
     }

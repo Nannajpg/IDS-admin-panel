@@ -41,7 +41,6 @@ const AdsList = () => {
         getId={getId}
       />
       <Navigation />
-      
     </div>
   );
 };

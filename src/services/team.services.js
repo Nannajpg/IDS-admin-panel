@@ -46,7 +46,7 @@ export const createTeam = async (token, team) => {
         Authorization: `Bearer ${token}`,
       }
     });
-    console.log(res.data.success)
+    console.log(res.data)
     return res.data;
   }
   catch (error) {

@@ -58,9 +58,9 @@ export const editSticker = async (token, sticker, id) => {
     }
 }
 
-export const deletSticker = async (token, playerName) => {
+export const deleteSticker = async (token, id) => {
     try {
-        const res = await axios.delete(BASE_URL+"/"+playerName, {
+        const res = await axios.delete(BASE_URL+"/"+id, {
             headers:{
                 Authorization: "Bearer " + token,
             }
