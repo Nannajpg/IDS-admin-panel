@@ -8,15 +8,12 @@ const useNavigation = () => {
 
   const currentPage = state.page;
 
-  const pagesAmount = Math.ceil(state.amount / 6);
-
   const toNextPage = () => {
-    if (state.page < pagesAmount - 1) dispatch(nextPage());
+    if (state.page < state.pages - 1) dispatch(nextPage());
   }
 
   const toPrevPage = () => {
     if (state.page > 0) dispatch(prevPage()); 
-
   }
 
   return { currentPage, toNextPage, toPrevPage }; 

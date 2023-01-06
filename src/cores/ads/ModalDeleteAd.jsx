@@ -1,12 +1,22 @@
 import React from "react";
-import { deleteAd, fetchAds } from "../../features/ads/adSlice";
+import * as adsServices from "../../services/ads";
 import { useDispatch, useSelector } from "react-redux";
+import { reduceAmount } from "../../features/ads/adSlice";
 
 function ModalDeleteAd({ isVisible, hideModal, getId }) {
+  const token = useSelector((state) => state.auth.userToken);
   const dispatch = useDispatch();
   const id = getId();
 
-  const state = useSelector(state => state.ads);
+  const handleDelete = async () => {
+    try {
+      await adsServices.deleteAd(token, id);
+      dispatch(reduceAmount());
+      hideModal(isVisible);
+    } catch (e) {
+      alert(e.message);
+    }
+  }
 
   return (
     <>
@@ -31,11 +41,7 @@ function ModalDeleteAd({ isVisible, hideModal, getId }) {
               </button>
               <button
                 className="bg-red-700 rounded p-2 hover:bg-red-800"
-                onClick={async () => {
-                  await dispatch(deleteAd(id, state));
-                  await dispatch(fetchAds(state));
-                  hideModal(isVisible);
-                }}
+                onClick={handleDelete}
               >
                 Eliminar
               </button>
