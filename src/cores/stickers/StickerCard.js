@@ -8,7 +8,7 @@ function StickerCard({ sticker }) {
     
     const dispatch = useDispatch();
     const token = useSelector(state => state.auth.userToken)
-
+    
     const handleDelete = async (id) => {
         if (window.confirm('¿Desea eliminar ese Sticker?')) {
             await stickerServices.deleteSticker(token, id);
@@ -18,8 +18,10 @@ function StickerCard({ sticker }) {
     return (
         
         <div key={sticker.id} className='bg-slate-400 p-4 rounded-md'>
+            {console.log(sticker.team)}
             <img src={sticker.img} alt='stickerImg' className='w-25' />
             <p className='text-sm'>Nombre: {sticker.playerName}</p>
+            <p className='text-sm'>Evento: </p>
             <p className='text-sm'>Equipo: {sticker.team.name}</p>
             <p className='text-sm'>País: {sticker.country}</p>
             <p className='text-sm'>Posición: {sticker.position}</p>
