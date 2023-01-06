@@ -45,7 +45,6 @@ export const deleteUser = async (id, token) => {
     const res = await axios.delete(BASE_URL + id, {
       headers: { Authorization: `Bearer ${token}` },
     });
-
     if (!res.data.success || !res.data.message) {
       throw new Error(
         "No se han recibido bien los datos del servidor :("
