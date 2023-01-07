@@ -5,7 +5,6 @@ export const matchSlice = createSlice({
     initialState: {
         amount: 0,
         page: 0,
-        totalPages: 0,
         matches: []
     },
     reducers:{
@@ -40,11 +39,8 @@ export const matchSlice = createSlice({
         setAmount: (state, action) => {
             state.amount = action.payload;
         },
-        setTotalPages: (state, action) => {
-            state.totalPages = action.payload;
-        },
     }
 })
 
-export const {resetMatches, setMatches, editMatch, deleteMatch, setAmount, setPage, setTo} = matchSlice.actions
+export const {resetMatches, setMatches, editMatch, deleteMatch, setAmount, setPage} = matchSlice.actions
 export default matchSlice.reducer

@@ -17,19 +17,6 @@ export const getAllStickers = async (token, page = 0) => {
     }
 }
 
-export const getStickersAmount = async (token, page = 0) => {
-    try {
-        const res = await axios.get(BASE_URL+"/amount", {
-            headers:{
-                Authentication: "Bearer " + token,
-            }
-        }); //"/amount" no exister
-        return res;
-    } catch (error) {
-        console.log("Error ", error);
-    }
-}
-
 export const saveSticker = async (token, sticker) => {
     try {
         const res = await axios.post(BASE_URL, sticker, {

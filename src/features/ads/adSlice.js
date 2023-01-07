@@ -1,11 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
-  deleteAd as deleteBdAd,
   editAd as editBdAd,
 } from "../../services/ads";
 
 export const editAd = createAsyncThunk("@ads/editAd", async ({userToken, ad, id}) => {
-  console.log(userToken)
   const { announcer, adtype, redirecTo } = await editBdAd(userToken, {ad, id});
   return { announcer, adtype, redirecTo };
 });

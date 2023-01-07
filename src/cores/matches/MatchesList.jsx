@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { setMatches, resetMatches, setAmount, setTotalPages } from '../../features/matches/matchSlice'
+import { setMatches, resetMatches, setAmount } from '../../features/matches/matchSlice'
 import { setPage } from '../../features/stickers/stickerSlice'
 import * as matchesServices from '../../services/matches.services'
 import Match from './Match'
@@ -17,22 +17,18 @@ function MatchesList() {
     const matches = useSelector(state => state.matches.matches)
     const dispatch = useDispatch();
 
-    const getMatches = async (userToken, page, postPerPage, date) => {
+    const getMatches = useCallback(async () => {
         try {
             dispatch(resetMatches());
             const data = await matchesServices.fetchMatches(userToken, page, postPerPage, date);
-            console.log(data.paginate.total)
             dispatch(setMatches(data.items));
             dispatch(setAmount(data.paginate.total));    
             dispatch(setPage(data.paginate.page));
         } catch(e) {
             console.log(e);
         }
-    }
-
-    useEffect(() => {    
-        getMatches(userToken, page, postPerPage, date);
-    }, [dispatch, userToken, page, postPerPage, date])
+    }, [dispatch, userToken, page, postPerPage, date]);
+    useEffect(() => { getMatches() }, [getMatches])
     
     return (
         <div className='w-4/6'>
@@ -46,7 +42,7 @@ function MatchesList() {
             </header>
 
             <div className='grid grid-cols-3 gap-4'>
-                {matches.map(match => (<Match match={match} onDelete={() => getMatches(userToken, page, postPerPage, date)} key={match.id}/>))}
+                {matches.map(match => (<Match match={match} onDelete={() => getMatches()} key={match.id}/>))}
             </div>
 
             <div className='py-4'>

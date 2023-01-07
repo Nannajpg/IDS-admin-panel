@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import StickersListHeader from './StickersListHeader'
 import { readStickers, setAmount, setTotalPages } from '../../features/stickers/stickerSlice'
 import StickerCard from './StickerCard';
-import { getAllStickers, getStickersAmount } from '../../services/stickers.services';
+import { getAllStickers} from '../../services/stickers.services';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from './Pagination'
 
@@ -26,7 +26,6 @@ const StickerList = () => {
                 dispatch(setAmount(res.data.paginate.total));
             }
         }
-        console.log(stickerState.stickers)
         getStickers();
     }, [dispatch, stickerState.page, stickerState.stickers, token])
 

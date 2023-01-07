@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
 import Select from '../../components/select';
@@ -7,6 +7,7 @@ import useEventsOptions from '../../hooks/useEventsOptions'
 import useTeamsOptions from '../../hooks/useTeamsOptions'
 import { fetchAllEvents } from '../../services/events.services';
 import { setAllEvents } from '../../features/events/eventSlice'
+import { Link } from 'react-router-dom'
 
 function MatchForm({ action, id }) {
 
@@ -42,7 +43,7 @@ function MatchForm({ action, id }) {
             }
         };
         getOptionsAllEvents();
-    }, [userToken]);
+    }, [userToken, dispatch]);
 
     const changeEventId = value => {
         setSelectedEventId(value)
@@ -87,7 +88,6 @@ function MatchForm({ action, id }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(match)
         await action(match, id);
         navigate('/matches');
     }
@@ -145,6 +145,7 @@ function MatchForm({ action, id }) {
                     Formato: csv
                 </p>   
             <button className="bg-emerald-600 px-2 py-1 rounded-md">Guardar</button>
+            <Link to="/matches" className="bg-red-500 px-2 py-1 rounded-md mx-8">Volver</Link>
         </form>
     )
 }

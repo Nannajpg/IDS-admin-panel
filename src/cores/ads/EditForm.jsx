@@ -15,7 +15,6 @@ const EditForm = () => {
   const { id } = useParams();
 
   const edit = async (ad, id) => {
-    console.log({userToken})
     await adsServices.editAd(userToken, { ad, id });
     dispatch(editAd({userToken, ad, id}))
   };
@@ -26,7 +25,7 @@ const EditForm = () => {
         ads.find(ad => ad.id === Number(id))
       );
     }
-  }, []);
+  },[id, ads]);
 
 
   return <Form onSubmit={edit} id={id} toEditAd={adFound} />;
