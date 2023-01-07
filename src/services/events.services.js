@@ -45,7 +45,7 @@ export const createEvent = async (token, event) => {
       const res = await axios.post(BASE_URL, event, {
         headers: { Authorization: `Bearer ${token}` },
       });
-        if (!res.data.items || !res.data.success) {
+        if (!res.data.message || !res.data.item) {
           throw new Error("No se han recibido bien los datos del servidor :(");
         }
       return res.data;

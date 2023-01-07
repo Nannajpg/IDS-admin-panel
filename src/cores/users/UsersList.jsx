@@ -23,7 +23,6 @@ function UsersList() {
             try {
                 dispatch(setLoading(true));
                 const data = await usersServices.fetchUsers(userToken, page);
-                console.log(userToken)
                 data.items.forEach(user => {
                     dispatch(addUser(user));
                 });

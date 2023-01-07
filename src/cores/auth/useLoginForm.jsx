@@ -5,6 +5,8 @@ import useForm from '../../hooks/useForm';
 import { login } from '../../features/auth/authSlice';
 import * as authServices from '../../services/auth.services';
 import { setLoading } from "../../features/global/globalSlice";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const useLoginForm = () => {
 
@@ -20,7 +22,7 @@ const useLoginForm = () => {
       dispatch(login(user));
       navigate("/dashboard");
     } catch(e) {
-      alert(e);
+      toast.error(e.message);
     } finally {
       dispatch(setLoading(false));
     }

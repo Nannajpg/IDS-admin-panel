@@ -2,6 +2,9 @@ import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ValidUrl from "./ValidUrl";
+import { setLoading } from "../../features/global/globalSlice";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const Form = ({ action, id, toEditAd }) => {
   const announcerRef = useRef(null);
@@ -37,10 +40,11 @@ const Form = ({ action, id, toEditAd }) => {
       imgRef.current.value = null;
       adTypeRef.current.value = "";
       redirecToRef.current.value = "";
+      
       try {
-        await action(ad, id);
+        await action(ad, id);  
       } catch (e) {
-        alert(e.message)
+        toast.error(e.message);
       }
       navigate("/ads");
     }

@@ -63,10 +63,10 @@ export const createTeam = async (token, team) => {
         Authorization: `Bearer ${token}`,
       }
     });
+    console.log(res.data);
       if (!res.data) {
         throw new Error("No se han recibido bien los datos del servidor :(");
       }
-    return res.data;
   }catch(error) {
   if (error.response){
     throw new Error(
@@ -77,7 +77,7 @@ export const createTeam = async (token, team) => {
 
 export const deleteTeam = async (token, id) => {
   try {
-    const res = await axios.delete(BASE_URL + `/${800}`,{
+    const res = await axios.delete(BASE_URL + `/${id}`,{
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!res.data) {

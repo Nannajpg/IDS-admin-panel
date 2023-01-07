@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 import { API_URL } from "../config.js";
 
 const BASE_URL = API_URL+"/ads";
@@ -24,7 +25,7 @@ return res.data;
     if (error.response) {
       throw new Error(
         error?.response?.data?.message || "Error al crear anuncio");
-    }throw error;
+    } toast.error(error.message);
   }
 };
 
@@ -49,7 +50,7 @@ export const createAd = async (token, ad) => {
     if (error.response) {
       throw new Error(
         error?.response?.data?.message || "Error al crear anuncio");
-    } throw error;
+    } toast.error(error.message);
   }
 }
 
