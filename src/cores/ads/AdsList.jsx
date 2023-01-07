@@ -22,7 +22,7 @@ const AdsList = () => {
   useEffect(() => {
     (async () => {
       try {
-        //dispatch(setLoading(true));
+        dispatch(setLoading(true));
         const data = await inventoryServices.fetchAds(token, adsState);
         dispatch(storeAllAds(data));
       } catch (error) {

@@ -5,6 +5,8 @@ import * as adsServices from "../../services/ads";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { editAd } from "../../features/ads/adSlice";
+import { toast } from "react-toastify";
+import { setLoading } from "../../features/global/globalSlice";
 
 const EditForm = () => {
   const dispatch = useDispatch();
@@ -15,18 +17,22 @@ const EditForm = () => {
   const { id } = useParams();
 
   const edit = async (ad, id) => {
-    await adsServices.editAd(token, { ad, id });
-    dispatch(editAd())
+    try {
+      dispatch(setLoading(true));
+      await adsServices.editAd(token, { ad, id });
+      await dispatch(editAd()).unwrap();
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
   };
 
   useEffect(() => {
     if (id) {
-      setAdFound(
-        ads.find(ad => ad.id === Number(id))
-      );
+      setAdFound(ads.find((ad) => ad.id === Number(id)));
     }
   }, []);
-
 
   return <Form action={edit} id={id} toEditAd={adFound} />;
 };

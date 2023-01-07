@@ -13,7 +13,7 @@ function ModalDeleteAd({ isVisible, hideModal, getId }) {
 
   const handleDelete = async () => {
     try {
-      //dispatch(setLoading(true));
+      dispatch(setLoading(true));
       await adsServices.deleteAd(token, id);
       dispatch(deleteAd());
       hideModal(isVisible);

@@ -21,8 +21,8 @@ const useLoginForm = () => {
       const user = await authServices.login(inputValues);
       dispatch(login(user));
       navigate("/dashboard");
-    } catch(e) {
-      toast.error(e.message);
+    } catch(error) {
+      toast.error(error.message);
     } finally {
       dispatch(setLoading(false));
     }

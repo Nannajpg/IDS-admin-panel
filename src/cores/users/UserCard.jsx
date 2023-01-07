@@ -3,32 +3,30 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as usersServices from "../../services/users.services";
 import { deleteUser, setAmount } from "../../features/users/userSlice";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { setLoading } from "../../features/global/globalSlice";
 
 const UserCard = ({ user }) => {
-  
-  const dispatch = useDispatch()
-  const { userToken } = useSelector(state => state.auth);
-  const amount = useSelector(state => state.events);
+  const dispatch = useDispatch();
+  const { userToken } = useSelector((state) => state.auth);
+  const amount = useSelector((state) => state.events);
 
   const handleDelete = async (id) => {
-      try{
-        dispatch(setLoading(true));
-        dispatch(setAmount(amount-1));
-        await usersServices.deleteUser(id, userToken);
-        dispatch(deleteUser(id));
-      } catch (error) {
-        if (error.response) {
-          throw new Error(
-            error?.response?.data.message 
-          );
-        }toast.error(error.message);
-      } finally {
-        dispatch(setLoading(false));
+    try {
+      dispatch(setLoading(true));
+      dispatch(setAmount(amount - 1));
+      await usersServices.deleteUser(id, userToken);
+      dispatch(deleteUser(id));
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error?.response?.data.message);
       }
-  }
+      toast.error(error.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
 
   return (
     <div key={user.id} className="bg-neutral-800 p-4 rounded-md">

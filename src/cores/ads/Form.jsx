@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ValidUrl from "./ValidUrl";
 import { setLoading } from "../../features/global/globalSlice";
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
+
 
 const Form = ({ action, id, toEditAd }) => {
   const announcerRef = useRef(null);

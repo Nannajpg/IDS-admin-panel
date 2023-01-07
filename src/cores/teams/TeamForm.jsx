@@ -17,6 +17,7 @@ function TeamForm() {
     id: event.id,
     name: event.eventName,
   }));
+  
 
   const [team, setTeam] = useState({
     name: "",
