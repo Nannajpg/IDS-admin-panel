@@ -8,6 +8,9 @@ import useModal from "./useModal";
 import Navigation from "./Navigation";
 import * as inventoryServices from "../../services/ads";
 import { storeAllAds } from "../../features/ads/adSlice";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { setLoading } from "../../features/global/globalSlice";
 
 const AdsList = () => {
   const adsState = useSelector((state) => state.ads);
@@ -17,15 +20,22 @@ const AdsList = () => {
   const { isVisible, toggleModal, getId } = useModal();
 
   useEffect(() => {
-    (async () => { try {
-      const data = await inventoryServices.fetchAds(token, adsState);
-      dispatch(storeAllAds(data));
-    } catch (e) {
-      alert(e);
-    }
-  })()
+    (async () => {
+      try {
+        dispatch(setLoading(true));
+        const data = await inventoryServices.fetchAds(token, adsState);
+        dispatch(storeAllAds(data));
+      } catch (error) {
+        if (error.response) {
+          throw new Error(
+            error?.response?.data?.message || "Error obteniendo anuncios"
+          );
+        } toast.error(error.message);
+      } finally {
+        dispatch(setLoading(false));
+      }
+    })();
   }, [adsState.amount, adsState.page]);
-
 
   return (
     <div className="w-4/6">

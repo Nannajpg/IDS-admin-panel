@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { deleteSticker } from '../../features/stickers/stickerSlice'
 import * as stickerServices from '../../services/stickers.services';
+import { toast } from 'react-toastify';
+import { setLoading } from "../../features/global/globalSlice";
 
 function StickerCard({ sticker }) {
     
@@ -10,11 +12,18 @@ function StickerCard({ sticker }) {
     const token = useSelector(state => state.auth.userToken)
     
     const handleDelete = async (id) => {
-        if (window.confirm('¿Desea eliminar ese Sticker?')) {
+        try {
+          dispatch(setLoading(true));
+          if (window.confirm('¿Desea eliminar ese Sticker?')) {
             await stickerServices.deleteSticker(token, id);
             dispatch(deleteSticker(id))
+            }
+        } catch (error) {
+          toast.error(error.message);
+        } finally {
+          dispatch(setLoading(false));
         }
-    }
+      };
     return (
         
         <div key={sticker.id} className='bg-slate-400 p-4 rounded-md'>

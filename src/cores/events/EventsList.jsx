@@ -6,7 +6,7 @@ import { setEvents, setAmount, setTotalPages } from '../../features/events/event
 import { fetchEvents } from '../../services/events.services'
 import Event from './Event'
 import Pagination from './Pagination'
-
+import { setLoading } from "../../features/global/globalSlice";
 
 function EventsList() {
     const postPerPage = 9;
@@ -15,6 +15,7 @@ function EventsList() {
     const {userToken} = useSelector(state => state.auth)
     const getEvents = useCallback(async () => {
         try {
+            dispatch(setLoading(true));
             const result = await fetchEvents(userToken, page, postPerPage);
             dispatch(setEvents(result.items));
             dispatch(setAmount(result.paginate.total));
@@ -31,6 +32,7 @@ function EventsList() {
                 theme: "light",
             });
         } finally {
+            dispatch(setLoading(false));
         }
     }, [page, dispatch]);
 

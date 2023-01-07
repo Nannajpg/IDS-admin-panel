@@ -9,7 +9,7 @@ import {
 export const fetchTeams = createAsyncThunk(
   "@teams/fetchTeams",
   async ({userToken, page, event, search }) => {
-    
+    console.log(userToken)
     const res = await getAllTeams(userToken, page, event, search);
     return res;
   }
@@ -24,6 +24,7 @@ export const uploadTeam = createAsyncThunk(
 );
 
 export const deleteTeam = createAsyncThunk("@teams/deleteTeam", async ({userToken, id}) => {
+  console.log("->", userToken)
   await deleteBdTeam(userToken, id);
   return 0;
 });

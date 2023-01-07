@@ -8,31 +8,55 @@ export const fetchMatches = async (token, page, perPage, date) => {
     const res = await axios.get(BASE_URL + "?size="+ perPage + "&page=" + page + "&togamedate=" + date, {
       headers: { Authorization: `Bearer ${token}` },
     });
+    if (!res.data.items || !res.data.success) {
+      throw new Error("No se han recibido bien los datos del servidor :(");
+    }
     return res.data;
-  } catch (e) {
-    throw new Error('error fetcheando partidos');
-  }
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al obtener partidos"
+      );
+    }
+    throw error;
+  } 
 }
 
 export const createMatch = async (token, match) => {
   try {
-      const res = await axios.post(BASE_URL, match, {
+      const {data} = await axios.post(BASE_URL, match, {
         headers: { Authorization: `Bearer ${token}`,
         "Content-Type": "multipart/form-data"
       }
       },);
-      console.log(res.data);
-      return res.data;
+      if (!data.item || !data.success || !data.message) {
+        throw new Error("Negro");
+      }
+      return data;
   } catch (error) {
-      console.log(error.message);
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al obtener partidos"
+      );
+    }
+    throw error;
   }
 }
 
 export const deleteMatch = async (id) => {
   try {
     const res = await axios.delete(BASE_URL + `/${id}`);
+    console.log(res.data)
+      if (!res.data.message || !res.data.success) {
+        throw new Error("No se han recibido bien los datos del servidor :(");
+      }
     return res;
-  } catch (e) {
-    throw new Error('error eliminando partido');
-  }
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al obtener partidos"
+      );
+    }
+    throw error;
+  } 
 }

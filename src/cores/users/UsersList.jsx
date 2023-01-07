@@ -5,6 +5,9 @@ import { addUser, resetUsers, setAmount} from '../../features/users/userSlice'
 import * as usersServices from "../../services/users.services";
 import UserCard from './UserCard'
 import Pagination from './Pagination'
+import { setLoading } from "../../features/global/globalSlice";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function UsersList() {
     const postPerPage = 9;
@@ -18,13 +21,18 @@ function UsersList() {
         dispatch(resetUsers());
         const getUsers = async () => {
             try {
+                dispatch(setLoading(true));
                 const data = await usersServices.fetchUsers(userToken, page);
                 data.items.forEach(user => {
                     dispatch(addUser(user));
                 });
                 dispatch(setAmount(data.paginate.total));
-            } catch(e) {
-                console.log(e);
+            } catch (error) {
+                if (error.response) {
+                    throw new Error(error?.response?.data.message);
+                } toast.error(error.message);
+            } finally {
+                dispatch(setLoading(false));
             }
         }
         getUsers();

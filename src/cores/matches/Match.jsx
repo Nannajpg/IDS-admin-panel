@@ -3,19 +3,30 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteMatch } from "../../features/matches/matchSlice";
 import * as matchesServices from "../../services/matches.services";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { setLoading } from "../../features/global/globalSlice";
 
 const Match = ({ match, onDelete }) => {
+
   const dispatch = useDispatch();
 
   const handleDelete = async (id) => {
-    try {
-      await matchesServices.deleteMatch(id);
-      dispatch(deleteMatch(id));
-      onDelete();
-    } catch (e) {
-      console.log(e);
+      try {
+        dispatch(setLoading(true));
+        await matchesServices.deleteMatch(id);
+        dispatch(deleteMatch(id));
+        onDelete();
+      } catch (error) {
+        if (error.response) {
+        throw new Error(
+            error?.response?.data?.message || "Error desconocido del servidor"
+        );
+        } toast.error(error.message);
+    } finally {
+      dispatch(setLoading(false));
     }
-  }
+  };
 
   return (
     <div key={match.id} className="bg-neutral-800 p-4 rounded-md">

@@ -8,6 +8,8 @@ import useTeamsOptions from '../../hooks/useTeamsOptions'
 import { fetchAllEvents } from '../../services/events.services';
 import { setAllEvents } from '../../features/events/eventSlice'
 import { Link } from 'react-router-dom'
+import { toast } from "react-toastify";
+import { setLoading } from "../../features/global/globalSlice";
 
 function MatchForm({ action, id }) {
 
@@ -69,11 +71,19 @@ function MatchForm({ action, id }) {
     useEffect(() => {
         const getOptionsAllTeams = async () => {
             try {
-                const allTeams = await fetchAllTeams(userToken, selectedEventId);
-                setAllTeams(allTeams.data);
+                dispatch(setLoading(true))
+                console.log(selectedEventId)
+                const res = await fetchAllTeams(userToken, selectedEventId);
+                setAllTeams(res);
             } catch (error) {
-                console.log(error)
+              if (error.response) {
+                throw new Error(
+                  error?.response?.data?.message || "Error desconocido del servidor"
+                );
+              }
+              toast.error(error.message);
             } finally {
+              dispatch(setLoading(false));
             }
         };
         getOptionsAllTeams();

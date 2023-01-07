@@ -7,7 +7,6 @@ const Team = ({ id, isVisible, showModal }) => {
   const team = useSelector(state => state.teams.teams.find(team => team.id === id));
   return (
     <div key={id} className="bg-neutral-800 p-4 rounded-md">
-      {console.log(team)}
             <h3 className="text-center">{team.name}</h3>
             <img src={team.badge} alt="adImage" className="my-5 object-contain" />
             <p className="mb-4">Competición: {team.event.eventName}</p>

@@ -5,25 +5,32 @@ import * as adsServices from "../../services/ads";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { editAd } from "../../features/ads/adSlice";
+import { toast } from "react-toastify";
+import { setLoading } from "../../features/global/globalSlice";
 
 const EditForm = () => {
   const dispatch = useDispatch();
   const ads = useSelector((state) => state.ads.ads);
-  const userToken = useSelector((state) => state.auth.userToken);
+  const {userToken} = useSelector((state) => state.auth);
   const [adFound, setAdFound] = useState();
 
   const { id } = useParams();
 
   const edit = async (ad, id) => {
-    await adsServices.editAd(userToken, { ad, id });
-    dispatch(editAd({userToken, ad, id}))
+    try {
+      dispatch(setLoading(true));
+      await adsServices.editAd(userToken, { ad, id });
+      await dispatch(editAd({userToken, ad, id})).unwrap();
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
   };
 
   useEffect(() => {
     if (id) {
-      setAdFound(
-        ads.find(ad => ad.id === Number(id))
-      );
+      setAdFound(ads.find((ad) => ad.id === Number(id)));
     }
   },[id, ads]);
 

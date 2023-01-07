@@ -1,4 +1,4 @@
-function SelectComponent({ label, placeholder, options, value, onChange}) {
+function SelectComponent({ label, placeholder, options, value, onChange }) {
 
     const handleChange = event => {
         onChange(event.target.value);

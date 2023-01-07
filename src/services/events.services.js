@@ -4,25 +4,20 @@ import { API_URL } from "../config.js";
 const BASE_URL = API_URL+"/events/";
 
 
-export const getEventsAmount = async (token, page = 0) => {
-  try {
-      const res = await axios.get(BASE_URL+"amount", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      return res;
-  } catch (error) {
-      console.log("Error ", error);
-  }
-}
 
 export const fetchAllEvents = async (token, page = 0, perPage = 9) => {
   try {
-    const res = await axios.get(BASE_URL+'all', {
+    const res = await axios.get(BASE_URL+ 'all', {
       headers: { Authorization: `Bearer ${token}` },
     });
     return res.data;
-  } catch(e) {
-    throw new Error('Error al obtener todos los eventos');
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al obtener eventos"
+      );
+    }
+    throw error;
   }
 }
 
@@ -31,9 +26,14 @@ export const fetchEvents = async (token, page = 0, perPage = 9) => {
     const res = await axios.get(BASE_URL+'?page='+page+'&size='+perPage, {
       headers: { Authorization: `Bearer ${token}` },
     });
+      
     return res.data;
-  } catch(e) {
-    throw new Error('Error al obtener eventos');
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al obtener eventos"
+      );
+    } throw error;
   }
 }
 
@@ -42,9 +42,16 @@ export const createEvent = async (token, event) => {
       const res = await axios.post(BASE_URL, event, {
         headers: { Authorization: `Bearer ${token}` },
       });
+        if (!res.data.message || !res.data.item) {
+          throw new Error("No se han recibido bien los datos del servidor :(");
+        }
       return res.data;
   } catch (error) {
-      console.log(error.message);
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al obtener eventos"
+      );
+    } throw error;
   }
 }
 
@@ -53,10 +60,15 @@ export const editEvent = async (token, event, id) => {
     const res = await axios.put(BASE_URL + id, event, {
       headers: { Authorization: `Bearer ${token}` },
     })
-    event.id = Number(id);
+      event.id = Number(id);
+    
     return event;
-  } catch(e) {
-    throw new Error('error editando evento');
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al editar evento"
+      );
+    } throw error;
   }
 }
 
@@ -65,8 +77,13 @@ export const deleteEvent = async (token, id) => {
     const res = await axios.delete(BASE_URL + id, {
       headers: { Authorization: `Bearer ${token}` },
     });
+      
     return res;
-  } catch (e) {
-    throw new Error('error eliminando evento');
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al eliminar evento"
+      );
+    } throw error;
   }
 }

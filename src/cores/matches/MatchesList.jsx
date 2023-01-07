@@ -6,6 +6,9 @@ import { setPage } from '../../features/stickers/stickerSlice'
 import * as matchesServices from '../../services/matches.services'
 import Match from './Match'
 import Pagination from './Pagination'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { setLoading } from "../../features/global/globalSlice";
 
 function MatchesList() {
     const postPerPage = 9;
@@ -24,8 +27,14 @@ function MatchesList() {
             dispatch(setMatches(data.items));
             dispatch(setAmount(data.paginate.total));    
             dispatch(setPage(data.paginate.page));
-        } catch(e) {
-            console.log(e);
+        } catch (error) {
+            if (error.response) {
+            throw new Error(
+                error?.response?.data?.message || "Error desconocido del servidor"
+            );
+            } toast.error(error.message);
+        } finally {
+            dispatch(setLoading(false));
         }
     }, [dispatch, userToken, page, postPerPage, date]);
     useEffect(() => { getMatches() }, [getMatches])

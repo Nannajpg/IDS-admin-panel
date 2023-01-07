@@ -6,6 +6,7 @@ import adsReducer from "../features/ads/adSlice";
 import stickerReducer from "../features/stickers/stickerSlice";
 import teamsReducer from "../features/teams/teamSlice";
 import matchesReducer from "../features/matches/matchSlice"
+import globalSlice from "../features/global/globalSlice"
 
 export const store = configureStore({
     reducer:{
@@ -16,6 +17,7 @@ export const store = configureStore({
         stickers: stickerReducer,
         teams: teamsReducer,
         matches: matchesReducer,
+        global: globalSlice,
     },
     middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

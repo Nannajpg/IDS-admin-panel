@@ -5,7 +5,9 @@ import Form from './Form';
 import * as eventsServices from '../../services/events.services';
 import { editEvent } from '../../features/events/eventSlice';
 import { useState, useEffect } from "react";
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { setLoading } from "../../features/global/globalSlice";
 
 const EditForm = () => {
   const dispatch = useDispatch();
@@ -16,21 +18,25 @@ const EditForm = () => {
 
   const edit = async (event, id) => {
     try {
+      dispatch(setLoading(true));
       const eventData = {
-      ...event,
-      status: !!(event.status === "Activo")
+        ...event,
+        status: !!(event.status === "Activo")
       }
       await eventsServices.editEvent(userToken, eventData, id);
-      dispatch(editEvent(eventData));
-
+      dispatch(editEvent(eventData));  
     } catch (error) {
-      if (error?.response?.data) {
-        alert(error?.response?.data.message);
-      }else{
-          alert("Error del servidor al editar evento")
+        if (error.response) {
+          throw new Error(
+            error?.response?.data.message || "Error al editar evento"
+          );
+        }
+      toast.error(error.message);
+      } finally {
+        dispatch(setLoading(false));
       }
     }
-  }
+  
   useEffect(() => {
     if (id) {
       setEventFound(

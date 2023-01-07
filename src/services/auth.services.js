@@ -24,10 +24,14 @@ export const login = async ({ email, password }) => {
 export const signup = async (user) => {
     try {
         const res = await axios.post(URL_SIGNUP, user);
-        if (!res.ok) {
-            throw Error("Fetch fallido");
+        if (!res.data.token || !res.data.user) {
+            throw new Error("No se han recibido bien los datos del servidor :(");
         }
     } catch (error) {
-        console.log(error.message);
-    }
+        if (error.response) {
+            throw new Error(
+                error?.response?.data?.message || "Error al registrar"
+            );
+        } throw error;
+    } 
 }
