@@ -26,9 +26,9 @@ export const createUser = async (user, token) => {
     const { data } = await axios.post(BASE_URL, user, {
       headers: { Authorization: `Bearer ${token}` },
     },);
-    if (!data.token || !data.users) {
+    if (!data.item || !data.message) {
       throw new Error(
-        "No se han recibido bien los datos del servidor :(");
+        "Ha ocurrido un error con el backend");
     }
     return data;
   } catch (error) {
@@ -47,7 +47,7 @@ export const deleteUser = async (id, token) => {
     });
     if (!res.data.success || !res.data.message) {
       throw new Error(
-        "No se han recibido bien los datos del servidor :("
+        "Ha ocurrido un error con el backend"
       );
     }
     return res;
@@ -68,7 +68,7 @@ export const editUser = async (id, token, user) => {
     user.id = Number(id);
     if (!user) {
       throw new Error(
-        "No se han recibido bien los datos del servidor :("
+        "Ha ocurrido un error con el backend"
       );
     }
     return user;

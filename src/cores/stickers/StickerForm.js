@@ -81,7 +81,6 @@ function StickerForm() {
         const getOptionsAllTeams = async () => {
             try {
                 dispatch(setLoading(true))
-                console.log(selectedEventId)
                 const res = await fetchAllTeams(userToken, selectedEventId);
                 setAllTeams(res);
             } catch (error) {

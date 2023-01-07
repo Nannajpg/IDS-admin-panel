@@ -10,7 +10,7 @@ const Ad = ({ id, isVisible, showModal }) => {
       <h3 className="text-center">{ad.announcer}</h3>
       <img src={ad.img} alt="adImage" className="my-5 object-contain" />
       <a href={ad.redirecTo} className="underline text-blue-600">
-        Ir a la dirección
+        {ad.redirecTo}
       </a>
       <p className="mb-4">Tipo de anuncio: {ad.adType}</p>
       <div className="flex gap-x-2 ">

@@ -54,7 +54,6 @@ export const editSticker = async (token, sticker, id) => {
                 "Content-Type": "multipart/form-data"
             }
         });
-        console.log(res.data.success)
         if (!res.data.message || !res.data.success) {
             throw new Error("Ha ocurrido un fallo con el backend");
         }
@@ -77,6 +76,9 @@ export const deleteSticker = async (token, id) => {
                 Authorization: "Bearer " + token,
             }
         });
+        if (!res.data.message || !res.data.success) {
+            throw new Error("Ha ocurrido un fallo con el backend");
+        }
         return res;
     } catch (error) {
         if (error.response) {

@@ -16,6 +16,7 @@ const TeamsList = () => {
   const dispatch = useDispatch();
   const { userToken } = useSelector((state) => state.auth);
   const { isVisible, toggleModal, getId } = useModal();
+  
 
   useEffect(() => {
     (async () => {
@@ -29,6 +30,8 @@ const TeamsList = () => {
             search: teams.search,
           })
         ).unwrap();
+        const res = await teamServices.getSingleTeam(userToken, 1 );
+        return(res.data)
       } catch (error) {
         toast.error(error.message);;
       } finally {

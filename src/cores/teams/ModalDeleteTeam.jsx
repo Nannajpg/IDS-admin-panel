@@ -37,7 +37,6 @@ function ModalDeleteTeam({ isVisible, hideModal, getId }) {
                 onClick={async () => {
                   try {
                     dispatch(setLoading(true));
-                    console.log(userToken)
                     await dispatch(deleteTeam({userToken, id})).unwrap();
                     await dispatch(fetchTeams({userToken, state})).unwrap();
                     hideModal(isVisible);

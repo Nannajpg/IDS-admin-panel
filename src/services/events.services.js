@@ -10,6 +10,10 @@ export const fetchAllEvents = async (token, page = 0, perPage = 9) => {
     const res = await axios.get(BASE_URL+ 'all', {
       headers: { Authorization: `Bearer ${token}` },
     });
+    console.log(res.data)
+    if(!res.data.items){
+      throw new Error ("Ha ocurrido un error con el backend");
+    }
     return res.data;
   } catch (error) {
     if (error.response) {
@@ -26,7 +30,9 @@ export const fetchEvents = async (token, page = 0, perPage = 9) => {
     const res = await axios.get(BASE_URL+'?page='+page+'&size='+perPage, {
       headers: { Authorization: `Bearer ${token}` },
     });
-      
+    if(!res.data.success || !res.data.paginate || !res.data.items){
+      throw new Error("Ha ocurrido un error con el backend")
+    }
     return res.data;
   } catch (error) {
     if (error.response) {
@@ -61,7 +67,9 @@ export const editEvent = async (token, event, id) => {
       headers: { Authorization: `Bearer ${token}` },
     })
       event.id = Number(id);
-    
+      if (!res.data.message || !res.data.message) {
+        throw new Error("No se han recibido bien los datos del servidor :(");
+      }
     return event;
   } catch (error) {
     if (error.response) {
@@ -77,7 +85,9 @@ export const deleteEvent = async (token, id) => {
     const res = await axios.delete(BASE_URL + id, {
       headers: { Authorization: `Bearer ${token}` },
     });
-      
+    if (!res.data.message || !res.data.success) {
+      throw new Error("No se han recibido bien los datos del servidor :(");
+    }
     return res;
   } catch (error) {
     if (error.response) {

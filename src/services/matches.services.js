@@ -46,9 +46,8 @@ export const createMatch = async (token, match) => {
 export const deleteMatch = async (id) => {
   try {
     const res = await axios.delete(BASE_URL + `/${id}`);
-    console.log(res.data)
       if (!res.data.message || !res.data.success) {
-        throw new Error("No se han recibido bien los datos del servidor :(");
+        throw new Error("Ha ocurrido un error con el backend");
       }
     return res;
   } catch (error) {

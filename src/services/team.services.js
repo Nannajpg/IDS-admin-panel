@@ -47,8 +47,8 @@ export const getSingleTeam = async (token, id) => {
     const res = await axios.get(BASE_URL + `/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    if (!res.success) {
-      throw new Error("No se han recibido bien los datos del servidor :(");
+    if (!res.data) {
+      throw new Error("Ha ocurrido un error con el backend");
     }
     return res.data;
   } catch (error) {
@@ -73,7 +73,7 @@ export const createTeam = async (token, team) => {
     });
     
     if (!res.data) {
-      throw new Error("No se han recibido bien los datos del servidor :(");
+      throw new Error("Ha ocurrido un error con el backend");
     }
     return res.data;
   } catch (error) {
@@ -91,7 +91,10 @@ export const deleteTeam = async (token, id) => {
     const res = await axios.delete(BASE_URL + `/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console(res.data)
+    
+    if(!res.data){
+      throw new Error("Ha ocurrido un error con el backend")
+    }
     return res;
   } catch (error) {
     if (error.response) {
@@ -114,7 +117,7 @@ export const editTeam = async (token, team, id) => {
       },
     });
     if (!data.success || !data.message) {
-      throw new Error("No se han recibido bien los datos del servidor :(");
+      throw new Error("Ha ocurrido un error con el backend");
     }
     return data;
   } catch (error) {

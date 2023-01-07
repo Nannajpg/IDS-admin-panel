@@ -22,6 +22,7 @@ function MatchesList() {
 
     const getMatches = useCallback(async () => {
         try {
+            dispatch(setLoading(true));
             dispatch(resetMatches());
             const data = await matchesServices.fetchMatches(userToken, page, postPerPage, date);
             dispatch(setMatches(data.items));
