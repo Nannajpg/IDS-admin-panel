@@ -10,7 +10,7 @@ const TeamsListHeader = () => {
   return (
     <header className="flex justify-between items-center mt-5 w-full">
       <Link to="/dashboard" className="bg-emerald-600 px-2 py-1 text-sm rounded-md mx-2">Volver</Link>
-      <h1>Equipos: {teams.totalTeams}</h1>
+      <h1>Equipos: {teams.total}</h1>
       <SearchBar />
       <FilterSelect />
       <Link

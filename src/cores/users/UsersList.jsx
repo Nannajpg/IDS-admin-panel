@@ -36,7 +36,7 @@ function UsersList() {
             }
         }
         getUsers();
-    }, [dispatch, page, amount]);
+    }, [dispatch, page, amount, userToken]);
 
     return (
         <div className='w-4/6'>
