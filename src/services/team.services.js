@@ -28,7 +28,7 @@ export const fetchTeams = async (
 
 export const fetchAllTeams = async (token, id) => {
   try {
-    const {data} = await axios.get(BASE_URL + "/all" + `/${id}`, {
+    const {data} = await axios.get(BASE_URL + `/all/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return data;

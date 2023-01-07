@@ -51,7 +51,7 @@ function MatchForm({ action, id }) {
             }
         };
         getOptionsAllEvents();
-    }, [userToken]);
+    }, [userToken, dispatch]);
 
 
     const changeEventId = value => {
@@ -93,7 +93,7 @@ function MatchForm({ action, id }) {
             }
         };
         getOptionsAllTeams();
-    }, [userToken, selectedEventId]);
+    }, [userToken, selectedEventId, dispatch]);
 
     const handleChange = (e) => {
         setMatch({

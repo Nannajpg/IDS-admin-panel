@@ -35,7 +35,7 @@ const AdsList = () => {
         dispatch(setLoading(false));
       }
     })();
-  }, [adsState.amount, adsState.page]);
+  }, [adsState.amount, adsState.page, adsState, dispatch, token]);
 
   return (
     <div className="w-4/6">

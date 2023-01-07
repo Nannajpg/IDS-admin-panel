@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateSticker } from '../../features/stickers/stickerSlice'
 import { setAllEvents } from '../../features/events/eventSlice'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { saveSticker, editSticker } from '../../services/stickers.services';
@@ -53,7 +52,7 @@ function StickerForm() {
             }
         };
         getOptionsAllEvents();
-    }, [userToken]);
+    }, [userToken, dispatch]);
 
     const handleChange = e => {
         setSticker((sticker) => ({
@@ -95,7 +94,7 @@ function StickerForm() {
             }
         };
         getOptionsAllTeams();
-    }, [userToken, selectedEventId]);
+    }, [userToken, selectedEventId, dispatch]);
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -110,9 +109,9 @@ function StickerForm() {
     
     useEffect(() => {
         if (params.id) {
-            setSticker(stickers.find(sticker => sticker.id == params.id))
+            setSticker(stickers.find(sticker => sticker.id === params.id))
         }
-    }, [])
+    }, [params.id, stickers])
 
     return (
         <div className='flex items-center h-screen'>

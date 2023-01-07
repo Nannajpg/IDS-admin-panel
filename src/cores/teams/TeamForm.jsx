@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAllEvents } from "../../features/events/eventSlice";
-import { editTeam } from "../../features/teams/teamSlice";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import * as teamServices from "../../services/team.services";
 import { fetchAllEvents } from "../../services/events.services";
@@ -47,7 +46,7 @@ function TeamForm() {
       }
     };
     getOptionsAllEvents();
-  }, []);
+  }, [dispatch, userToken]);
 
   const handleChange = (e) => {
     setTeam((team) => ({
@@ -66,18 +65,18 @@ function TeamForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (params.id) {
-      let res = await teamServices.editTeam(userToken, team, team.id);
+      await teamServices.editTeam(userToken, team, team.id);
     } else {
-      let res = await teamServices.createTeam(userToken, team);
+      await teamServices.createTeam(userToken, team);
     }
     navigate("/teams");
   };
 
   useEffect(() => {
     if (params.id) {
-      setTeam(teams.find((team) => team.id == params.id));
+      setTeam(teams.find((team) => team.id === params.id));
     }
-  }, []);
+  }, [params.id, teams]);
 
   return (
     <div className="flex items-center h-screen">

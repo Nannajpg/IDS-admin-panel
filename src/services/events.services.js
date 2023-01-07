@@ -10,7 +10,6 @@ export const fetchAllEvents = async (token, page = 0, perPage = 9) => {
     const res = await axios.get(BASE_URL+ 'all', {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(res.data)
     if(!res.data.items){
       throw new Error ("Ha ocurrido un error con el backend");
     }
@@ -67,7 +66,7 @@ export const editEvent = async (token, event, id) => {
       headers: { Authorization: `Bearer ${token}` },
     })
       event.id = Number(id);
-      if (!res.data.message || !res.data.message) {
+      if (!res.data.message || !res.data.success) {
         throw new Error("No se han recibido bien los datos del servidor :(");
       }
     return event;

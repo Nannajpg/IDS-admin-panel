@@ -4,9 +4,7 @@ import { setPage } from '../../features/events/eventSlice'
 
 import './Pagination.css'
 
-const Pagination = ({ postsPerPage }) => {
-    
-    const totalPosts = useSelector(state => state.events.amount)
+const Pagination = () => {
     const currentPage = (useSelector(state => state.events.page)+1)
     const totalPages = (useSelector(state => state.events.totalPages))
     const dispatch = useDispatch()
@@ -26,7 +24,7 @@ const Pagination = ({ postsPerPage }) => {
                         onClick={() => {
                             dispatch(setPage(page-1))
                         }}
-                        className={page == currentPage ? 'active' : ''}
+                        className={page === currentPage ? 'active' : ''}
                     >
                         {page}</button>
                 })

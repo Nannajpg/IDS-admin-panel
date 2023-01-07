@@ -25,7 +25,7 @@ const Pagination = () => {
                         onClick={() => {
                             dispatch(setPage(page-1))
                         }}
-                        className={page == currentPage ? 'active' : ''}
+                        className={page === currentPage ? 'active' : ''}
                     >
                         {page}</button>
                 })

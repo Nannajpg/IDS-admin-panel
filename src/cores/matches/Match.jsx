@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteMatch } from "../../features/matches/matchSlice";
 import * as matchesServices from "../../services/matches.services";
