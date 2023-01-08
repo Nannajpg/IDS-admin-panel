@@ -88,3 +88,23 @@ export const deleteSticker = async (token, id) => {
         } throw error;
     }
 }
+
+export const getSingleSticker = async (token, id) => {
+    try {
+        const res = await axios.get(BASE_URL+ "/" + id, {
+            headers:{
+                Authorization: "Bearer " + token,
+            }
+        });
+        if (!res.data.message || !res.data.success) {
+            throw new Error("Ha ocurrido un fallo con el backend");
+        }
+        return res;
+    } catch (error) {
+        if (error.response) {
+            throw new Error(
+                error?.response?.data?.message || "Error buscar el cromo"
+            );
+        } throw error;
+    }
+}

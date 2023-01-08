@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAllEvents } from '../../features/events/eventSlice'
 import { useNavigate, useParams, Link } from 'react-router-dom'
-import { saveSticker, editSticker } from '../../services/stickers.services';
+import { saveSticker, editSticker, getSingleSticker } from '../../services/stickers.services';
 import { fetchAllEvents } from '../../services/events.services';
 import Select from '../../components/select';
 import {fetchAllTeams} from '../../services/team.services'
@@ -31,7 +31,7 @@ function StickerForm() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const params = useParams()
-    const stickers = useSelector(state => state.stickers.stickers)
+    //const stickers = useSelector(state => state.stickers.stickers)
     const {userToken} = useSelector(state => state.auth)
 
     useEffect(() => {
@@ -108,10 +108,26 @@ function StickerForm() {
     }
     
     useEffect(() => {
-        if (params.id) {
-            setSticker(stickers.find(sticker => sticker.id === params.id))
-        }
-    }, [params.id, stickers])
+        const getStickerData = async () => {
+            try {
+                if (params.id) {
+                    const res = await getSingleSticker(userToken, params.id);
+                    console.log(res)
+                    setSticker(res === params.id)
+                }
+            } catch (error) {
+              if (error.response) {
+                throw new Error(
+                  error?.response?.data?.message || "Error desconocido del servidor"
+                );
+              }
+              toast.error(error.message);
+            } finally {
+              dispatch(setLoading(false));
+            }
+        };
+        getStickerData();
+    }, [userToken, dispatch, params.id, sticker]);
 
     return (
         <div className='flex items-center h-screen'>
