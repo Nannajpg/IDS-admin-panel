@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ValidUrl from "./ValidUrl";
+import { toast } from 'react-toastify';
+
 
 const Form = ({ onSubmit, id, toEditAd }) => {
   const announcerRef = useRef(null);
@@ -37,10 +39,11 @@ const Form = ({ onSubmit, id, toEditAd }) => {
       imgRef.current.value = null;
       adTypeRef.current.value = "";
       redirecToRef.current.value = "";
+      
       try {
-        await onSubmit(ad, id);
+        await onSubmit(ad, id);  
       } catch (e) {
-        alert(e.message)
+        toast.error(e.message);
       }
       navigate("/ads");
     }
@@ -108,8 +111,7 @@ const Form = ({ onSubmit, id, toEditAd }) => {
         className="w-full p-2 rounded-md bg-zinc-600 mb-4"
         required
         onChange={(e) => {
-          const urlExpresions =
-            /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\\=]*)/;
+          const urlExpresions = /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&\\=]*)/;
           if (e.target.value === "") {
             setNotValidUrl(false);
           } else {

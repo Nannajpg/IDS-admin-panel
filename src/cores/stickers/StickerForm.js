@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateSticker } from '../../features/stickers/stickerSlice'
 import { setAllEvents } from '../../features/events/eventSlice'
 import { useNavigate, useParams, Link } from 'react-router-dom'
-import { saveSticker, editSticker } from '../../services/stickers.services';
+import { saveSticker, editSticker, getSingleSticker } from '../../services/stickers.services';
 import { fetchAllEvents } from '../../services/events.services';
 import Select from '../../components/select';
 import {fetchAllTeams} from '../../services/team.services'
 import useEventsOptions from '../../hooks/useEventsOptions'
 import useTeamsOptions from '../../hooks/useTeamsOptions'
-
+import { toast } from "react-toastify";
+import { setLoading } from "../../features/global/globalSlice";
 
 function StickerForm() {
 
@@ -31,22 +31,28 @@ function StickerForm() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const params = useParams()
-    const stickers = useSelector(state => state.stickers.stickers)
+    //const stickers = useSelector(state => state.stickers.stickers)
     const {userToken} = useSelector(state => state.auth)
 
     useEffect(() => {
         const getOptionsAllEvents = async () => {
             try {
-                const allEvents = await fetchAllEvents(userToken);
-                dispatch(setAllEvents(allEvents.items));
-                
+              dispatch(setLoading(true));
+              const allEvents = await fetchAllEvents(userToken);
+              dispatch(setAllEvents(allEvents.items));
             } catch (error) {
-                console.log(error)
+              if (error.response) {
+                throw new Error(
+                  error?.response?.data?.message || "Error desconocido del servidor"
+                );
+              }
+              toast.error(error.message);
             } finally {
+              dispatch(setLoading(false));
             }
         };
         getOptionsAllEvents();
-    }, [userToken]);
+    }, [userToken, dispatch]);
 
     const handleChange = e => {
         setSticker((sticker) => ({
@@ -73,15 +79,22 @@ function StickerForm() {
     useEffect(() => {
         const getOptionsAllTeams = async () => {
             try {
-                const allTeams = await fetchAllTeams(userToken, selectedEventId);
-                setAllTeams(allTeams.data);
+                dispatch(setLoading(true))
+                const res = await fetchAllTeams(userToken, selectedEventId);
+                setAllTeams(res);
             } catch (error) {
-                console.log(error)
+              if (error.response) {
+                throw new Error(
+                  error?.response?.data?.message || "Error desconocido del servidor"
+                );
+              }
+              toast.error(error.message);
             } finally {
+              dispatch(setLoading(false));
             }
         };
         getOptionsAllTeams();
-    }, [userToken, selectedEventId]);
+    }, [userToken, selectedEventId, dispatch]);
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -95,10 +108,26 @@ function StickerForm() {
     }
     
     useEffect(() => {
-        if (params.id) {
-            setSticker(stickers.find(sticker => sticker.id == params.id))
-        }
-    }, [])
+        const getStickerData = async () => {
+            try {
+                if (params.id) {
+                    const res = await getSingleSticker(userToken, params.id);
+                    console.log(res)
+                    setSticker(res === params.id)
+                }
+            } catch (error) {
+              if (error.response) {
+                throw new Error(
+                  error?.response?.data?.message || "Error desconocido del servidor"
+                );
+              }
+              toast.error(error.message);
+            } finally {
+              dispatch(setLoading(false));
+            }
+        };
+        getStickerData();
+    }, [userToken, dispatch, params.id, sticker]);
 
     return (
         <div className='flex items-center h-screen'>
@@ -120,12 +149,14 @@ function StickerForm() {
                     options={eventsOptions} 
                 />
                 
-                <Select 
+
+                  <Select 
                     label={"Equipo al que pertenece"}
                     onChange={changeTeamId}
                     value={sticker.teamId}
                     options={teamsOptions} 
                 />
+                
 
                 <label htmlFor='position' className='block text-xs font-bold mb-2'>Posición:</label>
                 <select

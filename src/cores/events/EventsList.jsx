@@ -1,20 +1,22 @@
 import { toast } from 'react-toastify';
-import { useEffect, useCallback, useState } from 'react'
+import { useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { setEvents, setAmount, setTotalPages } from '../../features/events/eventSlice'
+import { setEvents, setAmount, setTotalPages, setPage } from '../../features/events/eventSlice'
 import { fetchEvents } from '../../services/events.services'
 import Event from './Event'
-import Pagination from './Pagination'
-
+import Pagination from '../../components/pagination'
+import { setLoading } from "../../features/global/globalSlice";
 
 function EventsList() {
     const postPerPage = 9;
-    const { page, events, amount } = useSelector(state => state.events);
+    const { page, totalPages, events, amount } = useSelector(state => state.events);
     const dispatch = useDispatch();
     const {userToken} = useSelector(state => state.auth)
+
     const getEvents = useCallback(async () => {
         try {
+            dispatch(setLoading(true));
             const result = await fetchEvents(userToken, page, postPerPage);
             dispatch(setEvents(result.items));
             dispatch(setAmount(result.paginate.total));
@@ -31,8 +33,13 @@ function EventsList() {
                 theme: "light",
             });
         } finally {
+            dispatch(setLoading(false));
         }
-    }, [page, dispatch]);
+    }, [page, dispatch, userToken]);
+
+    const handleSetPage = page => {
+        dispatch(setPage(page-1))
+    }
 
     useEffect(() => {
         getEvents();
@@ -54,8 +61,12 @@ function EventsList() {
             </div>
 
             <div className='py-4'>
-                <Pagination postsPerPage={postPerPage} />
-            </div>  
+                <Pagination
+                    currentPage={page+1}
+                    totalPages={totalPages}
+                    handleSetPage={handleSetPage}
+                />
+            </div>   
         </div>
     )
 }

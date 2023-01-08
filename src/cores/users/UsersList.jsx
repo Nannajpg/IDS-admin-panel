@@ -1,34 +1,46 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { addUser, resetUsers, setAmount} from '../../features/users/userSlice'
+import { addUser, resetUsers, setAmount, setPage, setTotalPages} from '../../features/users/userSlice'
 import * as usersServices from "../../services/users.services";
 import UserCard from './UserCard'
-import Pagination from './Pagination'
+import Pagination from '../../components/pagination'
+import { setLoading } from "../../features/global/globalSlice";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function UsersList() {
-    const postPerPage = 9;
-    const page = useSelector(state => state.users.page);
-    const users = useSelector(state => state.users.users);
-    const amount = useSelector(state => state.users.amount);
+
+    const { page, totalPages, users, amount } = useSelector(state => state.users);
     const { userToken } = useSelector(state => state.auth);
     const dispatch = useDispatch();
+    console.log(page, totalPages)
+
+    const handleSetPage = page => {
+        dispatch(setPage(page-1))
+    }
 
     useEffect(() => {
         dispatch(resetUsers());
         const getUsers = async () => {
             try {
+                dispatch(setLoading(true));
                 const data = await usersServices.fetchUsers(userToken, page);
                 data.items.forEach(user => {
                     dispatch(addUser(user));
                 });
                 dispatch(setAmount(data.paginate.total));
-            } catch(e) {
-                console.log(e);
+                dispatch(setTotalPages(data.paginate.pages))
+            } catch (error) {
+                if (error.response) {
+                    throw new Error(error?.response?.data.message);
+                } toast.error(error.message);
+            } finally {
+                dispatch(setLoading(false));
             }
         }
         getUsers();
-    }, [dispatch, page, amount]);
+    }, [dispatch, page, amount, userToken]);
 
     return (
         <div className='w-4/6'>
@@ -44,9 +56,16 @@ function UsersList() {
                 {users.map(user => <UserCard user={user} key={user.id} />)}
             </div>
 
+
             <div className='py-4'>
-                <Pagination postsPerPage={postPerPage} />
+                <Pagination
+                    currentPage={page+1}
+                    totalPages={totalPages}
+                    handleSetPage={handleSetPage}
+                />
             </div>  
+
+   
         </div>
     )
 }
