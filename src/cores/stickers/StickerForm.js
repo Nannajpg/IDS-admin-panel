@@ -116,27 +116,27 @@ function StickerForm() {
 
     return (
         <div className='flex items-center h-screen'>
-            <form encType="multipart/form-data" onSubmit={handleSubmit} className='bg-slate-300 max-w-sm p-4 rounded-md grid grid-cols-2'>
-                <label htmlFor='playerName' className='block text-xs font-bold mb-2'>Nombre de Jugador:</label>
+            <form encType="multipart/form-data" onSubmit={handleSubmit} className='bg-[#EAEAEA] max-w-sm p-4 rounded-md grid grid-cols-2 text-black'>
+                <label htmlFor='playerName' className='block text-xs font-bold mb-2'>Nombre:</label>
                 <input
                     name='playerName'
                     type='text'
                     onChange={handleChange}
                     value={sticker.playerName}
-                    className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                    className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500'
                     required
                 />
                     
                 <Select 
-                    label={"Evento en el que participa"}
+                    label={"Competición"}
                     onChange={changeEventId}
                     value={sticker.eventId}
                     options={eventsOptions} 
                 />
                 
 
-                  <Select 
-                    label={"Equipo al que pertenece"}
+                <Select 
+                    label={"Equipo"}
                     onChange={changeTeamId}
                     value={sticker.teamId}
                     options={teamsOptions} 
@@ -147,7 +147,7 @@ function StickerForm() {
                 <select
                     name='position'
                     onChange={handleChange}
-                    className='w-full p-1 border border-gray-300 focus:border-blue-500 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                    className='w-full p-1 focus:border-blue-500 rounded-2xl bg-white mb-2 hover:bg-slate-500'
                 >
                     <option>Seleccione Posición...</option>
                     <option value='goalkeeper'>Portero</option>
@@ -163,7 +163,7 @@ function StickerForm() {
                     step={0.1} min={1} max={272}
                     onChange={handleChange}
                     value={sticker.height}
-                    className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                    className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500'
                     required
                 />
 
@@ -174,7 +174,7 @@ function StickerForm() {
                     step={0.1} min={1} max={634}
                     onChange={handleChange}
                     value={sticker.weight}
-                    className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                    className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500'
                     required
                 />
 
@@ -185,7 +185,7 @@ function StickerForm() {
                     step={0.0001} min={0} max={100}
                     onChange={handleChange}
                     value={sticker.appearanceRate}
-                    className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                    className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500'
                     required
                 />
 
@@ -193,7 +193,7 @@ function StickerForm() {
                     Subir Archivo de Imagen
                 </label>
                 <input
-                    className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                    className="block w-full text-sm text-gray-900 border border-gray-300 rounded-2xl cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-white dark:placeholder-gray-400"
                     aria-describedby="file_input_help"
                     name="file_input"
                     type="file"
@@ -208,12 +208,7 @@ function StickerForm() {
                 </p>
 
                 <div className='flex grid'>
-                    <header className='mb-2'>
-                        <Link to='/stickers' className='flex justify-center w-full bg-red-500 py-1 hover:bg-red-600'>
-                            Volver
-                        </Link>
-                    </header>
-                    <button className='flex justify-center bg-indigo-600 py-2 hover:bg-indigo-700'>Guardar</button>
+                    <button className='flex justify-center text-white bg-gradient-to-r from-[#D13256] to-[#F75845] py-2 hover:bg-pink-200 rounded-2xl'>Confirmar</button>
                 </div>
             </form>
         </div>
