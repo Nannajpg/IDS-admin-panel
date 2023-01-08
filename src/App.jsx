@@ -20,15 +20,18 @@ import CreateFormTeam from "./cores/teams/CreateFormTeam";
 import EditFormTeam from "./cores/teams/EditFormTeam";
 import MatchesList from './cores/matches/MatchesList';
 import MatchCreateForm from './cores/matches/CreateForm';
+import Navbar from './components/Navbar'
 
 function App() {
 
   return (
     <div className='bg-zinc-900 h-screen text-white'>
+      <Navbar/>
       <div className='flex items-center justify-center h-full'>
         <BrowserRouter>
         <Routes>
           <Route path="/" element= {<Login/>} />
+          
           <Route element={<Auth />}>
             <Route path="dashboard" element= {<Menu />} />
             <Route path="users/" element={<UsersList/>} />
