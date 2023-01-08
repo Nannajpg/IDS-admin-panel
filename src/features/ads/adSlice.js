@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
-  deleteAd as deleteBdAd,
   editAd as editBdAd,
 } from "../../services/ads";
 
-export const editAd = createAsyncThunk("@ads/editAd", async (ad) => {
-  const { announcer, adtype, redirecTo } = await editBdAd(ad);
+export const editAd = createAsyncThunk("@ads/editAd", async ({userToken, ad, id}) => {
+  const { announcer, adtype, redirecTo } = await editBdAd(userToken, {ad, id});
   return { announcer, adtype, redirecTo };
 });
 
@@ -26,20 +25,14 @@ export const adsSlice = createSlice({
       state.pages = Math.ceil(payload.totalAds / payload.pageSize);
       state.ads = payload.ads;
     },
-    createAd: (state) => {
+    increaseAmount: (state) => {
       state.amount = state.amount + 1;
     },
-    deleteAd: (state) => {
+    reduceAmount: (state) => {
       state.amount = state.amount - 1;
     },
     editAd: (state) => {
       state.editedAd = !state.editedAd;
-    },
-    nextPage: (state) => {
-      state.page++;
-    },
-    prevPage: (state) => {
-      state.page--;
     },
     toFirstPage: (state) => {
       state.page = 0;
@@ -49,10 +42,17 @@ export const adsSlice = createSlice({
     },
     toFilter: (state, action) => {
       state.adtype = action.payload;
-    }
+    },
+    setPage: (state, action) => {
+      state.users = [];
+      state.page = action.payload;
+    },
+    setTotalPages: (state, action) => {
+      state.totalPages = action.payload;
+    },
   }
 });
 
-export const { storeAllAds, createAd, deleteAd, nextPage, prevPage, toFirstPage, toSearch, toFilter } =
+export const { storeAllAds, increaseAmount, reduceAmount, toFirstPage, toSearch, toFilter, setPage, setTotalPages } =
   adsSlice.actions;
 export default adsSlice.reducer;

@@ -7,19 +7,31 @@ const URL_SIGNUP = API_URL+"/auth/register";
 export const login = async ({ email, password }) => {
     try {
         const { data } = await axios.post(URL_LOGIN, { email, password });
+        if (!data.user || !data.token){
+            throw new Error ("Ha ocurrido un error con el backend");
+        }
         return data;
     } catch (error) {
-        throw new Error('Datos incorrectos');
+        if (error.response) {
+            throw new Error(
+              error?.response?.data?.message || "Error desconocido del servidor"
+            );
+        }
+        throw error;
     }
 }
 
 export const signup = async (user) => {
     try {
         const res = await axios.post(URL_SIGNUP, user);
-        if (!res.ok) {
-            throw Error("Fetch fallido");
+        if (!res.data.token || !res.data.user) {
+            throw new Error("No se han recibido bien los datos del servidor :(");
         }
     } catch (error) {
-        console.log(error.message);
-    }
+        if (error.response) {
+            throw new Error(
+                error?.response?.data?.message || "Error al registrar"
+            );
+        } throw error;
+    } 
 }

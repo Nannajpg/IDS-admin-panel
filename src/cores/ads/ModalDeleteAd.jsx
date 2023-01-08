@@ -1,7 +1,10 @@
 import React from "react";
 import * as adsServices from "../../services/ads";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAd } from "../../features/ads/adSlice";
+import { reduceAmount } from "../../features/ads/adSlice";
+import { setLoading } from "../../features/global/globalSlice";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 function ModalDeleteAd({ isVisible, hideModal, getId }) {
   const token = useSelector((state) => state.auth.userToken);
@@ -10,11 +13,14 @@ function ModalDeleteAd({ isVisible, hideModal, getId }) {
 
   const handleDelete = async () => {
     try {
+      dispatch(setLoading(true));
       await adsServices.deleteAd(token, id);
-      dispatch(deleteAd());
+      dispatch(reduceAmount());
       hideModal(isVisible);
-    } catch (e) {
-      alert(e.message);
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      dispatch(setLoading(false));
     }
   }
 

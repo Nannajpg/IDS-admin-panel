@@ -5,26 +5,47 @@ import TeamsListHeader from "./TeamsListHeader";
 import ModalDeleteTeam from "./ModalDeleteTeam";
 import useModal from "./useModal";
 import { useEffect } from "react";
-import Navigation from "./Navigation";
-import { fetchTeams } from "../../features/teams/teamSlice";
-import * as teamServices from '../../services/team.services';
+import { fetchTeams, setPage } from "../../features/teams/teamSlice";
+import * as teamServices from "../../services/team.services";
+import { setLoading } from "../../features/global/globalSlice";
+import { toast } from 'react-toastify';
+import Pagination from '../../components/pagination'
 
 const TeamsList = () => {
   const teams = useSelector((state) => state.teams);
-  const dispatch = useDispatch(); 
-  const {userToken} = useSelector(state => state.auth);
-
+  const dispatch = useDispatch();
+  const { userToken } = useSelector((state) => state.auth);
   const { isVisible, toggleModal, getId } = useModal();
+  const page = teams.page;
+  const totalPages = teams.pages; 
+  console.log(teams)
 
   useEffect(() => {
-    dispatch(fetchTeams({
-      userToken,
-      page: teams.page,
-      pages: teams.pages,
-      search: teams.search,
-  }));
-  // eslint-disable-next-line
-  }, [dispatch, teams.page, teams.search, teams.pages])
+    (async () => {
+      try {
+        dispatch(setLoading(true));
+        await dispatch(
+          fetchTeams({
+            userToken,
+            page: teams.page,
+            pages: teams.pages,
+            search: teams.search,
+          })
+        ).unwrap();
+        const res = await teamServices.getSingleTeam(userToken, 1 );
+        return(res.data)
+      } catch (error) {
+        toast.error(error.message);;
+      } finally {
+        dispatch(setLoading(false));
+      }
+    })();
+    // eslint-disable-next-line
+  }, [dispatch, teams.page, teams.search, teams.pages]);
+
+  const handleSetPage = page => {
+    dispatch(setPage(page-1))
+  }
 
   return (
     <div className="w-4/6">
@@ -39,7 +60,15 @@ const TeamsList = () => {
         hideModal={toggleModal}
         getId={getId}
       />
-      <Navigation />
+      
+      <div className='py-4'>
+        <Pagination
+          currentPage={page + 1}
+          totalPages={totalPages}
+          handleSetPage={handleSetPage}
+        />
+      </div> 
+
     </div>
   );
 };

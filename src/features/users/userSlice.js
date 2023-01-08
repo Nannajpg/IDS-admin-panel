@@ -1,14 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-
-const initialState = [];
-
 export const userSlice = createSlice({
     name: 'users',
     initialState: {
         amount: 0,
         page: 0,
-        users: []
+        users: [],
+        totalPages:0
     },
     reducers:{
         initUsers: (state, { payload }) => {
@@ -42,15 +40,18 @@ export const userSlice = createSlice({
                 state.users.splice(state.indexOf(userFound), 1)
             }
         },
+        setAmount: (state, action) => {
+            state.amount = action.payload;
+        },
         setPage: (state, action) => {
             state.users = [];
             state.page = action.payload;
         },
-        setAmount: (state, action) => {
-            state.amount = action.payload;
+        setTotalPages: (state, action) => {
+            state.totalPages = action.payload;
         },
     }
 })
 
-export const {resetUsers, addUser, editUser, deleteUser, setAmount, setPage } = userSlice.actions
+export const {resetUsers, addUser, editUser, deleteUser, setAmount, setPage, setTotalPages } = userSlice.actions
 export default userSlice.reducer

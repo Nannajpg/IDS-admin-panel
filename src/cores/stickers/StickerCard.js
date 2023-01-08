@@ -2,26 +2,34 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { deleteSticker } from '../../features/stickers/stickerSlice'
-import { deletSticker } from '../../services/stickers.services';
+import * as stickerServices from '../../services/stickers.services';
+import { toast } from 'react-toastify';
+import { setLoading } from "../../features/global/globalSlice";
 
 function StickerCard({ sticker }) {
     
     const dispatch = useDispatch();
-    const stickers = useSelector(state => state.stickers.stickers);
     const token = useSelector(state => state.auth.userToken)
-
+    
     const handleDelete = async (id) => {
-        if (window.confirm('¿Desea eliminar ese Sticker?')) {
-            const stickerToDelete = stickers.find(sticker => sticker.id == id)
-            await deletSticker(token, stickerToDelete.id);
+        try {
+          dispatch(setLoading(true));
+          if (window.confirm('¿Desea eliminar ese Sticker?')) {
+            await stickerServices.deleteSticker(token, id);
             dispatch(deleteSticker(id))
+            }
+        } catch (error) {
+          toast.error(error.message);
+        } finally {
+          dispatch(setLoading(false));
         }
-    }
+      };
     return (
         
         <div key={sticker.id} className='bg-slate-400 p-4 rounded-md'>
             <img src={sticker.img} alt='stickerImg' className='w-25' />
             <p className='text-sm'>Nombre: {sticker.playerName}</p>
+            <p className='text-sm'>Evento: {sticker.team.event.eventName}</p>
             <p className='text-sm'>Equipo: {sticker.team.name}</p>
             <p className='text-sm'>País: {sticker.country}</p>
             <p className='text-sm'>Posición: {sticker.position}</p>

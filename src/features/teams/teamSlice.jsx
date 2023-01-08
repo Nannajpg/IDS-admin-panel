@@ -3,13 +3,11 @@ import {
   fetchTeams as getAllTeams,
   createTeam,
   deleteTeam as deleteBdTeam,
-  editTeam as editBdTeam,
 } from "../../services/team.services";
 
 export const fetchTeams = createAsyncThunk(
   "@teams/fetchTeams",
   async ({userToken, page, event, search }) => {
-    
     const res = await getAllTeams(userToken, page, event, search);
     return res;
   }
@@ -36,7 +34,7 @@ export const teamSlice = createSlice({
     search: "",
     total: 0,
     page: 0,
-    pages: 0,
+    totalPages: 0,
     perPage: 0,
     loading: "idle",
     teams: [],
@@ -53,11 +51,12 @@ export const teamSlice = createSlice({
         foundTeam.event = event;
       }
     },
-    nextPage: (state) => {
-      state.page++;
+    setPage: (state, action) => {
+      state.users = [];
+      state.page = action.payload;
     },
-    prevPage: (state) => {
-      state.page--;
+    setTotalPages: (state, action) => {
+      state.totalPages = action.payload;
     },
     toFirstPage: (state) => {
       state.page = 0;
@@ -68,6 +67,9 @@ export const teamSlice = createSlice({
     toFilter: (state, action) => {
       state.event = action.payload;
     },
+    setAllTeams: (state, action) => {
+      state.teamsAll = action.payload;
+  },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchTeams.pending, (state, action) => {
@@ -86,6 +88,6 @@ export const teamSlice = createSlice({
   },
 });
 
-export const { nextPage, prevPage, toFirstPage, toSearch, toFilter, editTeam } =
+export const { nextPage, prevPage, toFirstPage, toSearch, toFilter, editTeam, setAllTeams, setPage, setTotalPages } =
   teamSlice.actions;
 export default teamSlice.reducer;

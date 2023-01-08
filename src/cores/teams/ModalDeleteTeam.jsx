@@ -1,6 +1,8 @@
 import React from "react";
 import { deleteTeam, fetchTeams } from "../../features/teams/teamSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from 'react-toastify';
+import { setLoading } from "../../features/global/globalSlice";
 
 function ModalDeleteTeam({ isVisible, hideModal, getId }) {
   const dispatch = useDispatch();
@@ -33,9 +35,16 @@ function ModalDeleteTeam({ isVisible, hideModal, getId }) {
               <button
                 className="bg-red-700 rounded p-2 hover:bg-red-800"
                 onClick={async () => {
-                  await dispatch(deleteTeam({userToken, id}));
-                  await dispatch(fetchTeams(userToken, state));
-                  hideModal(isVisible);
+                  try {
+                    dispatch(setLoading(true));
+                    await dispatch(deleteTeam({userToken, id})).unwrap();
+                    await dispatch(fetchTeams({userToken, state})).unwrap();
+                    hideModal(isVisible);
+                  } catch (error) {
+                    toast.error(error.message);
+                  } finally {
+                    dispatch(setLoading(false));
+                  }
                 }}
               >
                 Eliminar
