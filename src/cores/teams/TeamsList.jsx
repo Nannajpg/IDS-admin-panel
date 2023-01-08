@@ -32,8 +32,6 @@ const TeamsList = () => {
             search: teams.search,
           })
         ).unwrap();
-        const res = await teamServices.getSingleTeam(userToken, 1 );
-        return(res.data)
       } catch (error) {
         toast.error(error.message);;
       } finally {
