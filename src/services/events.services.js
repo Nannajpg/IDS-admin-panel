@@ -17,7 +17,7 @@ export const fetchAllEvents = async (token, page = 0, perPage = 9) => {
   } catch (error) {
     if (error.response) {
       throw new Error(
-        error?.response?.data?.message || "Error al obtener eventos"
+        error?.response?.data?.message || "Error al obtener competiciones"
       );
     }
     throw error;
@@ -36,7 +36,7 @@ export const fetchEvents = async (token, page = 0, perPage = 3) => {
   } catch (error) {
     if (error.response) {
       throw new Error(
-        error?.response?.data?.message || "Error al obtener eventos"
+        error?.response?.data?.message || "Error al obtener competiciones"
       );
     } throw error;
   }
@@ -54,7 +54,7 @@ export const createEvent = async (token, event) => {
   } catch (error) {
     if (error.response) {
       throw new Error(
-        error?.response?.data?.message || "Error al obtener eventos"
+        error?.response?.data?.message || "Error al obtener competiciones"
       );
     } throw error;
   }
@@ -73,7 +73,7 @@ export const editEvent = async (token, event, id) => {
   } catch (error) {
     if (error.response) {
       throw new Error(
-        error?.response?.data?.message || "Error al editar evento"
+        error?.response?.data?.message || "Error al editar competición"
       );
     } throw error;
   }
@@ -91,7 +91,7 @@ export const deleteEvent = async (token, id) => {
   } catch (error) {
     if (error.response) {
       throw new Error(
-        error?.response?.data?.message || "Error al eliminar evento"
+        error?.response?.data?.message || "Error al eliminar competición"
       );
     } throw error;
   }

@@ -45,8 +45,17 @@ export const eventSlice = createSlice({
         setTotalPages: (state, action) => {
             state.totalPages = action.payload;
         },
+        toSearch: (state, action) => {
+            state.search = action.payload;
+          },
+        toFilter: (state, action) => {
+            state.event = action.payload;
+        },
+        toFirstPage: (state) => {
+            state.page = 0;
+        },
     }
 })
 
-export const { initEvents, setEvents, setAllEvents, editEvent, deleteEvent, resetEvents, setAmount, setPage, setTotalPages } = eventSlice.actions
+export const { initEvents, setEvents, setAllEvents, editEvent, deleteEvent, resetEvents, setAmount, setPage, setTotalPages, toSearch, toFilter, toFirstPage } = eventSlice.actions
 export default eventSlice.reducer

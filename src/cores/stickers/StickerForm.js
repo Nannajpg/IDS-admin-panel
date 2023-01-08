@@ -127,7 +127,7 @@ function StickerForm() {
                 />
                     
                 <Select 
-                    label={"Evento en el que participa"}
+                    label={"Competición en el que participa"}
                     onChange={changeEventId}
                     value={sticker.eventId}
                     options={eventsOptions} 

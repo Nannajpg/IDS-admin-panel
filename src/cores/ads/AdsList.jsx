@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Ad from "./Ad";
 import { useEffect } from "react";
@@ -11,7 +11,6 @@ import { storeAllAds, setPage, setTotalPages } from "../../features/ads/adSlice"
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setLoading } from "../../features/global/globalSlice";
-import SearchBar from "../../components/searchbar";
 
 const AdsList = () => {
   const adsState = useSelector((state) => state.ads);
@@ -34,7 +33,7 @@ const AdsList = () => {
         dispatch(setLoading(false));
       }
     })();
-  }, [adsState.amount, adsState.page, dispatch, token, SearchBar]);
+  }, [adsState.amount, adsState.page, dispatch, token, adsState.search]);
 
   const handleSetPage = page => {
     dispatch(setPage(page-1))

@@ -32,9 +32,18 @@ export const matchSlice = createSlice({
         },
         setTotalPages: (state, action) =>{
             state.totalPages = action.payload;
-        }
+        },
+        toSearch: (state, action) => {
+            state.search = action.payload;
+          },
+        toFilter: (state, action) => {
+            state.event = action.payload;
+        },
+        toFirstPage: (state) => {
+            state.page = 0;
+        },
     }
 })
 
-export const {resetMatches, setMatches, editMatch, deleteMatch, setAmount, setPage, setTotalPages} = matchSlice.actions
+export const {resetMatches, setMatches, editMatch, deleteMatch, setAmount, setPage, setTotalPages, toFilter, toFirstPage, toSearch} = matchSlice.actions
 export default matchSlice.reducer

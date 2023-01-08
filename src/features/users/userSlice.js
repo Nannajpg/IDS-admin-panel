@@ -50,8 +50,17 @@ export const userSlice = createSlice({
         setTotalPages: (state, action) => {
             state.totalPages = action.payload;
         },
+        toSearch: (state, action) => {
+            state.search = action.payload;
+          },
+        toFilter: (state, action) => {
+            state.event = action.payload;
+        },
+        toFirstPage: (state) => {
+            state.page = 0;
+        },
     }
 })
 
-export const {resetUsers, addUser, editUser, deleteUser, setAmount, setPage, setTotalPages } = userSlice.actions
+export const {resetUsers, addUser, editUser, deleteUser, setAmount, setPage, setTotalPages, toSearch, toFilter, toFirstPage } = userSlice.actions
 export default userSlice.reducer

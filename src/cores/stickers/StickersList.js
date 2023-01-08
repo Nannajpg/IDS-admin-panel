@@ -47,7 +47,7 @@ const StickerList = () => {
     };
 
     getStickers();
-  }, [dispatch, stickerState.page, stickerState.stickers, token]);
+  }, [dispatch, stickerState.page, stickerState.stickers, token, stickerState.search]);
 
   return (
     <div className="w-4/6">
