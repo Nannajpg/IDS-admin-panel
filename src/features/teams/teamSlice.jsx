@@ -34,7 +34,7 @@ export const teamSlice = createSlice({
     search: "",
     total: 0,
     page: 0,
-    pages: 0,
+    totalPages: 0,
     perPage: 0,
     loading: "idle",
     teams: [],
@@ -51,11 +51,12 @@ export const teamSlice = createSlice({
         foundTeam.event = event;
       }
     },
-    nextPage: (state) => {
-      state.page++;
+    setPage: (state, action) => {
+      state.users = [];
+      state.page = action.payload;
     },
-    prevPage: (state) => {
-      state.page--;
+    setTotalPages: (state, action) => {
+      state.totalPages = action.payload;
     },
     toFirstPage: (state) => {
       state.page = 0;
@@ -87,6 +88,6 @@ export const teamSlice = createSlice({
   },
 });
 
-export const { nextPage, prevPage, toFirstPage, toSearch, toFilter, editTeam, setAllTeams } =
+export const { nextPage, prevPage, toFirstPage, toSearch, toFilter, editTeam, setAllTeams, setPage, setTotalPages } =
   teamSlice.actions;
 export default teamSlice.reducer;

@@ -34,12 +34,6 @@ export const adsSlice = createSlice({
     editAd: (state) => {
       state.editedAd = !state.editedAd;
     },
-    nextPage: (state) => {
-      state.page++;
-    },
-    prevPage: (state) => {
-      state.page--;
-    },
     toFirstPage: (state) => {
       state.page = 0;
     },
@@ -48,10 +42,17 @@ export const adsSlice = createSlice({
     },
     toFilter: (state, action) => {
       state.adtype = action.payload;
-    }
+    },
+    setPage: (state, action) => {
+      state.users = [];
+      state.page = action.payload;
+    },
+    setTotalPages: (state, action) => {
+      state.totalPages = action.payload;
+    },
   }
 });
 
-export const { storeAllAds, increaseAmount, reduceAmount, nextPage, prevPage, toFirstPage, toSearch, toFilter } =
+export const { storeAllAds, increaseAmount, reduceAmount, toFirstPage, toSearch, toFilter, setPage, setTotalPages } =
   adsSlice.actions;
 export default adsSlice.reducer;

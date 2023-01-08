@@ -36,7 +36,7 @@ export const eventSlice = createSlice({
             }
         },
         setPage: (state, action) => {
-            state.stickers = [];
+            state.events = [];
             state.page = action.payload;
         },
         setAmount: (state, action) => {

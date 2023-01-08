@@ -5,9 +5,9 @@ import { useEffect } from "react";
 import AdsListHeader from "./AdsListHeader";
 import ModalDeleteAd from "./ModalDeleteAd";
 import useModal from "./useModal";
-import Navigation from "./Navigation";
+import Pagination from '../../components/pagination'
 import * as inventoryServices from "../../services/ads";
-import { storeAllAds } from "../../features/ads/adSlice";
+import { storeAllAds, setPage, setTotalPages } from "../../features/ads/adSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setLoading } from "../../features/global/globalSlice";
@@ -16,7 +16,8 @@ const AdsList = () => {
   const adsState = useSelector((state) => state.ads);
   const token = useSelector((state) => state.auth.userToken);
   const dispatch = useDispatch();
-
+  const page = adsState.page;
+  const totalPages = adsState.pages;
   const { isVisible, toggleModal, getId } = useModal();
 
   useEffect(() => {
@@ -25,6 +26,8 @@ const AdsList = () => {
         dispatch(setLoading(true));
         const data = await inventoryServices.fetchAds(token, adsState);
         dispatch(storeAllAds(data));
+        console.log(data)
+        dispatch(setTotalPages(data.pages))
       } catch (error) {
         if (error.response) {
           throw new Error(
@@ -35,7 +38,11 @@ const AdsList = () => {
         dispatch(setLoading(false));
       }
     })();
-  }, [adsState.amount, adsState.page, adsState, dispatch, token]);
+  }, [adsState.amount, adsState.page, dispatch, token]);
+
+  const handleSetPage = page => {
+    dispatch(setPage(page-1))
+  }
 
   return (
     <div className="w-4/6">
@@ -50,8 +57,15 @@ const AdsList = () => {
         hideModal={toggleModal}
         getId={getId}
       />
-      <Navigation />
-    </div>
+
+      <div className='py-4'>
+          <Pagination
+            currentPage={page + 1}
+            totalPages={totalPages}
+            handleSetPage={handleSetPage}
+          />
+        </div> 
+      </div>
   );
 };
 

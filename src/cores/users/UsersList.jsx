@@ -1,21 +1,24 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { addUser, resetUsers, setAmount} from '../../features/users/userSlice'
+import { addUser, resetUsers, setAmount, setPage, setTotalPages} from '../../features/users/userSlice'
 import * as usersServices from "../../services/users.services";
 import UserCard from './UserCard'
-import Pagination from './Pagination'
+import Pagination from '../../components/pagination'
 import { setLoading } from "../../features/global/globalSlice";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function UsersList() {
-    const postPerPage = 9;
-    const page = useSelector(state => state.users.page);
-    const users = useSelector(state => state.users.users);
-    const amount = useSelector(state => state.users.amount);
+
+    const { page, totalPages, users, amount } = useSelector(state => state.users);
     const { userToken } = useSelector(state => state.auth);
     const dispatch = useDispatch();
+    console.log(page, totalPages)
+
+    const handleSetPage = page => {
+        dispatch(setPage(page-1))
+    }
 
     useEffect(() => {
         dispatch(resetUsers());
@@ -27,6 +30,7 @@ function UsersList() {
                     dispatch(addUser(user));
                 });
                 dispatch(setAmount(data.paginate.total));
+                dispatch(setTotalPages(data.paginate.pages))
             } catch (error) {
                 if (error.response) {
                     throw new Error(error?.response?.data.message);
@@ -52,9 +56,16 @@ function UsersList() {
                 {users.map(user => <UserCard user={user} key={user.id} />)}
             </div>
 
+
             <div className='py-4'>
-                <Pagination postsPerPage={postPerPage} />
+                <Pagination
+                    currentPage={page+1}
+                    totalPages={totalPages}
+                    handleSetPage={handleSetPage}
+                />
             </div>  
+
+   
         </div>
     )
 }

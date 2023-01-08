@@ -1,11 +1,10 @@
 import { useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { setMatches, resetMatches, setAmount } from '../../features/matches/matchSlice'
-import { setPage } from '../../features/stickers/stickerSlice'
+import { setMatches, resetMatches, setAmount, setTotalPages, setPage } from '../../features/matches/matchSlice'
 import * as matchesServices from '../../services/matches.services'
 import Match from './Match'
-import Pagination from './Pagination'
+import Pagination from '../../components/pagination'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setLoading } from "../../features/global/globalSlice";
@@ -14,20 +13,27 @@ function MatchesList() {
     const postPerPage = 9;
     const date = "3000-12-12";
     const page = useSelector(state => state.matches.page);
+    const totalPages = useSelector(state => state.matches.totalPages)
     const amount = useSelector(state => state.matches.amount);
     const {userToken} = useSelector(state => state.auth)
 
     const matches = useSelector(state => state.matches.matches)
     const dispatch = useDispatch();
 
+    const handleSetPage = page => {
+        dispatch(setPage(page-1))
+    }
+
     const getMatches = useCallback(async () => {
         try {
+            console.log(userToken)
             dispatch(setLoading(true));
             dispatch(resetMatches());
             const data = await matchesServices.fetchMatches(userToken, page, postPerPage, date);
             dispatch(setMatches(data.items));
-            dispatch(setAmount(data.paginate.total));    
-            dispatch(setPage(data.paginate.page));
+            dispatch(setAmount(data.paginate.total));
+            console.log(data.paginate)    
+            dispatch(setTotalPages(data.paginate.pages));
         } catch (error) {
             if (error.response) {
             throw new Error(
@@ -56,7 +62,11 @@ function MatchesList() {
             </div>
 
             <div className='py-4'>
-                <Pagination postsPerPage={postPerPage} />
+                <Pagination
+                    currentPage={page + 1}
+                    totalPages={totalPages}
+                    handleSetPage={handleSetPage}
+                />
             </div> 
         </div>
     )

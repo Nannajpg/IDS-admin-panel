@@ -24,7 +24,7 @@ export const fetchAllEvents = async (token, page = 0, perPage = 9) => {
   }
 }
 
-export const fetchEvents = async (token, page = 0, perPage = 9) => {
+export const fetchEvents = async (token, page = 0, perPage = 3) => {
   try {
     const res = await axios.get(BASE_URL+'?page='+page+'&size='+perPage, {
       headers: { Authorization: `Bearer ${token}` },

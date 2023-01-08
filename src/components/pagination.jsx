@@ -1,13 +1,9 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { setPage } from '../../features/stickers/stickerSlice'
+import { useDispatch } from 'react-redux'
 
-import './Pagination.css'
+import './styles/Pagination.css'
 
-const Pagination = () => {
-    
-    const currentPage = (useSelector(state => state.stickers.page)+1)
-    const totalPages = useSelector(state => state.stickers.totalPages)
+const PaginationComponent = ({currentPage, totalPages, handleSetPage}) => {
     const dispatch = useDispatch()
 
     let pages = []
@@ -16,6 +12,11 @@ const Pagination = () => {
         pages.push(i)
     }
 
+
+    console.log(currentPage);
+    console.log(totalPages);
+    
+
     return (
         <div className='pagination'>
             {
@@ -23,7 +24,7 @@ const Pagination = () => {
                     return <button
                         key={index}
                         onClick={() => {
-                            dispatch(setPage(page-1))
+                            handleSetPage(page)
                         }}
                         className={page === currentPage ? 'active' : ''}
                     >
@@ -34,4 +35,4 @@ const Pagination = () => {
     )
 }
 
-export default Pagination
+export default PaginationComponent

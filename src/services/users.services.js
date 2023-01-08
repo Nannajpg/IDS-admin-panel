@@ -5,7 +5,7 @@ const BASE_URL = API_URL+"/users/";
 
 export const fetchUsers = async (token, page) => {
   try {
-    const res = await axios.get(BASE_URL+"?size=9&page="+page, {
+    const res = await axios.get(BASE_URL + "?size=9&page=" + page, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!res.data.items || !res.data.success) {
