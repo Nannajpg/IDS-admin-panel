@@ -29,11 +29,7 @@ const AdsList = () => {
         console.log(data)
         dispatch(setTotalPages(data.pages))
       } catch (error) {
-        if (error.response) {
-          throw new Error(
-            error?.response?.data?.message || "Error obteniendo anuncios"
-          );
-        } toast.error(error.message);
+        toast.error(error.message);
       } finally {
         dispatch(setLoading(false));
       }

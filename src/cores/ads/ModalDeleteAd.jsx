@@ -18,11 +18,6 @@ function ModalDeleteAd({ isVisible, hideModal, getId }) {
       dispatch(reduceAmount());
       hideModal(isVisible);
     } catch (error) {
-      if (error.response) {
-        throw new Error(
-          error?.response?.data?.message || "Error desconocido del servidor"
-        );
-      }
       toast.error(error.message);
     } finally {
       dispatch(setLoading(false));

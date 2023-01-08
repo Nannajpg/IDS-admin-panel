@@ -12,6 +12,7 @@ const CreateForm = () => {
 
   const create = async (ad) => {
     try {
+      dispatch(setLoading(true));
       await adsServices.createAd(token, ad);
       dispatch(increaseAmount());
     } catch (error) {

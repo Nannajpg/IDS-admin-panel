@@ -19,7 +19,6 @@ const EditForm = () => {
   const edit = async (ad, id) => {
     try {
       dispatch(setLoading(true));
-      await adsServices.editAd(userToken, { ad, id });
       await dispatch(editAd({userToken, ad, id})).unwrap();
     } catch (error) {
       toast.error(error.message);
