@@ -120,7 +120,7 @@ function MatchForm({ action, id }) {
             <label htmlFor="name" className="block text-xl font-bold mb-2" >Partidos</label> 
 
             <Select 
-                label={"Evento en el que participa"}
+                label={"Competición en el que participa"}
                 onChange={changeEventId}
                 value={match.eventId}
                 options={eventsOptions} 

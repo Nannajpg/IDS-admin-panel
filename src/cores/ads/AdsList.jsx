@@ -26,7 +26,6 @@ const AdsList = () => {
         dispatch(setLoading(true));
         const data = await inventoryServices.fetchAds(token, adsState);
         dispatch(storeAllAds(data));
-        console.log(data)
         dispatch(setTotalPages(data.pages))
       } catch (error) {
         toast.error(error.message);
@@ -34,7 +33,7 @@ const AdsList = () => {
         dispatch(setLoading(false));
       }
     })();
-  }, [adsState.amount, adsState.page, dispatch, token]);
+  }, [adsState.amount, adsState.page, dispatch, token, adsState.search]);
 
   const handleSetPage = page => {
     dispatch(setPage(page-1))

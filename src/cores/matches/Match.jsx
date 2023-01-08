@@ -38,7 +38,7 @@ const Match = ({ match, onDelete }) => {
 
       <p>{match.teamOne.name} vs {match.teamTwo.name}</p>
       <p>Fecha: {match.gameDate} </p>
-      <p>Evento: {match.event.eventName}</p>
+      <p>Competición: {match.event.eventName}</p>
 
       <div className="flex gap-x-2">
           <button

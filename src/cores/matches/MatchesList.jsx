@@ -1,13 +1,14 @@
 import { useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { setMatches, resetMatches, setAmount, setTotalPages, setPage } from '../../features/matches/matchSlice'
+import { setMatches, resetMatches, setAmount, setTotalPages, setPage, toFirstPage, toSearch } from '../../features/matches/matchSlice'
 import * as matchesServices from '../../services/matches.services'
 import Match from './Match'
 import Pagination from '../../components/pagination'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setLoading } from "../../features/global/globalSlice";
+//import SearchBar from "../../components/searchbar";
 
 function MatchesList() {
     const postPerPage = 9;
@@ -23,6 +24,13 @@ function MatchesList() {
     const handleSetPage = page => {
         dispatch(setPage(page-1))
     }
+
+    const handleSubmit = (e, searchRef) => {
+        e.preventDefault();
+        dispatch(toSearch(searchRef.current.value));
+        dispatch(toFirstPage());
+        return(searchRef.current.value = '')
+      };
 
     const getMatches = useCallback(async () => {
         try {
@@ -51,6 +59,12 @@ function MatchesList() {
             <header className='flex justify-between items-center py-4'>
                 <Link to="/dashboard" className="bg-emerald-600 px-2 py-1 text-sm rounded-md mx-2">Volver</Link>
                 <h1>Partidos Totales: {amount}</h1>
+                {/*
+                    <SearchBar
+                    handleSubmit={handleSubmit}
+                    placeholder={"Buscar anuncio por título"}
+                />
+                */}
                 
                 <Link to="/matches/create" className='bg-emerald-600 px-2 py-1 rounded-md text-sm'>
                     Crear Partido

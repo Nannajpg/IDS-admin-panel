@@ -22,7 +22,7 @@ const Event = ({ event }) => {
       } catch (error) {
         if (error.response) {
           throw new Error(
-            error?.response?.data.message || "Error eliminando evento"
+            error?.response?.data.message || "Error eliminando competición"
           );
         } toast.error(error.message);
       } finally {
@@ -40,7 +40,7 @@ const Event = ({ event }) => {
         
       </header>
 
-      <p>Evento: {event.eventName}</p>
+      <p>Competición: {event.eventName}</p>
       <p>Estado: {event.status ? "Activo" : "Inactivo"}</p>
 
       <div className="flex gap-x-2">

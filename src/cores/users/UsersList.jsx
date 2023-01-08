@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { addUser, resetUsers, setAmount, setPage, setTotalPages} from '../../features/users/userSlice'
+import { addUser, resetUsers, setAmount, setPage, setTotalPages, toSearch, toFirstPage} from '../../features/users/userSlice'
 import * as usersServices from "../../services/users.services";
 import UserCard from './UserCard'
 import Pagination from '../../components/pagination'
 import { setLoading } from "../../features/global/globalSlice";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SearchBar from "../../components/searchbar";
 
 function UsersList() {
 
@@ -19,6 +20,13 @@ function UsersList() {
     const handleSetPage = page => {
         dispatch(setPage(page-1))
     }
+
+    const handleSubmit = (e, searchRef) => {
+        e.preventDefault();
+        dispatch(toSearch(searchRef.current.value));
+        dispatch(toFirstPage());
+        return(searchRef.current.value = '')
+      };
 
     useEffect(() => {
         dispatch(resetUsers());
@@ -47,6 +55,10 @@ function UsersList() {
             <header className='flex justify-between items-center py-4'>
                 <Link to="/dashboard" className="bg-emerald-600 px-2 py-1 text-sm rounded-md mx-2">Volver</Link>
                 <h1>Usuarios Totales: {amount}</h1>
+                <SearchBar
+                    handleSubmit={handleSubmit}
+                    placeholder={"Buscar usuario por email"}
+                />
                 <Link to="/users/create" className='bg-emerald-600 px-2 py-1 rounded-md text-sm'>
                     Crear Usuario
                 </Link>

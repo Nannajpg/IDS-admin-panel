@@ -37,14 +37,14 @@ function EventForm({ action, id }) {
     return (
         <form onSubmit={handleSubmit} className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
 
-            <label htmlFor="name" className="block text-xl font-bold mb-2 ">Eventos</label>
+            <label htmlFor="name" className="block text-xl font-bold mb-2 ">Competiciones</label>
 
             <label htmlFor="name" className="block text-sm font-bold mb-2">Nombre:</label>
             <input name='eventName' type="text" placeholder="Nombre" onChange={handleChange} className="w-full p-2 rounded-md bg-zinc-600 mb-2" required />
 
             <label htmlFor="status" className="block text-sm font-bold mb-2">Estado:</label>
-            <select name="status" className="w-full p-2 rounded-md bg-zinc-600 mb-2" onChange={handleChange} placeholder="Estado del Evento" required>
-                <option defaultValue="">Estado del Evento</option>
+            <select name="status" className="w-full p-2 rounded-md bg-zinc-600 mb-2" onChange={handleChange} placeholder="Estado de la ompetición" required>
+                <option defaultValue="">Estado de la competición</option>
                 <option value="Inactivo">Inactivo</option>
                 <option value="Activo">Activo</option>
             </select>

@@ -6,7 +6,6 @@ import ModalDeleteTeam from "./ModalDeleteTeam";
 import useModal from "./useModal";
 import { useEffect } from "react";
 import { fetchTeams, setPage } from "../../features/teams/teamSlice";
-import * as teamServices from "../../services/team.services";
 import { setLoading } from "../../features/global/globalSlice";
 import { toast } from 'react-toastify';
 import Pagination from '../../components/pagination'
@@ -32,8 +31,6 @@ const TeamsList = () => {
             search: teams.search,
           })
         ).unwrap();
-        const res = await teamServices.getSingleTeam(userToken, 1 );
-        return(res.data)
       } catch (error) {
         toast.error(error.message);;
       } finally {

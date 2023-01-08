@@ -28,7 +28,7 @@ const EditForm = () => {
     } catch (error) {
         if (error.response) {
           throw new Error(
-            error?.response?.data.message || "Error al editar evento"
+            error?.response?.data.message || "Error al editar competición"
           );
         }
       toast.error(error.message);
