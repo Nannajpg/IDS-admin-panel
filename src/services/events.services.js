@@ -48,7 +48,7 @@ export const createEvent = async (token, event) => {
         headers: { Authorization: `Bearer ${token}` },
       });
         if (!res.data.message || !res.data.item) {
-          throw new Error("No se han recibido bien los datos del servidor :(");
+          throw new Error("Ha ocurrido un error con el backend");
         }
       return res.data;
   } catch (error) {
@@ -67,7 +67,7 @@ export const editEvent = async (token, event, id) => {
     })
       event.id = Number(id);
       if (!res.data.message || !res.data.success) {
-        throw new Error("No se han recibido bien los datos del servidor :(");
+        throw new Error("Ha ocurrido un error con el backend");
       }
     return event;
   } catch (error) {
@@ -85,7 +85,7 @@ export const deleteEvent = async (token, id) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!res.data.message || !res.data.success) {
-      throw new Error("No se han recibido bien los datos del servidor :(");
+      throw new Error("Ha ocurrido un error con el backend");
     }
     return res;
   } catch (error) {
