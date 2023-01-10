@@ -15,6 +15,7 @@ import Pagination from '../../components/pagination'
 import { toast } from 'react-toastify';
 import { setLoading } from "../../features/global/globalSlice";
 import HiddenTable from "./HiddenTable";
+import "./StickersList.css"
 
 const StickerList = () => {
   const dispatch = useDispatch();
@@ -52,26 +53,21 @@ const StickerList = () => {
 
   return (
     <div>
-
       <StickersListHeader amount={stickerState.amount} />
-      
       <div className="overflow-auto shadow-lg rounded-lg hidden md:block">
-        
         <table className="w-full">
-            <thead className="bg-gradient-to-r from-[#D13256] to-[#F75845] text-white">
-            <tr className="">
-                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Nombre</th>
-                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Competición</th>
-                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Equipo</th>
-                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Posición</th>
-                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Altura (cm)</th>
-                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Peso (Kg)</th>
-                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Porcentaje de Aparición</th>
-                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Opciones</th>
-            </tr>
+            <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
+              <tr>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">Nombre</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Competición</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Equipo</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Posición</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Altura (cm)</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Peso (Kg)</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Porcentaje de Aparición</td>
+                <td className="rounded-r-full"></td>
+              </tr>
             </thead>
-          
-
             <tbody className="divide-y divide-gray-100">            
               {stickerState.stickers.map((sticker) => (
                   <StickerRow sticker={sticker} key={sticker.id} />
