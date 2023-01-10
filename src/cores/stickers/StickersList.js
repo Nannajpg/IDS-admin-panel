@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import StickersListHeader from "./StickersListHeader";
 import {
   readStickers,
@@ -58,7 +58,8 @@ const StickerList = () => {
         <table className="w-full">
             <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
               <tr>
-                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">Foto</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">ID</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Imagen</td>
                 <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Nombre</td>
                 <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Competición</td>
                 <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Equipo</td>

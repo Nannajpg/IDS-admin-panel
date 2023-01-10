@@ -5,8 +5,9 @@ import * as matchesServices from "../../services/matches.services";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setLoading } from "../../features/global/globalSlice";
+import {RiDeleteBin6Line as Bin } from "react-icons/ri"
 
-const Match = ({ match, onDelete }) => {
+const MatchRow = ({ match, onDelete }) => {
 
   const dispatch = useDispatch();
 
@@ -28,28 +29,26 @@ const Match = ({ match, onDelete }) => {
   };
 
   return (
-    <div key={match.id} className="bg-neutral-800 p-4 rounded-md">
-      <header className="flex justify-between">
-        <div className="text-center">
-          <h3>{match.id}</h3>
-        </div>
-        
-      </header>
 
-      <p>{match.teamOne.name} vs {match.teamTwo.name}</p>
-      <p>Fecha: {match.gameDate} </p>
-      <p>Competición: {match.event.eventName}</p>
+    <tr className='bg-white'>
+      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{match.id}</td>
+      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{match.teamOne.name} vs {match.teamTwo.name}</td>
+      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{match.gameDate}</td>
+      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{match.event.eventName}</td>
+      <td className='p-3 w-30 flex gap-2'>
 
       <div className="flex gap-x-2">
+         
           <button
             onClick={() => handleDelete(match.id)}
-            className="bg-red-700 px-2 py-1 text-xs rounded-md self-center"
           >
-            Eliminar
+            <Bin color='white' className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1" size="2rem"/>
           </button>
-        </div>
-    </div>
+      </div>
+      </td>
+    </tr> 
+
   );
 };
 
-export default Match;
+export default MatchRow;

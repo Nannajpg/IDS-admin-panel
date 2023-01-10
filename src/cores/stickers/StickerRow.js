@@ -29,6 +29,7 @@ function StickerRow({ sticker }) {
       };
     return (
         <tr className='bg-white'>
+            <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{sticker.id}</td>
             <td className='p-3 text-sm text-black whitespace-nowrap flex justify-center font-medium'><img src={sticker.img} alt="stickerImage" className="rounded-full object-contain h-8 w-8" /></td>
             <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{sticker.playerName}</td>
             <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{sticker.team.event.eventName}</td>

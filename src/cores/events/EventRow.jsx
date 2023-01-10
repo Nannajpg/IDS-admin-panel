@@ -6,8 +6,10 @@ import * as eventsServices from "../../services/events.services";
 import { setLoading } from "../../features/global/globalSlice";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { MdModeEditOutline as Pencil } from "react-icons/md"
+import {RiDeleteBin6Line as Bin } from "react-icons/ri"
 
-const Event = ({ event }) => {
+const EventRow = ({ event }) => {
 
   const dispatch = useDispatch();
   const amount = useSelector(state => state.events.amount)
@@ -32,33 +34,27 @@ const Event = ({ event }) => {
   
 
   return (
-    <div key={event.id} className="bg-neutral-800 p-4 rounded-md">
-      <header className="flex justify-between">
-        <div className="text-center">
-          <h3>{event.id}</h3>
-        </div>
-        
-      </header>
-
-      <p>Competición: {event.eventName}</p>
-      <p>Estado: {event.status ? "Activo" : "Inactivo"}</p>
+    <tr className='bg-white'>
+      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{event.id}</td>
+      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{event.eventName}</td>
+      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{event.status ? "Activo" : "Inactivo"}</td>
+      <td className='p-3 w-30 flex gap-2'>
 
       <div className="flex gap-x-2">
           <Link
             to={`/events/edit/${event.id}`}
-            className="bg-teal-600 px-2 py-1 text-xs rounded-md self-center"
           >
-            Editar
+            <Pencil color='white' className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1" size="2rem"/>
           </Link>
           <button
             onClick={() => handleDelete(event.id)}
-            className="bg-red-700 px-2 py-1 text-xs rounded-md self-center"
           >
-            Eliminar
+            <Bin color='white' className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1" size="2rem"/>
           </button>
-        </div>
-    </div>
+      </div>
+      </td>
+    </tr> 
   );
 };
 
-export default Event;
+export default EventRow;

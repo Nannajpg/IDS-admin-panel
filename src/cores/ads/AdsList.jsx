@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Ad from "./Ad";
+import AdRow from "./AdRow";
 import { useEffect } from "react";
 import AdsListHeader from "./AdsListHeader";
 import ModalDeleteAd from "./ModalDeleteAd";
@@ -42,11 +42,26 @@ const AdsList = () => {
   return (
     <div className="w-4/6">
       <AdsListHeader />
-      <div className="grid md:grid-cols-3 gap-4 grid-cols-1">
-        {adsState.ads.map((ad) => (
-          <Ad id={ad.id} key={ad.id} showModal={toggleModal} />
-        ))}
+      <div className="overflow-auto w-full rounded-lg hidden md:block">
+        <table className="shadow-lg w-5/2 m-auto">
+            <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
+              <tr>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">ID</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Imagen</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Título</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Dirección</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Tipo de anuncio</td>
+                <td className="rounded-r-full"></td>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">            
+              {adsState.ads.map((ad) => (
+                <AdRow id={ad.id} key={ad.id} showModal={toggleModal} />
+              ))}
+            </tbody>
+        </table>
       </div>
+
       <ModalDeleteAd
         isVisible={isVisible}
         hideModal={toggleModal}

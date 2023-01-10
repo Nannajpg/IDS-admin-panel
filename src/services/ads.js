@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { API_URL } from "../config.js";
 
 const BASE_URL = API_URL+"/ads";
-const FETCH_URL = `${BASE_URL}/search?size=3&page=`;
+const FETCH_URL = `${BASE_URL}/search?size=7&page=`;
 
 export const fetchAds = async (token, { page = 0, adtype, search }) => {
   if (adtype === "") adtype = "&adtype[]=static&adtype[]=float";

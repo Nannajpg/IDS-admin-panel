@@ -3,12 +3,13 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { addUser, resetUsers, setAmount, setPage, setTotalPages, toSearch, toFirstPage} from '../../features/users/userSlice'
 import * as usersServices from "../../services/users.services";
-import UserCard from './UserCard'
+import UserRow from './UserRow'
 import Pagination from '../../components/pagination'
 import { setLoading } from "../../features/global/globalSlice";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SearchBar from "../../components/searchbar";
+import {FiArrowLeft as Arrow} from 'react-icons/fi'
 
 function UsersList() {
 
@@ -53,19 +54,42 @@ function UsersList() {
     return (
         <div className='w-4/6'>
             <header className='flex justify-between items-center py-4'>
-                <Link to="/dashboard" className="bg-emerald-600 px-2 py-1 text-sm rounded-md mx-2">Volver</Link>
-                <h1>Usuarios Totales: {amount}</h1>
+                <Link to="/dashboard" className=""><Arrow color="#3D405B" size="2.5rem"/></Link>
+
+                <h1 className='text-[#3D405B] font-bold text-3xl'>Gestionar Usuarios</h1>
+                <h1 className='text-[#3D405B] font-medium text-lg'>Usuarios: {amount}</h1>
+
                 <SearchBar
                     handleSubmit={handleSubmit}
-                    placeholder={"Buscar usuario por email"}
+                    placeholder={"Buscar email"}
                 />
-                <Link to="/users/create" className='bg-emerald-600 px-2 py-1 rounded-md text-sm'>
-                    Crear Usuario
+
+                <Link to="/users/create" className='bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8'>
+                    Crear
                 </Link>
+
             </header>
 
+
+        <div className="overflow-auto w-full rounded-lg hidden md:block">
+        <table className="shadow-lg m-auto">
+            <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
+              <tr>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">ID</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Nombre</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Email</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Tipo de usuario</td>
+                <td className="rounded-r-full"></td>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">            
+            {users.map(user => <UserRow user={user} key={user.id} />)}
+            </tbody>
+        </table>
+      </div>
+
             <div className='grid grid-cols-3 gap-4'>
-                {users.map(user => <UserCard user={user} key={user.id} />)}
+                
             </div>
 
 
