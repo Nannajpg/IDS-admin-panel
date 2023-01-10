@@ -31,7 +31,7 @@ function HiddenTable({ sticker }) {
           </div>
 
           <div className="flex items-center space-x-2 text-sm">
-            <div>Competición:</div>
+            <div>Competición: {sticker.team.event.eventName}</div>
           </div>
 
           <div className="flex items-center space-x-2 text-sm">
