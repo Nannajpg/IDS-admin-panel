@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { API_URL } from "../config.js";
 
-const BASE_URL = API_URL+"/ads";
+const BASE_URL = API_URL+"/promotions";
 const FETCH_URL = `${BASE_URL}/search?size=7&page=`;
 
 export const fetchAds = async (token, { page = 0, adtype, search }) => {

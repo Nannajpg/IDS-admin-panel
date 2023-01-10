@@ -14,7 +14,9 @@ import {FiArrowLeft as Arrow} from 'react-icons/fi'
 function UsersList() {
 
     const { page, totalPages, users, amount } = useSelector(state => state.users);
+    console.log(users)
     const { userToken } = useSelector(state => state.auth);
+    console.log(userToken)
     const dispatch = useDispatch();
     console.log(page, totalPages)
 

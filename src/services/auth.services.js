@@ -7,7 +7,7 @@ const URL_SIGNUP = API_URL+"/auth/register";
 export const login = async ({ email, password }) => {
     try {
         const { data } = await axios.post(URL_LOGIN, { email, password });
-        if (!data.user || !data.token){
+        if (!data?.item?.token || !data?.item?.user){
             throw new Error ("Ha ocurrido un error con el backend");
         }
         return data;

@@ -13,11 +13,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { setLoading } from "../../features/global/globalSlice";
 
 const AdsList = () => {
-  const adsState = useSelector((state) => state.ads);
+  const adsState = useSelector((state) => state.ads.ads);
+  console.log(adsState)
   const token = useSelector((state) => state.auth.userToken);
   const dispatch = useDispatch();
-  const page = adsState.page;
-  const totalPages = adsState.pages;
+  const page = useSelector(state => state.ads.page);
+  const totalPages = useSelector(state => state.paginate.pages);
   const { isVisible, toggleModal, getId } = useModal();
 
   useEffect(() => {

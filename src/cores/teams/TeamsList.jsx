@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Team from "./Team";
+import TeamRow from "./TeamRow";
 import TeamsListHeader from "./TeamsListHeader";
 import ModalDeleteTeam from "./ModalDeleteTeam";
 import useModal from "./useModal";
@@ -45,18 +45,36 @@ const TeamsList = () => {
   }
 
   return (
-    <div className="w-4/6">
+
+    <div>
       <TeamsListHeader />
-      <div className="grid md:grid-cols-3 gap-4 grid-cols-1">
-        {teams.teams.map((team) => (
-          <Team id={team.id} key={team.id} showModal={toggleModal} />
-        ))}
-      </div>
+
       <ModalDeleteTeam
         isVisible={isVisible}
         hideModal={toggleModal}
         getId={getId}
       />
+      <div className="overflow-auto w-full rounded-lg hidden md:block">
+        <table className="shadow-lg w-5/2 m-auto">
+            <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
+              <tr>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">ID</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Imagen</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Equipo</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Competición</td>
+                <td className="rounded-r-full"></td>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">            
+              {teams.teams.map((team) => (
+                <TeamRow id={team.id} key={team.id} showModal={toggleModal} />
+              ))}
+            </tbody>
+        </table>
+    </div>
+      
+    <div className="w-4/6"></div>
+      
       
       <div className='py-4'>
         <Pagination
@@ -65,8 +83,8 @@ const TeamsList = () => {
           handleSetPage={handleSetPage}
         />
       </div> 
-
     </div>
+    
   );
 };
 
