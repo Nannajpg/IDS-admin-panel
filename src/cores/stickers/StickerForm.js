@@ -106,12 +106,6 @@ function StickerForm() {
         }
         navigate('/stickers')
     }
-    
-    useEffect(() => {
-        if (params.id) {
-            setSticker(stickers.find(sticker => sticker.id === params.id))
-        }
-    }, [params.id, stickers])
 
     return (
         <div className='flex items-center h-screen'>

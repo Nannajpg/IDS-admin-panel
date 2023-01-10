@@ -1,3 +1,4 @@
+
 .pagination {
     display: flex;
     flex-wrap: wrap;
@@ -7,23 +8,22 @@
 
 .pagination button {
     padding: 10;
-    width: 40px;
+    width: 35.38px;
     height: 40px;
-    font-family: inherit;
+    font-family: "Inter";
     font-weight: 600;
     font-size: 16px;
     margin: 0 10px;
-    border-radius: 6px;
+    border-radius: 2px;
     cursor: pointer;
     transition: all 0.3s ease;
     background: transparent;
-    color: #bbbbbb;
+    color: #D13256 ;
     border-color: #29555E;
 }
 
 .pagination button.active {
     font-weight: 900;
-    border-color: #29555E;
-    background: #70ABAF;
-    color: #101010;
+    background: linear-gradient(#D13256, #F75845);
+    color: white;
 }

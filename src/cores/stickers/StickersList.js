@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import StickersListHeader from "./StickersListHeader";
 import {
   readStickers,
@@ -6,7 +6,7 @@ import {
   setTotalPages,
   setPage
 } from "../../features/stickers/stickerSlice";
-import StickerCard from "./StickerCard";
+import StickerRow from "./StickerRow";
 import {
   getAllStickers,
 } from "../../services/stickers.services";
@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Pagination from '../../components/pagination'
 import { toast } from 'react-toastify';
 import { setLoading } from "../../features/global/globalSlice";
+import HiddenTable from "./HiddenTable";
 
 const StickerList = () => {
   const dispatch = useDispatch();
@@ -50,21 +51,49 @@ const StickerList = () => {
   }, [dispatch, stickerState.page, stickerState.stickers, token, stickerState.search]);
 
   return (
-    <div className="w-4/6">
-      {console.log(stickerState)}
+    <div>
+
       <StickersListHeader amount={stickerState.amount} />
-      <div className="grid grid-cols-4 gap-4">
-        {stickerState.stickers.map((sticker) => (
-          <StickerCard sticker={sticker} key={sticker.id} />
-        ))}
+      
+      <div className="overflow-auto shadow-lg rounded-lg hidden md:block">
+        
+        <table className="w-full">
+            <thead className="bg-gradient-to-r from-[#D13256] to-[#F75845] text-white">
+            <tr className="">
+                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Nombre</th>
+                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Competición</th>
+                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Equipo</th>
+                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Posición</th>
+                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Altura (cm)</th>
+                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Peso (Kg)</th>
+                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Porcentaje de Aparición</th>
+                  <th className="p-3 w-30 text-sm font-bold tracking-wide text-center">Opciones</th>
+            </tr>
+            </thead>
+          
+
+            <tbody className="divide-y divide-gray-100">            
+              {stickerState.stickers.map((sticker) => (
+                  <StickerRow sticker={sticker} key={sticker.id} />
+              ))}
+          </tbody>
+        </table>
       </div>
+
+      <div className="grid w-50 grid-cols-2 sm:grid-cols-2 gap-4 md:hidden">
+      {stickerState.stickers.map((sticker) => (
+        <HiddenTable sticker={sticker} key={sticker.id}/>
+      ))}
+      </div>
+    
       <div className='py-4'>
-          <Pagination
-            currentPage={page + 1}
-            totalPages={totalPages}
-            handleSetPage={handleSetPage}
-          />
+            <Pagination
+              currentPage={page + 1}
+              totalPages={totalPages}
+              handleSetPage={handleSetPage}
+            />
       </div>
+      
     </div>
   );
 };
