@@ -80,7 +80,7 @@ function MatchForm({ action, id }) {
             try {
                 dispatch(setLoading(true))
                 const res = await fetchAllTeams(userToken, selectedEventId);
-                setAllTeams(res);
+                setAllTeams(res.items);
             } catch (error) {
               if (error.response) {
                 throw new Error(

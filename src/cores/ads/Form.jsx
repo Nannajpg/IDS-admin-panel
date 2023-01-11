@@ -6,9 +6,10 @@ import { toast } from 'react-toastify';
 
 
 const Form = ({ onSubmit, id, toEditAd }) => {
-  const announcerRef = useRef(null);
+  const aliasRef = useRef(null);
   const imgRef = useRef(null);
-  const adTypeRef = useRef(null);
+  const promotionTypeRef = useRef(null);
+  const descriptionRef = useRef(null);
   const redirecToRef = useRef(null);
   const [imagen, setImagen] = useState();
   const [notValidUrl, setNotValidUrl] = useState(false);
@@ -18,11 +19,12 @@ const Form = ({ onSubmit, id, toEditAd }) => {
 
   useEffect(() => {
     if (toEditAd) {
-      announcerRef.current.value = toEditAd.announcer;
+      aliasRef.current.value = toEditAd.alias;
       setImagen(toEditAd.img);
       setImgToEdit(true);
-      adTypeRef.current.value = toEditAd.adType;
+      promotionTypeRef.current.value = toEditAd.promotionType;
       redirecToRef.current.value = toEditAd.redirecTo;
+      descriptionRef.current.value = toEditAd.description;
     }
   }, [toEditAd]);
 
@@ -30,16 +32,18 @@ const Form = ({ onSubmit, id, toEditAd }) => {
     e.preventDefault();
     if (!notValidUrl) {
       const ad = {
-        announcer: announcerRef.current.value,
-        adType: adTypeRef.current.value,
+        alias: aliasRef.current.value,
+        description: descriptionRef.current.value,
+        promotionType: promotionTypeRef.current.value,
         redirecTo: redirecToRef.current.value,
         img: imgRef.current.files[0],
       };
-      announcerRef.current.value = "";
+      aliasRef.current.value = "";
+      descriptionRef.current.value = "";
       imgRef.current.value = null;
-      adTypeRef.current.value = "";
+      promotionTypeRef.current.value = "";
       redirecToRef.current.value = "";
-      
+
       try {
         await onSubmit(ad, id);  
       } catch (e) {
@@ -55,19 +59,32 @@ const Form = ({ onSubmit, id, toEditAd }) => {
       onSubmit={handleSubmit}
       className="bg-zinc-800 max-w-sm p-4 mt-24"
     >
-      <label htmlFor="announcer" className="block text-xs font-bold mb-2">
+      <label htmlFor="alias" className="block text-xs font-bold mb-2">
         Titulo
       </label>
       <input
-        name="announcer"
+        name="alias"
         type="text"
         placeholder="Titulo"
-        ref={announcerRef}
+        ref={aliasRef}
         className="w-full p-2 rounded-md bg-zinc-600 mb-2"
         required
       />
+
+      <label htmlFor="description" className="block text-xs font-bold mb-2">
+        Titulo
+      </label>
+      <input
+        name="description"
+        type="text"
+        placeholder="Titulo"
+        ref={descriptionRef}
+        className="w-full p-2 rounded-md bg-zinc-600 mb-2"
+        required
+      />
+
       <label htmlFor="image" className="block text-xs font-bold mb-2">
-        Subir la imagen del anuncio
+        
       </label>
       <input
         name="img"
@@ -91,7 +108,7 @@ const Form = ({ onSubmit, id, toEditAd }) => {
       <select
         name="adType"
         className="w-full p-2 rounded-md bg-zinc-600 mb-2"
-        ref={adTypeRef}
+        ref={promotionTypeRef}
         placeholder="Tipo del anuncio"
         required
       >

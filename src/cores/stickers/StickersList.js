@@ -67,7 +67,7 @@ const StickerList = () => {
                 <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Altura (cm)</td>
                 <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Peso (Kg)</td>
                 <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">% de Aparición</td>
-                <td className="rounded-r-full"></td>
+                <td className="p-3 w-30 rounded-r-full"></td>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">            

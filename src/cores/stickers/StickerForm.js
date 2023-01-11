@@ -19,7 +19,9 @@ function StickerForm() {
     const [selectedEventId, setSelectedEventId] = useState(1)
     
     const [sticker, setSticker] = useState({
+        externalUuid: '',
         playerName: '',
+        jerseyNumber: 0,
         teamId: 0,
         position: '',
         height: '',
@@ -81,7 +83,7 @@ function StickerForm() {
             try {
                 dispatch(setLoading(true))
                 const res = await fetchAllTeams(userToken, selectedEventId);
-                setAllTeams(res);
+                setAllTeams(res.items);
             } catch (error) {
               if (error.response) {
                 throw new Error(
@@ -97,25 +99,59 @@ function StickerForm() {
     }, [userToken, selectedEventId, dispatch]);
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        try{
+            dispatch(setLoading(true))
+            e.preventDefault()
         if (params.id) {
             await editSticker(userToken, sticker, sticker.id);
-            
-        } else {
-            await saveSticker(userToken, sticker);
-        }
+            } else {
+                await saveSticker(userToken, sticker);
+            }
         navigate('/stickers')
+        } catch (error) {
+            if (error.response) {
+              throw new Error(
+                error?.response?.data?.message || "Error desconocido del servidor"
+              );
+            }
+            toast.error(error.message);
+        } finally{
+            dispatch(setLoading(false))
+        }
+
+        
     }
 
     return (
         <div className='flex items-center h-screen'>
             <form encType="multipart/form-data" onSubmit={handleSubmit} className='bg-slate-300 max-w-sm p-4 rounded-md grid grid-cols-2'>
+                <label htmlFor='externalUuid' className='block text-xs font-bold mb-2'>UUID:</label>
+                <input
+                    name='externalUuid'
+                    type='text'
+                    onChange={handleChange}
+                    value={sticker.externalUuid}
+                    className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                    required
+                />
+
                 <label htmlFor='playerName' className='block text-xs font-bold mb-2'>Nombre de Jugador:</label>
                 <input
                     name='playerName'
                     type='text'
                     onChange={handleChange}
                     value={sticker.playerName}
+                    className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
+                    required
+                />
+
+                <label htmlFor='jerseyNumber' className='block text-xs font-bold mb-2'>Número de camiseta:</label>
+                <input
+                    name='jerseyNumber'
+                    type='number'
+                    step={0} min={0} max={100}
+                    onChange={handleChange}
+                    value={sticker.jerseyNumber}
                     className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
                     required
                 />

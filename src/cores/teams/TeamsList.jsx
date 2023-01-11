@@ -23,6 +23,7 @@ const TeamsList = () => {
     (async () => {
       try {
         dispatch(setLoading(true));
+        console.log(userToken)
         await dispatch(
           fetchTeams({
             userToken,
@@ -30,6 +31,7 @@ const TeamsList = () => {
             pages: teams.pages,
             search: teams.search,
           })
+          
         ).unwrap();
       } catch (error) {
         toast.error(error.message);;

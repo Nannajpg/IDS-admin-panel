@@ -75,7 +75,7 @@ function MatchesList() {
                         <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Partido</td>
                         <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Competición</td>
                         <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Fecha</td>
-                        <td className="rounded-r-full"></td>
+                        <td className="p-3 w-30 rounded-r-full"></td>
                     </tr>
                     </thead>
 

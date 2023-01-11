@@ -45,8 +45,8 @@ function EventForm({ action, id }) {
             <label htmlFor="status" className="block text-sm font-bold mb-2">Estado:</label>
             <select name="status" className="w-full p-2 rounded-md bg-zinc-600 mb-2" onChange={handleChange} placeholder="Estado de la ompetición" required>
                 <option defaultValue="">Estado de la competición</option>
-                <option value="Inactivo">Inactivo</option>
-                <option value="Activo">Activo</option>
+                <option value={0}>Inactivo</option>
+                <option value={1}>Activo</option>
             </select>
 
             <div>

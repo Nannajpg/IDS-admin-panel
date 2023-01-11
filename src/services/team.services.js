@@ -3,7 +3,7 @@ import axios from "axios";
 import { API_URL } from "../config.js";
 
 const BASE_URL = API_URL + "/teams";
-const FETCH_URL = `${BASE_URL}?size=3&page=`;
+const FETCH_URL = `${BASE_URL}?size=7&page=`;
 
 export const fetchTeams = async (
   token,

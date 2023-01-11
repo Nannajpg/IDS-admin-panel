@@ -23,7 +23,7 @@ export const adsSlice = createSlice({
     storeAllAds: (state, { payload }) => {
       state.amount = payload.totalAds;
       state.pages = Math.ceil(payload.totalAds / payload.pageSize);
-      state.ads = payload.ads;
+      state.ads = payload.items;
     },
     increaseAmount: (state) => {
       state.amount = state.amount + 1;

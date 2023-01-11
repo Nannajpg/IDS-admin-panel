@@ -11,9 +11,12 @@ const AdRow = ({ id, isVisible, showModal }) => {
     <tr className='bg-white'>
       <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{ad.id}</td>
       <td className='p-3 text-sm text-black whitespace-nowrap flex justify-center font-medium'><img src={ad.img} alt="adImage" className="rounded-full object-contain h-8 w-8" /></td>
-      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{ad.announcer}</td>
+      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{ad.alias}</td>
+      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{ad.description}</td>
       <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'> <a href={ad.redirecTo} className="underline text-blue-600"> {ad.redirecTo}</a> </td>
-      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{ad.adType}</td>
+      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{ad.promotionType}</td>
+      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{ad.clickedQuantities}</td>
+      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{ad.requestedQuantities}</td>
       <td className='p-3 w-30 flex gap-2'>
           <Link
             to={`/editAd/` + ad.id}
