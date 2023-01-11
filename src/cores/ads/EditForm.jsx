@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "./Form";
-import * as adsServices from "../../services/ads";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { editAd } from "../../features/ads/adSlice";

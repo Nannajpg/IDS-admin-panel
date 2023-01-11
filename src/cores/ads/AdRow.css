@@ -1,0 +1,8 @@
+.dots-max-text p {
+    width: 250px;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    width: 160px; 
+    height: 1.2em; 
+    white-space: nowrap;
+}

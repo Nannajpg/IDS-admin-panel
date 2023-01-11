@@ -2,7 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { MdModeEditOutline as Pencil } from "react-icons/md"
-import {RiDeleteBin6Line as Bin } from "react-icons/ri"
+import { RiDeleteBin6Line as Bin } from "react-icons/ri"
+import './AdRow.css';
 
 const AdRow = ({ id, isVisible, showModal }) => {
   const ad = useSelector((state) => state.ads.ads.find((ad) => ad.id === id));
@@ -12,8 +13,12 @@ const AdRow = ({ id, isVisible, showModal }) => {
       <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{ad.id}</td>
       <td className='p-3 text-sm text-black whitespace-nowrap flex justify-center font-medium'><img src={ad.img} alt="adImage" className="rounded-full object-contain h-8 w-8" /></td>
       <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{ad.alias}</td>
-      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{ad.description}</td>
-      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'> <a href={ad.redirecTo} className="underline text-blue-600"> {ad.redirecTo}</a> </td>
+      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium dots-max-text'>{ad.description}</td>
+      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium dots-max-text'> 
+        <p>
+          <a href={ad.redirecTo} className="underline text-blue-600"> {ad.redirecTo}</a>
+        </p>
+      </td>
       <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{ad.promotionType}</td>
       <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{ad.clickedQuantities}</td>
       <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{ad.requestedQuantities}</td>

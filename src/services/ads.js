@@ -30,9 +30,9 @@ try {
 };
 
 export const createAd = async (token, ad) => {
-  const { announcer, adType, redirecTo, img } = ad;
+  const { alias, description, promotionType, redirecTo, img } = ad;
   const myFile = img;
-  const adData = { announcer, adType, redirecTo, myFile };
+  const adData = { alias, description, promotionType, redirecTo, myFile };
   try {
     const res = await axios.post(BASE_URL, adData, {
       headers: {
@@ -74,9 +74,9 @@ export const deleteAd = async (token, id) => {
 };
 
 export const editAd = async (token, { ad, id }) => {
-  const { announcer, adType, redirecTo, img } = ad;
+  const { alias, description, promotionType, redirecTo, img } = ad;
   const myFile = img;
-  const adData = { announcer, adType, redirecTo, myFile };
+  const adData = { alias, description, promotionType, redirecTo, myFile };
 
   try {
     const res = await axios.put(BASE_URL + `/${id}`, adData, {

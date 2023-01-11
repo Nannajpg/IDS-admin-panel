@@ -38,6 +38,7 @@ const Form = ({ onSubmit, id, toEditAd }) => {
         redirecTo: redirecToRef.current.value,
         img: imgRef.current.files[0],
       };
+
       aliasRef.current.value = "";
       descriptionRef.current.value = "";
       imgRef.current.value = null;
@@ -46,10 +47,10 @@ const Form = ({ onSubmit, id, toEditAd }) => {
 
       try {
         await onSubmit(ad, id);  
+        navigate("/ads");
       } catch (e) {
         toast.error(e.message);
       }
-      navigate("/ads");
     }
   };
 
@@ -114,7 +115,7 @@ const Form = ({ onSubmit, id, toEditAd }) => {
       >
         <option value="">Tipo del anuncio</option>
         <option value="static">Estático</option>
-        <option value="float">Flotante</option>
+        <option value="popup">Flotante</option>
       </select>
       <label htmlFor="redirecTo" className="block text-xs font-bold mb-2">
         Link
