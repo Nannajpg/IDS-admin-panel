@@ -5,14 +5,14 @@ import { API_URL } from "../config.js";
 const BASE_URL = API_URL+"/promotions";
 //const FETCH_URL = `${BASE_URL}/size=7&page=`;
 
-export const fetchAds = async (token, { page = 0, adtype, search }) => {
+export const fetchAds = async (token, { page = 0, adtype, search, size }) => {
   if (adtype === "") adtype = "&adtype[]=static&adtype[]=float";
   else adtype = `&adtype=${adtype}`;
   if (search === "") search = "&announcer=.*";
   else search = `&announcer=${search}`;
 
 try {
-  const res = await axios.get(BASE_URL + "?page=" + page + adtype + search, {
+  const res = await axios.get(BASE_URL + "?page=" + page + "&size=" + size, {
     headers: {
       Authorization: 'Bearer ' + token
     }

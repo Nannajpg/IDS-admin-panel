@@ -71,12 +71,12 @@ const Form = ({ onSubmit, id, toEditAd }) => {
       />
 
       <label htmlFor="description" className="block text-xs font-bold mb-2">
-        Titulo
+        Descripción
       </label>
       <input
         name="description"
         type="text"
-        placeholder="Titulo"
+        placeholder="Descripción"
         ref={descriptionRef}
         className="w-full p-2 rounded-md bg-zinc-600 mb-2"
         required
@@ -85,6 +85,7 @@ const Form = ({ onSubmit, id, toEditAd }) => {
       <label htmlFor="image" className="block text-xs font-bold mb-2">
         
       </label>
+
       <input
         name="img"
         type="file"
@@ -100,6 +101,7 @@ const Form = ({ onSubmit, id, toEditAd }) => {
             setImgToEdit(false);
           }
         }}
+
       />
       <label htmlFor="adType" className="block text-xs font-bold mb-2">
         Tipo de anuncio

@@ -17,13 +17,11 @@ const TeamsList = () => {
   const { isVisible, toggleModal, getId } = useModal();
   const page = teams.page;
   const totalPages = teams.pages; 
-  console.log(teams)
 
   useEffect(() => {
     (async () => {
       try {
         dispatch(setLoading(true));
-        console.log(userToken)
         await dispatch(
           fetchTeams({
             userToken,

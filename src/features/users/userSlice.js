@@ -34,12 +34,6 @@ export const userSlice = createSlice({
                 foundUser.password = password;
             }
         },
-        deleteUser: (state, { payload }) => {
-            const userFound = state.users.find(user => user.id === payload)
-            if (userFound) {
-                state.users.splice(state.indexOf(userFound), 1)
-            }
-        },
         setAmount: (state, action) => {
             state.amount = action.payload;
         },
@@ -62,5 +56,5 @@ export const userSlice = createSlice({
     }
 })
 
-export const {resetUsers, addUser, editUser, deleteUser, setAmount, setPage, setTotalPages, toSearch, toFilter, toFirstPage } = userSlice.actions
+export const {resetUsers, addUser, editUser, setAmount, setPage, setTotalPages, toSearch, toFilter, toFirstPage } = userSlice.actions
 export default userSlice.reducer

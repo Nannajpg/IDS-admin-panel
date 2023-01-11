@@ -8,22 +8,22 @@ import "react-toastify/dist/ReactToastify.css";
 import { setLoading } from "../../features/global/globalSlice";
 import { MdModeEditOutline as Pencil } from "react-icons/md"
 import {RiDeleteBin6Line as Bin } from "react-icons/ri"
+import useModal from "../../components/useModal";
+import ModalDelete from "../../components/ModalDelete";
 
-const UserRow = ({ user }) => {
+const UserRow = ({ user, getUsers }) => {
   const dispatch = useDispatch();
-  const { userToken } = useSelector((state) => state.auth);
+  const {userToken} = useSelector((state) => state.auth);
   const amount = useSelector((state) => state.events);
+  const { isVisible, toggleModal } = useModal();
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (userToken, id) => {
     try {
       dispatch(setLoading(true));
-      dispatch(setAmount(amount - 1));
       await usersServices.deleteUser(id, userToken);
-      dispatch(deleteUser(id));
+      toggleModal(isVisible);
+      getUsers();
     } catch (error) {
-      if (error.response) {
-        throw new Error(error?.response?.data.message);
-      }
       toast.error(error.message);
     } finally {
       dispatch(setLoading(false));
@@ -43,10 +43,18 @@ const UserRow = ({ user }) => {
             <Pencil color='white' className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1" size="2rem"/>
             </Link>
             <button
-              onClick={() => handleDelete(user.id)}
+              onClick={() => (isVisible, user.id)}
             >
             <Bin color='white' className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1" size="2rem"/>
           </button>
+
+          <ModalDelete
+            handleDelete={() => handleDelete(userToken, user.id)}
+            id={user.id}
+            onClick={() => toggleModal(isVisible)}
+            isVisible={isVisible}
+            item={"usuario"}
+          />
             </td>
     </tr> 
   );

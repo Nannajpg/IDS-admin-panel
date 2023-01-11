@@ -35,13 +35,11 @@ function MatchesList() {
 
     const getMatches = useCallback(async () => {
         try {
-            console.log(userToken)
             dispatch(setLoading(true));
             dispatch(resetMatches());
             const data = await matchesServices.fetchMatches(userToken, page, postPerPage, date);
             dispatch(setMatches(data.items));
-            dispatch(setAmount(data.paginate.total));
-            console.log(data.paginate)    
+            dispatch(setAmount(data.paginate.total));   
             dispatch(setTotalPages(data.paginate.pages));
         } catch (error) {
             if (error.response) {

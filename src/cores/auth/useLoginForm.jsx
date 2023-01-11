@@ -19,7 +19,7 @@ const useLoginForm = () => {
     try {
       dispatch(setLoading(true));
       const user = await authServices.login(inputValues);
-      console.log(user)
+
       if(user.item.user.role.toLowerCase() !== "admin"){
         throw new Error("Acceso no autorizado: el usuario debe ser administrador")
       }

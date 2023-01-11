@@ -16,7 +16,6 @@ const CreateForm = () => {
     try {
       dispatch(setLoading(true));
       await adsServices.createAd(token, ad);
-      dispatch(increaseAmount());
       navigate("/ads");
     } catch (error) {
       toast.error(error.message);

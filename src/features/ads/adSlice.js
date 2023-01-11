@@ -15,21 +15,16 @@ export const adsSlice = createSlice({
     search: "",
     amount: 0,
     page: 0,
-    pages: 0,
+    totalPages: 0,
     ads: [],
     editedAd: false
   },
   reducers: {
     storeAllAds: (state, { payload }) => {
-      state.amount = payload.totalAds;
-      state.pages = Math.ceil(payload.totalAds / payload.pageSize);
-      state.ads = payload.items;
+      state.ads = payload;
     },
-    increaseAmount: (state) => {
-      state.amount = state.amount + 1;
-    },
-    reduceAmount: (state) => {
-      state.amount = state.amount - 1;
+    setAmount: (state, action) => {
+      state.amount = action.payload;
     },
     editAd: (state) => {
       state.editedAd = !state.editedAd;
@@ -53,6 +48,6 @@ export const adsSlice = createSlice({
   }
 });
 
-export const { storeAllAds, increaseAmount, reduceAmount, toFirstPage, toSearch, toFilter, setPage, setTotalPages } =
+export const { storeAllAds, setAmount, toFirstPage, toSearch, toFilter, setPage, setTotalPages } =
   adsSlice.actions;
 export default adsSlice.reducer;

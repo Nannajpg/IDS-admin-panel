@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { addUser, resetUsers, setAmount, setPage, setTotalPages, toSearch, toFirstPage} from '../../features/users/userSlice'
 import * as usersServices from "../../services/users.services";
@@ -14,11 +14,8 @@ import {FiArrowLeft as Arrow} from 'react-icons/fi'
 function UsersList() {
 
     const { page, totalPages, users, amount } = useSelector(state => state.users);
-    console.log(users)
     const { userToken } = useSelector(state => state.auth);
-    console.log(userToken)
     const dispatch = useDispatch();
-    console.log(page, totalPages)
 
     const handleSetPage = page => {
         dispatch(setPage(page-1))
@@ -31,9 +28,7 @@ function UsersList() {
         return(searchRef.current.value = '')
       };
 
-    useEffect(() => {
-        dispatch(resetUsers());
-        const getUsers = async () => {
+    const getUsers = useCallback(async () => {
             try {
                 dispatch(setLoading(true));
                 const data = await usersServices.fetchUsers(userToken, page);
@@ -49,9 +44,14 @@ function UsersList() {
             } finally {
                 dispatch(setLoading(false));
             }
-        }
+        },
+      [dispatch, page, userToken],
+    )
+    
+    useEffect(() => {
         getUsers();
-    }, [dispatch, page, amount, userToken]);
+    }, [getUsers])
+    
 
     return (
         <div className='w-4/6'>
@@ -84,7 +84,7 @@ function UsersList() {
                     </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">            
-                    {users.map(user => <UserRow user={user} key={user.id} />)}
+                    {users.map(user => <UserRow user={user} getUsers={getUsers} key={user.id} />)}
                     </tbody>
                 </table>
             </div>
