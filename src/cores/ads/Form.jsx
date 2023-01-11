@@ -14,7 +14,6 @@ const Form = ({ onSubmit, id, toEditAd }) => {
   const [imagen, setImagen] = useState();
   const [notValidUrl, setNotValidUrl] = useState(false);
   const [imgToEdit, setImgToEdit] = useState();
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,7 +46,6 @@ const Form = ({ onSubmit, id, toEditAd }) => {
 
       try {
         await onSubmit(ad, id);  
-        navigate("/ads");
       } catch (e) {
         toast.error(e.message);
       }
