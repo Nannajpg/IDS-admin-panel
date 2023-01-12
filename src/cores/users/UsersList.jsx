@@ -29,7 +29,6 @@ function UsersList() {
       };
 
     const getUsers = useCallback(async () => {
-        console.log('GET USERS')
             try {
                 dispatch(setLoading(true));
                 const data = await usersServices.fetchUsers(userToken, page);
@@ -53,8 +52,8 @@ function UsersList() {
     
 
     return (
-        <div className='w-4/6'>
-            <header className='flex justify-between items-center py-4'>
+        <div className='w-4/6 '>
+            <header className='flex justify-between items-center py-4 '>
                 <Link to="/dashboard" className=""><Arrow color="#3D405B" size="2.5rem"/></Link>
 
                 <h1 className='text-[#3D405B] font-bold text-3xl'>Gestionar Usuarios</h1>
@@ -71,8 +70,8 @@ function UsersList() {
 
             </header>
 
-            <div className="overflow-auto w-full rounded-lg hidden md:block">
-                <table className="shadow-lg m-auto">
+            <div className="overflow-auto w-full hidden md:block drop-shadow-lg">
+                <table className="m-auto rounded-lg">
                     <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
                     <tr>
                         <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">ID</td>
@@ -82,7 +81,7 @@ function UsersList() {
                         <td className="rounded-r-full"></td>
                     </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100">            
+                    <tbody className="divide-y divide-gray-100 rounded-lg ">            
                     {users.map(user => <UserRow user={user} getUsers={getUsers} key={user.id} />)}
                     </tbody>
                 </table>
