@@ -6,7 +6,8 @@ const Sidebar = () => {
     return (
         <div>
             <div class=" flex items-end justify-end px-4">
-                <div class="z-20 fixed top-0 -left-96 lg:left-0 h-screen w-9/12 lg:w-72 bg-[#EAEAEA] shadow-2xl peer-focus:left-0 peer:transition ease-out delay-150 duration-200">
+                <div class="z-20 fixed top-0 lg:left-0 h-screen w-9/12 lg:w-72 bg-[#EAEAEA] shadow-2xl peer-focus:left-0 peer:transition ease-out delay-150 duration-200">
+
                     <nav role="navigation" class="p-6">
                         <div class="flex items-center gap-4 pb-4">
                             <img class="w-48" src={logo} alt=""/>
