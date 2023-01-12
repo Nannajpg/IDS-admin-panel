@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { setMatches, resetMatches, setAmount, setTotalPages, setPage, toFirstPage, toSearch } from '../../features/matches/matchSlice'
+import { setMatches, resetMatches, setAmount, setTotalPages, setPage} from '../../features/matches/matchSlice'
 import * as matchesServices from '../../services/matches.services'
 import MatchRow from './MatchRow'
 import Pagination from '../../components/pagination'
@@ -26,13 +26,6 @@ function MatchesList() {
         dispatch(setPage(page-1))
     }
 
-    const handleSubmit = (e, searchRef) => {
-        e.preventDefault();
-        dispatch(toSearch(searchRef.current.value));
-        dispatch(toFirstPage());
-        return(searchRef.current.value = '')
-      };
-
     const getMatches = useCallback(async () => {
         try {
             dispatch(setLoading(true));
@@ -51,6 +44,7 @@ function MatchesList() {
             dispatch(setLoading(false));
         }
     }, [dispatch, userToken, page, postPerPage, date]);
+
     useEffect(() => { getMatches() }, [getMatches])
     
     return (
@@ -78,7 +72,7 @@ function MatchesList() {
                     </thead>
 
                     <tbody className="divide-y divide-gray-100">            
-                        {matches.map(match => (<MatchRow match={match} onDelete={() => getMatches()} key={match.id}/>))}
+                        {matches.map(match => (<MatchRow match={match} getMatches={getMatches} key={match.id}/>))}
                     </tbody>
                 </table>
             </div>

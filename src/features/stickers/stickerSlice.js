@@ -10,12 +10,8 @@ export const stickerSlice = createSlice({
         search: "",
     },
     reducers: {
-        readStickers: (state, action) => {
-            const id = action.payload.id
-            const foundSticker = state.stickers.find(sticker => sticker.id === id)
-            if (!foundSticker){
-                state.stickers.push(action.payload)
-            }
+        setSticker: (state, {payload}) =>{
+            state.stickers = payload;
         },
         updateSticker: (state, action) => {
             const { id, playerName, team, position, height, weight, appearanceRate, myFile } = action.payload
@@ -30,12 +26,7 @@ export const stickerSlice = createSlice({
                 foundSticker.img = URL.createObjectURL(myFile)
             }
         },
-        deleteSticker: (state, action) => {
-            const stickerFound = state.stickers.find(sticker => sticker.id === action.payload)
-            if (stickerFound) {
-                state.stickers.splice(state.stickers.indexOf(stickerFound), 1)
-            }
-        },
+    
         nextPage: (state, action) => {
             state.page++;
         },
@@ -64,6 +55,6 @@ export const stickerSlice = createSlice({
     },
 })
 
-export const { readStickers, updateSticker, deleteSticker, nextPage, prevPage, setPage, setAmount, setTotalPages, toFirstPage, toSearch } = stickerSlice.actions
+export const { readStickers, updateSticker, nextPage, prevPage, setPage, setAmount, setTotalPages, toFirstPage, toSearch, setSticker } = stickerSlice.actions
 
 export default stickerSlice.reducer

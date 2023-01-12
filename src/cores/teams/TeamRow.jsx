@@ -1,12 +1,36 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, {useCallback} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdModeEditOutline as Pencil } from "react-icons/md"
 import {RiDeleteBin6Line as Bin } from "react-icons/ri"
+import ModalDelete from '../../components/ModalDelete';
+import { setLoading } from '../../features/global/globalSlice';
+import { toast } from 'react-toastify';
+import { deleteTeam, fetchTeams } from '../../features/teams/teamSlice';
+import useModal from '../../components/useModal';
 
 
-const TeamRow = ({ id, isVisible, showModal }) => {
-  const team = useSelector(state => state.teams.teams.find(team => team.id === id));
+
+const TeamRow = ({ team, getTeams }) => {
+  const {userToken} = useSelector(state => state.auth)
+  const { isVisible, toggleModal } = useModal();
+  const dispatch = useDispatch();
+  const teams = useSelector((state) => state.teams.teams);
+  const id = team.id;
+
+  const handleDelete = useCallback(async () => {
+      try {
+        dispatch(setLoading(true));
+        await dispatch(deleteTeam({userToken, id})).unwrap();
+        await dispatch(fetchTeams({userToken, teams})).unwrap();
+        toggleModal(true);
+      } catch (error) {
+        toast.error(error.message);
+      } finally {
+        dispatch(setLoading(false));
+      }
+  }, [id, dispatch, getTeams, toggleModal, userToken]);
+
   return (
 
     <tr className='bg-white'>
@@ -20,11 +44,20 @@ const TeamRow = ({ id, isVisible, showModal }) => {
           >
           <Pencil color='white' className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1" size="2rem"/>
           </Link>
+
           <button
-            onClick={() => showModal(isVisible, id)}
+            onClick={toggleModal}
           >
             <Bin color='white' className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1" size="2rem"/>
           </button>
+
+          <ModalDelete
+            handleDelete={handleDelete}
+            id={team.id}
+            onClick={toggleModal}
+            isVisible={isVisible}
+            item={"equipo"}
+          />
       </td>
     </tr> 
   )

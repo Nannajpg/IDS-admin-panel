@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import StickersListHeader from "./StickersListHeader";
 import {
-  readStickers,
   setAmount,
-  setTotalPages,
-  setPage
+  setPage,
+  setSticker
 } from "../../features/stickers/stickerSlice";
 import StickerRow from "./StickerRow";
 import {
@@ -29,27 +28,24 @@ const StickerList = () => {
     dispatch(setPage(page-1))
   }
 
-  useEffect(() => {
-    const getStickers = async () => {
-      const res = await getAllStickers(token, stickerState.page);
+  const getStickers = useCallback(async () => {
+    const res = await getAllStickers(token, stickerState.page);
       try {
         dispatch(setLoading(true));
-        if (res.data.items.length > 0) {
-          for (let i = 0; i < res.data.items.length; i++) {
-            dispatch(setTotalPages(res.data.paginate.pages));
-            dispatch(readStickers(res.data.items[i]));
-          }
-          dispatch(setAmount(res.data.paginate.total));
+        dispatch(setSticker(res.data.items))
+        dispatch(setAmount(res.data.paginate.total));
+        } catch (error) {
+          toast.error(error.message);
+        } finally {
+          dispatch(setLoading(false));
         }
-      } catch (error) {
-        toast.error(error.message);
-      } finally {
-        dispatch(setLoading(false));
-      }
-    };
-
+    },
+    [dispatch, stickerState.page, token],
+  )
+  
+  useEffect(() => {
     getStickers();
-  }, [dispatch, stickerState.page, stickerState.stickers, token, stickerState.search]);
+  }, [getStickers]);
 
   return (
     <div>
@@ -72,7 +68,7 @@ const StickerList = () => {
             </thead>
             <tbody className="divide-y divide-gray-100">            
               {stickerState.stickers.map((sticker) => (
-                  <StickerRow sticker={sticker} key={sticker.id} />
+                  <StickerRow sticker={sticker} key={sticker.id} getStickers={getStickers} />
               ))}
           </tbody>
         </table>

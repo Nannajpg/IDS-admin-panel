@@ -22,7 +22,6 @@ const AdsList = () => {
   const page = useSelector((state) => state.ads.page);
   const size = 7;
   const totalPages = useSelector((state) => state.ads.totalPages);
-  const loading = useSelector(state => state.global.loading)
   const [adtype, setAdtype] = useState("");
   const [search, setearch] = useState("");
 

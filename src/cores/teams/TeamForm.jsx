@@ -12,6 +12,7 @@ import { setLoading } from "../../features/global/globalSlice";
 function TeamForm() {
   const events = useSelector((state) => state.events.eventsAll);
   const { userToken } = useSelector((state) => state.auth);
+
   const eventsOptions = events.map((event) => ({
     id: event.id,
     name: event.eventName,
@@ -27,7 +28,6 @@ function TeamForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
-  const teams = useSelector((state) => state.teams.teams);
 
   useEffect(() => {
     const getOptionsAllEvents = async () => {
@@ -72,11 +72,6 @@ function TeamForm() {
     navigate("/teams");
   };
 
-  useEffect(() => {
-    if (params.id) {
-      setTeam(teams.find((team) => team.id === params.id));
-    }
-  }, [params.id, teams]);
 
   return (
     <div className="flex items-center h-screen">

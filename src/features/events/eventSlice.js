@@ -13,8 +13,8 @@ export const eventSlice = createSlice({
         resetEvents: (state, _) => {
             state.events = [];
         },
-        setEvents: (state, action) => {
-            state.events = action.payload;
+        setEvents: (state, { payload }) => {
+            state.events = payload;
         },
         setAllEvents: (state, action) => {
             state.eventsAll = action.payload;

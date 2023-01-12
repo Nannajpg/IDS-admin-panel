@@ -1,32 +1,30 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteMatch } from "../../features/matches/matchSlice";
 import * as matchesServices from "../../services/matches.services";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setLoading } from "../../features/global/globalSlice";
 import {RiDeleteBin6Line as Bin } from "react-icons/ri"
+import useModal from "../../components/useModal";
+import ModalDelete from "../../components/ModalDelete";
+import { useCallback } from "react";
 
-const MatchRow = ({ match, onDelete }) => {
+const MatchRow = ({ match, getMatches }) => {
 
   const dispatch = useDispatch();
-
-  const handleDelete = async (id) => {
-      try {
-        dispatch(setLoading(true));
-        await matchesServices.deleteMatch(id);
-        dispatch(deleteMatch(id));
-        onDelete();
-      } catch (error) {
-        if (error.response) {
-        throw new Error(
-            error?.response?.data?.message || "Error desconocido del servidor"
-        );
-        } toast.error(error.message);
+  const { isVisible, toggleModal } = useModal();
+  const handleDelete = useCallback(async () => {
+    try {
+      dispatch(setLoading(true));
+      await matchesServices.deleteMatch(match.id);
+      toggleModal();
+      getMatches();
+    } catch (error) {
+      toast.error(error.message);
     } finally {
       dispatch(setLoading(false));
     }
-  };
+  }, [match.id, dispatch, getMatches, toggleModal]);
 
   return (
 
@@ -40,10 +38,18 @@ const MatchRow = ({ match, onDelete }) => {
       <div className="flex gap-x-2">
          
           <button
-            onClick={() => handleDelete(match.id)}
+            onClick={toggleModal}
           >
             <Bin color='white' className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1" size="2rem"/>
           </button>
+
+          <ModalDelete
+            handleDelete={handleDelete}
+            id={match.id}
+            onClick={toggleModal}
+            isVisible={isVisible}
+            item={"partido"}
+          />
       </div>
       </td>
     </tr> 

@@ -2,9 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import TeamRow from "./TeamRow";
 import TeamsListHeader from "./TeamsListHeader";
-import ModalDeleteTeam from "./ModalDeleteTeam";
-import useModal from "./useModal";
-import { useEffect } from "react";
+
+import { useEffect, useCallback  } from "react";
 import { fetchTeams, setPage } from "../../features/teams/teamSlice";
 import { setLoading } from "../../features/global/globalSlice";
 import { toast } from 'react-toastify';
@@ -14,31 +13,35 @@ const TeamsList = () => {
   const teams = useSelector((state) => state.teams);
   const dispatch = useDispatch();
   const { userToken } = useSelector((state) => state.auth);
-  const { isVisible, toggleModal, getId } = useModal();
+  
   const page = teams.page;
   const totalPages = teams.pages; 
 
+  const getTeams = useCallback (async () => {
+    try {
+      dispatch(setLoading(true));
+      await dispatch(
+        fetchTeams({
+          userToken,
+          page: teams.page,
+          pages: teams.pages,
+          search: teams.search,
+        })
+        
+      ).unwrap();
+    } catch (error) {
+      toast.error(error.message);;
+    } finally {
+      dispatch(setLoading(false));
+    }
+    },
+    [dispatch, teams.page, teams.search, teams.pages, userToken],
+  )
+  
+
   useEffect(() => {
-    (async () => {
-      try {
-        dispatch(setLoading(true));
-        await dispatch(
-          fetchTeams({
-            userToken,
-            page: teams.page,
-            pages: teams.pages,
-            search: teams.search,
-          })
-          
-        ).unwrap();
-      } catch (error) {
-        toast.error(error.message);;
-      } finally {
-        dispatch(setLoading(false));
-      }
-    })();
-    // eslint-disable-next-line
-  }, [dispatch, teams.page, teams.search, teams.pages]);
+    getTeams()
+  }, [getTeams]);
 
   const handleSetPage = page => {
     dispatch(setPage(page-1))
@@ -49,11 +52,6 @@ const TeamsList = () => {
     <div>
       <TeamsListHeader />
 
-      <ModalDeleteTeam
-        isVisible={isVisible}
-        hideModal={toggleModal}
-        getId={getId}
-      />
       <div className="overflow-auto w-full rounded-lg hidden md:block">
         <table className="shadow-lg w-5/2 m-auto">
             <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
@@ -67,7 +65,7 @@ const TeamsList = () => {
             </thead>
             <tbody className="divide-y divide-gray-100">            
               {teams.teams.map((team) => (
-                <TeamRow id={team.id} key={team.id} showModal={toggleModal} />
+                <TeamRow team={team} key={team.id} getTeams={getTeams}  />
               ))}
             </tbody>
         </table>

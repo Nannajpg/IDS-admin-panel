@@ -15,6 +15,7 @@ function EventsList() {
     const { page, totalPages, events, amount } = useSelector(state => state.events);
     const dispatch = useDispatch();
     const {userToken} = useSelector(state => state.auth)
+    console.log(userToken)
 
     const getEvents = useCallback(async () => {
         try {
@@ -83,7 +84,7 @@ function EventsList() {
                     </thead>
 
                     <tbody className="divide-y divide-gray-100">            
-                        {events.map(event => (<EventRow event={event} key={'event-'+ event.id}/>))}
+                        {events.map(event => (<EventRow event={event} getEvents={getEvents} key={'event-'+ event.id}/>))}
                     </tbody>
                 </table>
             </div>

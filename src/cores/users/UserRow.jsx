@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as usersServices from "../../services/users.services";
-import { deleteUser, setAmount } from "../../features/users/userSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setLoading } from "../../features/global/globalSlice";
@@ -14,7 +13,6 @@ import ModalDelete from "../../components/ModalDelete";
 const UserRow = ({ user, getUsers }) => {
   const dispatch = useDispatch();
   const {userToken} = useSelector((state) => state.auth);
-  const amount = useSelector((state) => state.events);
   const { isVisible, toggleModal } = useModal();
 
   const handleDelete = async (userToken, id) => {
