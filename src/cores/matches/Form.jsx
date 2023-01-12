@@ -115,39 +115,44 @@ function MatchForm({ action, id }) {
     }, [params.id, matches]);
 
     return (
-        <form onSubmit={handleSubmit} className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
-            
-            <label htmlFor="name" className="block text-xl font-bold mb-2" >Partidos</label> 
-
-            <Select 
-                label={"Competición en el que participa"}
-                onChange={changeEventId}
-                value={match.eventId}
-                options={eventsOptions} 
-            />
-
-            <Select 
-                label={"Equipo 1"}
-                onChange={changeTeamOneId}
-                value={match.teamOneId}
-                options={teamsOptions} 
-            />
-
-            <Select 
-                label={"Equipo 2"}
-                onChange={changeTeamTwoId}
-                value={match.teamTwoId}
-                options={teamsOptions} 
-            />
-
-            <label htmlFor="gameDate" className="block text-sm font-bold mb-2">Fecha:</label>
-            <input name='gameDate' type="date" onChange={handleChange} className="w-full p-2 rounded-md bg-zinc-600 mb-2" required />
-
-            <label className='block text-sm mb-2 font-bold' htmlFor="file_input">
-                    Subir Archivo de Excel
-                </label>
+        <div className='flex items-center h-screen'>
+        <form onSubmit={handleSubmit} className='bg-[#EAEAEA] rounded-2xl text-black'>
+            <div>
+                <h1 className='text-white text-2xl p-2 bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-t-2xl font-bold text-justify'>Partido</h1>
+            </div>
+            <div className="pt-8 py-1 px-7 text-[#3D405B]">
+                <div>
+                    <Select
+                        label={"Competición"}
+                        onChange={changeEventId}
+                        value={match.eventId}
+                        options={eventsOptions}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="gameDate" className='block text-lg font-bold mb-2'>Fecha</label>
+                    <input name='gameDate' type="date" onChange={handleChange} className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500' required />
+                </div>
+                <div>
+                    <Select
+                        label={"Equipo 1"}
+                        onChange={changeTeamOneId}
+                        value={match.teamOneId}
+                        options={teamsOptions}
+                    />
+                </div>
+                <div>
+                    <Select
+                        label={"Equipo 2"}
+                        onChange={changeTeamTwoId}
+                        value={match.teamTwoId}
+                        options={teamsOptions}
+                    />
+                </div>
+            </div>
+            <div className="py-2 px-6">
                 <input
-                    className="w-full p-2 rounded-md bg-zinc-600 mb-2 file:rounded-md file:border-none file:bg-zinc-700 file:text-white hover:file:bg-zinc-800 hover:file:cursor-pointer"
+                    className='w-1/2 font-medium py-0.4 px-6 text-white bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-2xl'
                     aria-describedby="file_input_help"
                     name="file_input"
                     type="file"
@@ -157,12 +162,13 @@ function MatchForm({ action, id }) {
                         myFile: e.target.files[0],
                     }))}
                 />
-                <p className="mt-1 text-sm text-gray-500 dark:text-gray-300 mb-2" id="file_input_help">
-                    Formato: csv
-                </p>   
-            <button className="bg-emerald-600 px-2 py-1 rounded-md">Guardar</button>
-            <Link to="/matches" className="bg-red-500 px-2 py-1 rounded-md mx-8">Volver</Link>
+            </div>
+            <div className='pt-20 p-4 flex justify-center'>
+                <button className='font-medium py-0.4 px-6 text-white bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-2xl'>Confirmar</button>
+            </div>
+            <Link to="/matches">XD</Link>
         </form>
+    </div>
     )
 }
 

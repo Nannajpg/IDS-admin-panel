@@ -124,129 +124,151 @@ function StickerForm() {
 
     return (
         <div className='flex items-center h-screen'>
-            <form encType="multipart/form-data" onSubmit={handleSubmit} className='bg-slate-300 max-w-sm p-4 rounded-md grid grid-cols-2'>
-                <label htmlFor='externalUuid' className='block text-xs font-bold mb-2'>UUID:</label>
-                <input
-                    name='externalUuid'
-                    type='text'
-                    onChange={handleChange}
-                    value={sticker.externalUuid}
-                    className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
-                    required
-                />
-
-                <label htmlFor='playerName' className='block text-xs font-bold mb-2'>Nombre de Jugador:</label>
-                <input
-                    name='playerName'
-                    type='text'
-                    onChange={handleChange}
-                    value={sticker.playerName}
-                    className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
-                    required
-                />
-
-                <label htmlFor='jerseyNumber' className='block text-xs font-bold mb-2'>Número de camiseta:</label>
-                <input
-                    name='jerseyNumber'
-                    type='number'
-                    step={0} min={0} max={100}
-                    onChange={handleChange}
-                    value={sticker.jerseyNumber}
-                    className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
-                    required
-                />
-                    
-                <Select 
-                    label={"Competición en el que participa"}
-                    onChange={changeEventId}
-                    value={sticker.eventId}
-                    options={eventsOptions} 
-                />
+            <form encType="multipart/form-data" onSubmit={handleSubmit} className='bg-[#EAEAEA] rounded-2xl text-black'>
+                <div>
+                    <h1 className='text-white text-xl p-2 bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-t-2xl font-bold text-justify'>Crear cromos</h1>
+                </div>
+            <div className="py-1 px-7 grid grid-cols-2 gap-x-8 text-[#3D405B]">
                 
 
-                  <Select 
-                    label={"Equipo al que pertenece"}
-                    onChange={changeTeamId}
-                    value={sticker.teamId}
-                    options={teamsOptions} 
-                />
+                <div>
+                    <label htmlFor='externalUuid' className='block text-lg font-bold mb-2'>UUID</label>
+                    <input
+                        name='externalUuid'
+                        type='text'
+                        onChange={handleChange}
+                        value={sticker.externalUuid}
+                        className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500'
+                        placeholder="UUID"
+                        required
+                    />
+                </div> 
+                <div>
+                    <label htmlFor='playerName' className='block text-lg font-bold mb-2'>Nombre</label>
+                    <input
+                        name='playerName'
+                        type='text'
+                        onChange={handleChange}
+                        value={sticker.playerName}
+                        className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500'
+                        placeholder="Nombre"
+                        required
+                    />
+                </div> 
+
+                <div>
+                    <label htmlFor='jerseyNumber' className='block text-lg font-bold mb-2'>N° de camiseta</label>
+                    <input
+                        name='jerseyNumber'
+                        type='number'
+                        step={0} min={0} max={100}
+                        onChange={handleChange}
+                        value={sticker.jerseyNumber}
+                        className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500'
+                        placeholder="1-99"
+                        required
+                    />
+                </div>
                 
-
-                <label htmlFor='position' className='block text-xs font-bold mb-2'>Posición:</label>
-                <select
-                    name='position'
-                    onChange={handleChange}
-                    className='w-full p-1 border border-gray-300 focus:border-blue-500 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
-                >
-                    <option>Seleccione Posición...</option>
-                    <option value='goalkeeper'>Portero</option>
-                    <option value='defender'>Defensor</option>
-                    <option value='midfielder'>Centrocampista</option>
-                    <option value='forward'>Delantero</option>
-                </select>
-
-                <label htmlFor='height' className='block text-xs font-bold mb-2'>Altura (cm):</label>
-                <input
-                    name='height'
-                    type='number'
-                    step={0.1} min={1} max={272}
-                    onChange={handleChange}
-                    value={sticker.height}
-                    className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
-                    required
-                />
-
-                <label htmlFor='weight' className='block text-xs font-bold mb-2'>Peso (Kg):</label>
-                <input
-                    name='weight'
-                    type='number'
-                    step={0.1} min={1} max={634}
-                    onChange={handleChange}
-                    value={sticker.weight}
-                    className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
-                    required
-                />
-
-                <label htmlFor='appearanceRate' className='block text-xs font-bold mb-2'>Tasa de Aparición (%):</label>
-                <input
-                    name='appearanceRate'
-                    type='number'
-                    step={0.0001} min={0} max={100}
-                    onChange={handleChange}
-                    value={sticker.appearanceRate}
-                    className='w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500'
-                    required
-                />
-
-                <label className='block text-xs font-bold mb-2' htmlFor="file_input">
-                    Subir Archivo de Imagen
-                </label>
-                <input
-                    className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    aria-describedby="file_input_help"
-                    name="file_input"
-                    type="file"
-                    accept='.jpg, .jpeg, .png'
-                    onChange={(e) => setSticker((sticker) => ({
-                        ...sticker,
-                        myFile: e.target.files[0],
-                    }))}
-                />
-                <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
-                    Only PNG, JPG or JPEG
-                </p>
-
-                <div className='flex grid'>
-                    <header className='mb-2'>
-                        <Link to='/stickers' className='flex justify-center w-full bg-red-500 py-1 hover:bg-red-600'>
-                            Volver
-                        </Link>
-                    </header>
-                    <button className='flex justify-center bg-indigo-600 py-2 hover:bg-indigo-700'>Guardar</button>
+                <div>      
+                    <Select 
+                        label={"Competición"}
+                        onChange={changeEventId}
+                        value={sticker.eventId}
+                        options={eventsOptions} 
+                    />
+                </div> 
+                <div> 
+                    <Select 
+                        label={"Equipo"}
+                        onChange={changeTeamId}
+                        value={sticker.teamId}
+                        options={teamsOptions} 
+                    />
+                </div> 
+                <div>
+                    <label htmlFor='position' className='block text-lg font-bold mb-2'>Posición</label>
+                    <select
+                        name='position'
+                        onChange={handleChange}
+                        className='w-full p-1 focus:border-blue-500 rounded-2xl bg-white mb-2 hover:bg-slate-500'
+                    >
+                        <option>Seleccione Posición...</option>
+                        <option value='goalkeeper'>Portero</option>
+                        <option value='defender'>Defensor</option>
+                        <option value='midfielder'>Centrocampista</option>
+                        <option value='forward'>Delantero</option>
+                    </select>
+                </div>
+                <div>
+                    <label htmlFor='weight' className='block text-lg font-bold mb-2'>Peso</label>
+                    <input
+                        name='weight'
+                        type='number'
+                        step={0.1} min={1} max={634}
+                        onChange={handleChange}
+                        value={sticker.weight}
+                        className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500'
+                        placeholder="Kg"
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor='height' className='block text-lg font-bold mb-2'>Altura</label>
+                    <input
+                        name='height'
+                        type='number'
+                        step={0.1} min={1} max={272}
+                        onChange={handleChange}
+                        value={sticker.height}
+                        className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500'
+                        placeholder="cm"
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor='appearanceRate' className='block text-lg font-bold mb-2'>Porcentaje de Aparición</label>
+                    <input
+                        name='appearanceRate'
+                        type='number'
+                        step={0.0001} min={0} max={100}
+                        onChange={handleChange}
+                        value={sticker.appearanceRate}
+                        className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500'
+                        placeholder="%"
+                        required
+                    />
+                </div>
+            </div>
+            <div className="py-2 px-4">
+                <div class="flex items-center justify-center w-full">
+                    <label for="dropzone-file" class="flex flex-col bg-[#D2D2D2] items-center justify-center w-full pb-7 rounded-lg cursor-pointer hover: bg-[#D9D9D9]">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-8">
+                            <p class="text-sm font-bold text-center text-gray-500">Arrastra y suelta el archivo aquí o</p>
+                        </div>
+                        <input
+                            className="text-lg text-gray-100 rounded-2xl w-1/2 cursor-pointer bg-[#c3c3c3]"
+                            aria-describedby="file_input_help"
+                            name="file_input"
+                            type="file"
+                            accept='.jpg, .jpeg, .png'
+                            onChange={(e) => setSticker((sticker) => ({
+                            ...sticker,
+                            myFile: e.target.files[0],
+                            }))}
+                        />
+                    </label>
+                </div> 
+            </div>
+                <div className='p-3 flex justify-center'>
+                    <button className='font-medium py-0.4 px-6 text-white bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-2xl'>Confirmar</button>
                 </div>
             </form>
+
+            <Link to="/stickers">xd</Link>
         </div>
     )
 }
+
 
 export default StickerForm;
