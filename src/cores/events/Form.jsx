@@ -35,27 +35,26 @@ function EventForm({ action, id }) {
     }, [params.id, events]);
 
     return (
-        <form onSubmit={handleSubmit} className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
-
-            <label htmlFor="name" className="block text-xl font-bold mb-2 ">Eventos</label>
-
-            <label htmlFor="name" className="block text-sm font-bold mb-2">Nombre:</label>
-            <input name='eventName' type="text" placeholder="Nombre" onChange={handleChange} className="w-full p-2 rounded-md bg-zinc-600 mb-2" required />
-
-            <label htmlFor="status" className="block text-sm font-bold mb-2">Estado:</label>
-            <select name="status" className="w-full p-2 rounded-md bg-zinc-600 mb-2" onChange={handleChange} placeholder="Estado del Evento" required>
-                <option defaultValue="">Estado del Evento</option>
-                <option value="Inactivo">Inactivo</option>
-                <option value="Activo">Activo</option>
-            </select>
-
-            <div>
-                <button className="bg-emerald-600 px-2 py-1 rounded-md">Guardar</button>
-
-                <Link to="/events" className="bg-red-500 px-2 py-1 rounded-md mx-8">Volver</Link>
-            </div>
-            
-        </form>
+        <div className='flex items-center h-screen'>
+            <form onSubmit={handleSubmit} className="bg-[#EAEAEA] rounded-2xl text-black">
+                <div>
+                    <h1 className='text-white text-xl p-2 bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-t-2xl font-bold text-justify'>Crear competición</h1>
+                </div>
+                <div className='text-lg pt-2 px-7 text-[#3D405B]'>
+                    <label htmlFor="name" className="block font-bold mb-2">Nombre</label>
+                    <input name='eventName' type="text" placeholder="Nombre" onChange={handleChange} className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500" required />
+                    <label htmlFor="status" className="block font-bold mb-2">Estado de Competición</label>
+                    <select name="status" className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500" onChange={handleChange} placeholder="Estado del Evento" required>
+                        <option defaultValue="">Seleccionar estado</option>
+                        <option value="Inactivo">Inactivo</option>
+                        <option value="Activo">Activo</option>
+                    </select>
+                </div>
+                <div className='pt-20 p-4 flex justify-center'>
+                    <button className="font-medium py-0.4 px-6 text-white bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-2xl">Confirmar</button>
+                </div>
+            </form>
+        </div>
     )
 }
 

@@ -17,7 +17,6 @@ function TeamForm() {
     id: event.id,
     name: event.eventName,
   }));
-  
 
   const [team, setTeam] = useState({
     name: "",
@@ -41,7 +40,8 @@ function TeamForm() {
           throw new Error(
             error?.response?.data?.message || "Error desconocido del servidor"
           );
-        }toast.error(error.message);
+        }
+        toast.error(error.message);
       } finally {
         dispatch(setLoading(false));
       }
@@ -84,62 +84,74 @@ function TeamForm() {
       <form
         encType="multipart/form-data"
         onSubmit={handleSubmit}
-        className="bg-slate-300 max-w-sm p-4 rounded-md grid grid-cols-2"
+        className="bg-[#EAEAEA] rounded-2xl text-black"
       >
-        <label htmlFor="name" className="block text-xs font-bold mb-2">
-          Nombre del equipo:
-        </label>
-        <input
-          name="name"
-          type="text"
-          onChange={handleChange}
-          value={team.name}
-          className="w-full p-1 rounded-md bg-slate-400 mb-2 hover:bg-slate-500"
-          required
-        />
+        <div>
+          <h1 className="text-white text-xl p-2 bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-t-2xl font-bold text-justify">
+            Equipos
+          </h1>
+        </div>
+        <div className="pt-5 px-5 grid grid-cols-2 gap-x-8 text-[#3D405B] text-lg">
+          <div>
+            <label htmlFor="name" className="block text-lg font-bold mb-2">
+              Nombre
+            </label>
+            <input
+              name="name"
+              type="text"
+              placeholder="Nombre"
+              onChange={handleChange}
+              value={team.name}
+              className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+              required
+            />
+          </div>
+          <div>
+            <Select
+              label={"Competición"}
+              placeholder="Seleccionar competición"
+              options={eventsOptions}
+              value={team.idEvent}
+              onChange={changeEventId}
+            />
+          </div>
+        </div>
+        <div>
+          <div className="py-2 px-5">
+              <label className="text-[#3D405B] text-lg font-bold" htmlFor="file_input">
+                Escudo
+              </label>
+            <div class="py-2 flex items-center justify-center w-full">
+              <label
+                for="dropzone-file"
+                class="flex flex-col bg-[#D2D2D2] items-center justify-center w-full pb-7 rounded-lg cursor-pointer hover: bg-[#D9D9D9]"
+              >
+                <div class="flex flex-col items-center justify-center pt-5 pb-8">
+                  <p class="text-lg font-bold text-center text-gray-500">
+                    Arrastra y suelta el archivo aquí o
+                  </p>
+                </div>
+                <input
+                  className="text-lg text-gray-100 rounded-2xl w-1/2 cursor-pointer bg-[#c3c3c3]"
+                  aria-describedby="file_input_help"
+                  name="file_input"
+                  type="file"
+                  accept=".jpg, .jpeg, .png"
+                  onChange={(e) =>
+                    setTeam((team) => ({
+                      ...team,
+                      myFile: e.target.files[0],
+                    }))
+                  }
+                />
+              </label>
+            </div>
+          </div>
+        </div>
 
-        <Select
-          label={"Evento en el que participa"}
-          placeholder="Eventos"
-          options={eventsOptions}
-          value={team.idEvent}
-          onChange={changeEventId}
-        />
-
-        <label className="block text-xs font-bold mb-2" htmlFor="file_input">
-          Subir Archivo de Imagen
-        </label>
-        <input
-          className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-          aria-describedby="file_input_help"
-          name="file_input"
-          type="file"
-          accept=".jpg, .jpeg, .png"
-          onChange={(e) =>
-            setTeam((team) => ({
-              ...team,
-              myFile: e.target.files[0],
-            }))
-          }
-        />
-        <p
-          className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-          id="file_input_help"
-        >
-          Only PNG, JPG or JPEG
-        </p>
-
-        <div className="flex grid">
-          <header className="mb-2">
-            <Link
-              to="/teams"
-              className="flex justify-center w-full bg-red-500 py-1 hover:bg-red-600"
-            >
-              Volver
-            </Link>
-          </header>
-          <button className="flex justify-center bg-indigo-600 py-2 hover:bg-indigo-700">
-            Guardar
+        <div className="p-2 flex justify-center">
+          <button className="font-medium py-0.4 px-6 text-white bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-2xl">
+            Confirmar
           </button>
         </div>
       </form>
