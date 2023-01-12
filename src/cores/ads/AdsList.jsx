@@ -43,7 +43,7 @@ const AdsList = () => {
     } finally {
       dispatch(setLoading(false));
     }
-  }, [dispatch, token, page, totalPages, size]);
+  }, [dispatch, token, page, adtype, search]);
 
   useEffect(() => {
     getAds();
