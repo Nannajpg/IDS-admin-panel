@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { MdModeEditOutline as Pencil } from "react-icons/md";
@@ -17,18 +17,18 @@ const AdRow = ({ ad, getAds }) => {
   const dispatch = useDispatch();
   console.log(ad);
 
-  const handleDelete = async (userToken, id) => {
+  const handleDelete = useCallback(async () => {
     try {
       dispatch(setLoading(true));
-      await deleteAd(userToken, id);
-      toggleModal(isVisible);
+      await deleteAd(userToken, ad.id);
+      toggleModal();
       getAds();
     } catch (error) {
       toast.error(error.message);
     } finally {
       dispatch(setLoading(false));
     }
-  };
+  }, [ad.id, dispatch, getAds, toggleModal, userToken]);
 
   return (
     <tr className="bg-white">
@@ -74,7 +74,7 @@ const AdRow = ({ ad, getAds }) => {
           />
         </Link>
 
-        <button onClick={() => toggleModal(isVisible, ad.id)}>
+        <button onClick={toggleModal}>
           <Bin
             color="white"
             className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1"
@@ -84,9 +84,9 @@ const AdRow = ({ ad, getAds }) => {
       </td>
 
       <ModalDelete
-        handleDelete={() => handleDelete(userToken, ad.id)}
+        handleDelete={handleDelete}
         id={ad.id}
-        onClick={() => toggleModal(isVisible)}
+        onClick={toggleModal}
         isVisible={isVisible}
         item={"anuncio"}
       />

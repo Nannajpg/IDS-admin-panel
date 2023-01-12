@@ -42,16 +42,14 @@ const UserRow = ({ user, getUsers }) => {
             >
             <Pencil color='white' className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1" size="2rem"/>
             </Link>
-            <button
-              onClick={() => (isVisible, user.id)}
-            >
+          <button onClick={toggleModal} >
             <Bin color='white' className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1" size="2rem"/>
           </button>
 
           <ModalDelete
             handleDelete={() => handleDelete(userToken, user.id)}
             id={user.id}
-            onClick={() => toggleModal(isVisible)}
+            onClick={toggleModal}
             isVisible={isVisible}
             item={"usuario"}
           />

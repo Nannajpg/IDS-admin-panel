@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { addUser, resetUsers, setAmount, setPage, setTotalPages, toSearch, toFirstPage} from '../../features/users/userSlice'
+import { setUsers, setAmount, setPage, setTotalPages, toSearch, toFirstPage} from '../../features/users/userSlice'
 import * as usersServices from "../../services/users.services";
 import UserRow from './UserRow'
 import Pagination from '../../components/pagination'
@@ -29,12 +29,11 @@ function UsersList() {
       };
 
     const getUsers = useCallback(async () => {
+        console.log('GET USERS')
             try {
                 dispatch(setLoading(true));
                 const data = await usersServices.fetchUsers(userToken, page);
-                data.items.forEach(user => {
-                    dispatch(addUser(user));
-                });
+                dispatch(setUsers(data.items));
                 dispatch(setAmount(data.paginate.total));
                 dispatch(setTotalPages(data.paginate.pages))
             } catch (error) {
