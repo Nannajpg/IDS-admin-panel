@@ -70,21 +70,22 @@ function UsersList() {
 
             </header>
 
-            <div className="overflow-auto w-full hidden md:block drop-shadow-lg">
-                <table className="m-auto rounded-lg">
-                    <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
-                    <tr>
-                        <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">ID</td>
-                        <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Nombre</td>
-                        <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Email</td>
-                        <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Tipo de usuario</td>
-                        <td className="rounded-r-full"></td>
-                    </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-100 rounded-lg ">            
-                    {users.map(user => <UserRow user={user} getUsers={getUsers} key={user.id} />)}
-                    </tbody>
-                </table>
+            <div className="overflow-auto shadow-lg rounded-lg hidden md:block">
+                    <table className="">
+                        <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
+                        <tr>
+                            <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">ID</td>
+                            <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Nombre</td>
+                            <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Email</td>
+                            <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Tipo de usuario</td>
+                            <td className="rounded-r-full"></td>
+                        </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100 rounded-lg ">            
+                        {users.map(user => <UserRow user={user} getUsers={getUsers} key={user.id} />)}
+                        </tbody>
+                    </table>
+                
             </div>
 
             <div className='grid grid-cols-3 gap-4'>

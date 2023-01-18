@@ -172,7 +172,7 @@ const Form = ({ onSubmit, id, toEditAd }) => {
 
           <div className="p-5 bg-[#F1F1F1] rounded-b-lg  flex justify-center">
             <button
-              className="font-medium py-0.4 px-6 text-white bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-2xl"
+              className="font-medium py-0.4 px-6 text-white bg-gradient-to-r from-[#D13256] h-8 to-[#F75845] rounded-2xl"
               type="Submit"
             >
               Confirmar

@@ -10,6 +10,7 @@ import { setAllEvents } from '../../features/events/eventSlice'
 import { Link } from 'react-router-dom'
 import { toast } from "react-toastify";
 import { setLoading } from "../../features/global/globalSlice";
+import { FiArrowLeft as Arrow } from "react-icons/fi";
 
 function MatchForm({ action, id }) {
 
@@ -115,12 +116,16 @@ function MatchForm({ action, id }) {
     }, [params.id, matches]);
 
     return (
-        <div className='flex items-center h-screen'>
+        <div className="w-screen h-screen items-center justify-center flex h-full drop-shadow-md">
+              <div className="flex md:w-3/4 w-full gap-[20%] md:gap-[30%]">
+              <div>
+                        <Link to="/matches" className=""><Arrow color="#3D405B" size="2.5rem"/></Link>
+                </div>
         <form onSubmit={handleSubmit} className='bg-[#EAEAEA] rounded-2xl text-black'>
             <div>
-                <h1 className='text-white text-2xl p-2 bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-t-2xl font-bold text-justify'>Partido</h1>
+                <h1 className='text-white text-2xl p-2 bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-t-2xl font-bold text-justify'>Partidos</h1>
             </div>
-            <div className="pt-8 py-1 px-7 text-[#3D405B]">
+            <div className="pt-8 py-1 bg-[#F1F1F1] px-7 text-[#3D405B]">
                 <div>
                     <Select
                         label={"Competición"}
@@ -150,7 +155,7 @@ function MatchForm({ action, id }) {
                     />
                 </div>
             </div>
-            <div className="py-2 px-6">
+            <div className="py-2 bg-[#F1F1F1] px-6">
                 <input
                     className='w-1/2 font-medium py-0.4 px-6 text-white bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-2xl'
                     aria-describedby="file_input_help"
@@ -163,12 +168,14 @@ function MatchForm({ action, id }) {
                     }))}
                 />
             </div>
-            <div className='pt-20 p-4 flex justify-center'>
-                <button className='font-medium py-0.4 px-6 text-white bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-2xl'>Confirmar</button>
+            <div className='pt-20 p-4 flex bg-[#F1F1F1] rounded-b-lg justify-center'>
+                <button className='font-medium py-0.4 h-8 px-6 text-white bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-2xl'>Confirmar</button>
             </div>
-            <Link to="/matches">XD</Link>
+
         </form>
     </div>
+        </div>
+      
     )
 }
 

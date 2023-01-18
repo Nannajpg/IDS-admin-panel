@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Pagination from '../../components/pagination'
 import { toast } from 'react-toastify';
 import { setLoading } from "../../features/global/globalSlice";
-import HiddenTable from "./HiddenTable";
 //import "./StickersList.css"
 
 const StickerList = () => {
@@ -72,12 +71,6 @@ const StickerList = () => {
               ))}
           </tbody>
         </table>
-      </div>
-
-      <div className="grid w-50 grid-cols-2 sm:grid-cols-2 gap-4 md:hidden">
-      {stickerState.stickers.map((sticker) => (
-        <HiddenTable sticker={sticker} key={sticker.id}/>
-      ))}
       </div>
     
       <div className='py-4'>

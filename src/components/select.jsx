@@ -8,7 +8,7 @@ function SelectComponent({ label, placeholder, options, value, onChange }) {
         <>
             <label className='block text-lg font-bold mb-2'>{ label }</label>
             <select 
-                className="w-full p-1 focus:border-blue-500 rounded-2xl bg-white mb-2 hover:bg-zinc-100" 
+                className="w-full p-1 focus:border-blue-500 rounded-2xl bg-white mb-2 hover:bg-zinc-200" 
                 onChange={handleChange} 
                 placeholder={placeholder ? placeholder : ''} 
                 defaultValue=""

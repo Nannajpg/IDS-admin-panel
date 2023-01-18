@@ -101,7 +101,9 @@ function StickerForm() {
     try {
       dispatch(setLoading(true));
       e.preventDefault();
-      if (params.id) {
+      console.log(sticker.id)
+      if (sticker.id =! null) {
+        console.log(params.id)
         await editSticker(userToken, sticker, sticker.id);
       } else {
         await saveSticker(userToken, sticker);
@@ -137,7 +139,7 @@ function StickerForm() {
               Cromos
             </h1>
           </div>
-          <div className="py-1 px-7 grid bg-[#F1F1F1] grid-cols-2 gap-x-8 text-[#3D405B]">
+          <div className="py-1 px-7 grid bg-[#F1F1F1]9+/ grid-cols-2 gap-x-8 text-[#3D405B]">
             <div>
               <label
                 htmlFor="externalUuid"
