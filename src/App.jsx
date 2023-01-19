@@ -23,9 +23,12 @@ import MatchCreateForm from './cores/matches/CreateForm';
 import Navbar from './components/Navbar'
 import Loading from "react-fullscreen-loading";
 import { useSelector } from "react-redux";
+import useLocalStorage from './hooks/useLocalStorage';
 
 function App() {
   const loading = useSelector((state) => state.global.loading);
+
+  useLocalStorage();
 
   return (
     <>
