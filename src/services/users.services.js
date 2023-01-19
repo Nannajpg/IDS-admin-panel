@@ -83,18 +83,21 @@ export const editUser = async (id, token, user) => {
   }
 };
 
-export const getAmounts = async (token) => {
+export const getDashboardAmounts = async (token) => {
   try {
       const res = await axios.get(URL_AMOUNTS,  {
         headers: { "Authorization": `Bearer ${token}` },
       });
-      console.log("token", token)
-      console.log("amounts", res.data)
-      return res.data;        
+
+      if (!res.data?.item) {
+        throw new Error("Error al decodificar la respuesta de los contadores del dashboard");
+      }
+
+      return res.data.item;        
   } catch (error) {
       if (error.response) {
           throw new Error(
-              error?.response?.data?.message || "Error al registrar"
+              error?.response?.data?.message || "Error al obtener cantidades"
           );
       } throw error;
   } 

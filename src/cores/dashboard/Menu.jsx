@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../features/auth/authSlice";
 import MenuCard from "./MenuCard";
 import { MdLogout } from "react-icons/md";
-import { getAmounts as fetchAmounts} from "../../services/users.services";
+import { getDashboardAmounts as fetchDashboardAmounts } from "../../services/users.services";
 import { useCallback, useEffect } from "react";
 import { setLoading } from "../../features/global/globalSlice";
 import { toast } from 'react-toastify';
@@ -13,25 +13,26 @@ import 'react-toastify/dist/ReactToastify.css';
 const Menu = () => {
   const dispatch = useDispatch()  
   const {userToken} = useSelector(state => state.auth)
+  const [dashboardCounts, setDashboardCounts] = useState({
+    Event: 0, Promotion: 0, Sticker: 0, Team: 0, User: 0, Game: 0
+  });
 
   const getAmounts = useCallback(async () => {
-    try {
+      try {
         dispatch(setLoading(true));
-        const res = await fetchAmounts(userToken);
-        console.log(res)
-    } catch (error) {
-        if (error.response) {
-            throw new Error(error?.response?.data.message);
-        } toast.error(error.message);
-    } finally {
+        const result = await fetchDashboardAmounts(userToken);
+        setDashboardCounts({ ...result });
+      } catch (error) {
+        toast.error(error.message);
+      } finally {
         dispatch(setLoading(false));
-    }
-  },
-  [dispatch, userToken],
+      }
+    },
+    [dispatch, userToken],
   )
 
   useEffect(() => {
-  getAmounts();
+    getAmounts();
   }, [getAmounts])
 
   return (
@@ -39,37 +40,37 @@ const Menu = () => {
       <h1 className="text-[#3D405B] text-4xl font-semibold">Panel Administrativo de Offside</h1>
       <section className="sm:w-full grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-5 md:content-start">
         <MenuCard
-          amount="16"
+          amount={dashboardCounts.User}
           topic="Usuarios"
           route="/users"
           textStyles="text-3xl"
         />
         <MenuCard
-          amount="16"
+          amount={dashboardCounts.Event}
           topic="Competiciones"
           route="/users"
           textStyles="text-2xl"
         />
         <MenuCard
-          amount="577"
+          amount={dashboardCounts.Team}
           topic="Equipos"
           route="/teams"
           textStyles="text-3xl"
         />
         <MenuCard
-          amount="577"
+          amount={dashboardCounts.Sticker}
           topic="Cromos"
           route="/stickers"
           textStyles="text-3xl"
         />
         <MenuCard
-          amount="16"
+          amount={dashboardCounts.Game}
           topic="Partidos"
           route="/matches"
           textStyles="text-3xl"
         />
         <MenuCard
-          amount="12"
+          amount={dashboardCounts.Promotion}
           topic="Anuncios"
           route="/ads"
           textStyles="text-3xl"
