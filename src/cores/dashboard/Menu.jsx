@@ -48,7 +48,7 @@ const Menu = () => {
         <MenuCard
           amount={dashboardCounts.Event}
           topic="Competiciones"
-          route="/users"
+          route="/events"
           textStyles="text-2xl"
         />
         <MenuCard
