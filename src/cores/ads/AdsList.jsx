@@ -53,7 +53,7 @@ const AdsList = () => {
   };
 
   return (
-    <div className="w-4/6">
+    <div>
       <AdsListHeader />
       <div className="overflow-auto w-full">
         <table className="w-5/2 m-auto">

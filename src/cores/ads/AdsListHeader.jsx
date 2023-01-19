@@ -35,7 +35,7 @@ const AdsListHeader = () => {
           </h1>
         </div>
 
-        <div className="flex">
+        <div className="flex gap-8">
           <SearchBar
             handleSubmit={handleSubmit}
             placeholder={"Buscar anuncio por título"}
