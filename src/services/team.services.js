@@ -12,6 +12,7 @@ export const fetchTeams = async (
   teamname = ""
 ) => {
   try {
+    console.log(eventid,teamname)
     if (eventid === "") eventid = "&eventid=%";
     else eventid = `&eventid=${eventid}`;
     if (teamname === "") teamname = "&teamname=.*";
