@@ -55,8 +55,8 @@ const AdsList = () => {
   return (
     <div>
       <AdsListHeader />
-      <div className="overflow-auto w-full rounded-2xl shadow-lg hidden md:block">
-        <table className="w-5/2 m-auto">
+      <div className="overflow-auto rounded-2xl shadow-lg">
+        <table className="w-full">
           <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
             <tr>
               <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">
@@ -105,5 +105,61 @@ const AdsList = () => {
     </div>
   );
 };
+
+/*
+(
+    <div>
+      <AdsListHeader />
+      <div className="overflow-auto rounded-2xl shadow-lg">
+        <table className="w-full">
+          <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
+            <tr>
+              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">
+                ID
+              </td>
+              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">
+                Imagen
+              </td>
+              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">
+                Título
+              </td>
+              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center max-[500px]:hidden">
+                Descripción
+              </td>
+              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center max-[600px]:hidden">
+                Dirección
+              </td>
+              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center max-[700px]:hidden">
+                Tipo de anuncio
+              </td>
+              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">
+                Clicks
+              </td>
+              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">
+                Vistas
+              </td>
+              <td className="p-3 w-30 rounded-r-full"></td>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-100">
+            {console.log(ads)}
+            {ads.map((ad) => (
+              <AdRow ad={ad} getAds={getAds} key={ad.id} />
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="py-4">
+        <Pagination
+          currentPage={page + 1}
+          totalPages={totalPages}
+          handleSetPage={handleSetPage}
+        />
+      </div>
+    </div>
+  );
+*/
+
 
 export default AdsList;
