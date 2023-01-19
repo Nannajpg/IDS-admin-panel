@@ -3,8 +3,7 @@ import StickersListHeader from "./StickersListHeader";
 import {
   setAmount,
   setPage,
-  setSticker,
-  setTotalPages
+  setSticker
 } from "../../features/stickers/stickerSlice";
 import StickerRow from "./StickerRow";
 import {
@@ -34,16 +33,15 @@ const StickerList = () => {
         dispatch(setLoading(true));
         dispatch(setSticker(res.data.items))
         dispatch(setAmount(res.data.paginate.total));
-        dispatch(setTotalPages(res.data.paginate.pages));
-      } catch (error) {
-        toast.error(error.message);
-      } finally {
-        dispatch(setLoading(false));
-      }
+        } catch (error) {
+          toast.error(error.message);
+        } finally {
+          dispatch(setLoading(false));
+        }
     },
     [dispatch, stickerState.page, token],
   )
-
+  
   useEffect(() => {
     getStickers();
   }, [getStickers]);
@@ -51,7 +49,7 @@ const StickerList = () => {
   return (
     <div>
       <StickersListHeader amount={stickerState.amount} />
-      <div className="overflow-auto shadow-lg rounded-lg hidden md:block">
+      <div className="overflow-auto shadow-lg rounded-2xl hidden md:block">
         <table className="w-full">
             <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
               <tr>
@@ -81,11 +79,10 @@ const StickerList = () => {
               totalPages={totalPages}
               handleSetPage={handleSetPage}
             />
-            {console.log("cp", page)}
       </div>
       
     </div>
-  )
-}
+  );
+};
 
 export default StickerList;
