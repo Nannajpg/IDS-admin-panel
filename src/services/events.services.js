@@ -24,9 +24,12 @@ export const fetchAllEvents = async (token, page = 0, perPage = 9) => {
   }
 }
 
-export const fetchEvents = async (token, page = 0, perPage = 3) => {
+export const fetchEvents = async (token, page = 0, perPage = 7, search = '') => {
   try {
-    const res = await axios.get(BASE_URL+'?page='+page+'&size='+perPage, {
+    let queryParams = '&';
+    if (search.length > 0) queryParams += 'search=' + search;
+    console.log(queryParams)
+    const res = await axios.get(BASE_URL+'?page='+page+'&size='+perPage+queryParams, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if(!res.data.success || !res.data.paginate || !res.data.items){

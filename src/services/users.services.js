@@ -2,10 +2,11 @@ import axios from "axios";
 import { API_URL } from "../config.js";
 
 const BASE_URL = API_URL+"/users/";
+const URL_AMOUNTS = API_URL+"/admin/countAll";
 
 export const fetchUsers = async (token, page) => {
   try {
-    const res = await axios.get(BASE_URL + "?size=9&page=" + page, {
+    const res = await axios.get(BASE_URL + "?size=7&page=" + page, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!res.data.items || !res.data.success) {
@@ -26,7 +27,8 @@ export const createUser = async (user, token) => {
     const { data } = await axios.post(BASE_URL, user, {
       headers: { Authorization: `Bearer ${token}` },
     },);
-    if (!data.item || !data.message) {
+    console.log("data:", data)
+    if (!data.success || !data.message) {
       throw new Error(
         "Ha ocurrido un error con el backend");
     }
@@ -80,3 +82,23 @@ export const editUser = async (id, token, user) => {
     } throw error;
   }
 };
+
+export const getDashboardAmounts = async (token) => {
+  try {
+      const res = await axios.get(URL_AMOUNTS,  {
+        headers: { "Authorization": `Bearer ${token}` },
+      });
+
+      if (!res.data?.item) {
+        throw new Error("Error al decodificar la respuesta de los contadores del dashboard");
+      }
+
+      return res.data.item;        
+  } catch (error) {
+      if (error.response) {
+          throw new Error(
+              error?.response?.data?.message || "Error al obtener cantidades"
+          );
+      } throw error;
+  } 
+}

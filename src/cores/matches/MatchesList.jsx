@@ -1,17 +1,18 @@
 import { useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { setMatches, resetMatches, setAmount, setTotalPages, setPage, toFirstPage, toSearch } from '../../features/matches/matchSlice'
+import { setMatches, resetMatches, setAmount, setTotalPages, setPage} from '../../features/matches/matchSlice'
 import * as matchesServices from '../../services/matches.services'
-import Match from './Match'
+import MatchRow from './MatchRow'
 import Pagination from '../../components/pagination'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setLoading } from "../../features/global/globalSlice";
-//import SearchBar from "../../components/searchbar";
+import {FiArrowLeft as Arrow} from 'react-icons/fi'
+
 
 function MatchesList() {
-    const postPerPage = 9;
+    const postPerPage = 7;
     const date = "3000-12-12";
     const page = useSelector(state => state.matches.page);
     const totalPages = useSelector(state => state.matches.totalPages)
@@ -25,22 +26,13 @@ function MatchesList() {
         dispatch(setPage(page-1))
     }
 
-    const handleSubmit = (e, searchRef) => {
-        e.preventDefault();
-        dispatch(toSearch(searchRef.current.value));
-        dispatch(toFirstPage());
-        return(searchRef.current.value = '')
-      };
-
     const getMatches = useCallback(async () => {
         try {
-            console.log(userToken)
             dispatch(setLoading(true));
             dispatch(resetMatches());
             const data = await matchesServices.fetchMatches(userToken, page, postPerPage, date);
             dispatch(setMatches(data.items));
-            dispatch(setAmount(data.paginate.total));
-            console.log(data.paginate)    
+            dispatch(setAmount(data.paginate.total));   
             dispatch(setTotalPages(data.paginate.pages));
         } catch (error) {
             if (error.response) {
@@ -52,27 +44,44 @@ function MatchesList() {
             dispatch(setLoading(false));
         }
     }, [dispatch, userToken, page, postPerPage, date]);
+
     useEffect(() => { getMatches() }, [getMatches])
     
     return (
-        <div className='w-4/6'>
-            <header className='flex justify-between items-center py-4'>
-                <Link to="/dashboard" className="bg-emerald-600 px-2 py-1 text-sm rounded-md mx-2">Volver</Link>
-                <h1>Partidos Totales: {amount}</h1>
-                {/*
-                    <SearchBar
-                    handleSubmit={handleSubmit}
-                    placeholder={"Buscar anuncio por título"}
-                />
-                */}
-                
-                <Link to="/matches/create" className='bg-emerald-600 px-2 py-1 rounded-md text-sm'>
-                    Crear Partido
-                </Link>
+        <div>
+            <header>
+                <div>
+                    <div className='flex'>
+                        <Link to="/dashboard" className=""><Arrow color="#3D405B" size="2.5rem"/></Link>
+                        <h1 className='text-[#3D405B] font-bold text-3xl'>Gestionar Partidos</h1>
+                    </div>
+                    <div className='py-1'>
+                        <h1 className='text-[#3D405B] font-medium text-lg'>Partidos: {amount}</h1>
+                    </div>
+                    <div className='flex py-1'>
+                        <Link to="/matches/create" className='bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8'>
+                            Crear
+                        </Link>
+                    </div>
+                </div>
             </header>
 
-            <div className='grid grid-cols-3 gap-4'>
-                {matches.map(match => (<Match match={match} onDelete={() => getMatches()} key={match.id}/>))}
+            <div className="overflow-auto w-full rounded-2xl shadow-lg">
+                <table className="w-full shadow-lg m-auto">
+                    <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
+                    <tr>
+                        <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">ID</td>
+                        <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Partido</td>
+                        <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Competición</td>
+                        <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Fecha</td>
+                        <td className="p-3 w-30 rounded-r-full"></td>
+                    </tr>
+                    </thead>
+
+                    <tbody className="divide-y divide-gray-100">            
+                        {matches.map(match => (<MatchRow match={match} getMatches={getMatches} key={match.id}/>))}
+                    </tbody>
+                </table>
             </div>
 
             <div className='py-4'>

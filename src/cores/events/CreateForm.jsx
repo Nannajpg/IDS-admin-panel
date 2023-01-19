@@ -14,7 +14,6 @@ const CreateForm = () => {
       dispatch(setLoading(true));
       return await eventsServices.createEvent(userToken, {
         ...event,
-        status: (event.status === 'Ativo')
       });
     } catch (error) {
       if (error.response) {

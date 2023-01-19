@@ -1,54 +1,32 @@
+import { Link, Navigate } from "react-router-dom";
+import LoginForm from "./LoginForm";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import logo from "./assets/offsidelogo.png";
-import useLoginForm from "./useLoginForm";
+import LogoOffside from "./assets/logo-offside-vertical.png";
 
 function Login() {
+  const state = useSelector((state) => state.auth);
 
-  const { handleChange, handleSubmit } = useLoginForm();
-
-  const { success } = useSelector(state => state.auth);
-
-  if (success) return <Navigate to='/dashboard' />;
+  if (state.success) return <Navigate to="/dashboard" />;
 
   return (
-    <>
-      <section className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
-        <img src={logo} alt="" className="h-32 float-right" />
-        <h1 className="py-3 text-2xl">Inicio de Sesión</h1>
-        <form>
-          <label htmlFor="email" className="block text-sm font-bold mb-2">
-            Email:
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            onChange={handleChange}
-            required
-            className="w-full p-2 rounded-md bg-zinc-600 mb-2"
-          />
-
-          <label htmlFor="password" className="block text-sm font-bold mb-2">
-            Contraseña:
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            onChange={handleChange}
-            required
-            className="w-full p-2 rounded-md bg-zinc-600 mb-2"
-          />
-          <button
-            onClick={handleSubmit}
-            className="bg-teal-600 px-2 py-1 rounded-md text-sm"
-          >
-            Ingresar
-          </button>
-        </form>
-      </section>
-    </>
+    <div className="w-screen h-screen flex flex-col md:flex-row-reverse items-center justify-evenly">
+      <div className="h-1/6 lg:w-5/12 md:w-6/12 w-9/12 flex items-center justify-center">
+        <img src={LogoOffside} alt="" className="lg:w-3/4" />
+      </div>
+      <div className="lg:w-7/12 md:w-6/12 md:h-full h-3/5 bg-white p-7 text-black flex justify-center items-center w-11/12">
+        <div className="w-full h-3/4 flex flex-col items-center">
+          <h1 className="text-4xl w-3/4 h-[15%] text-[#3D405B] font-bold">
+            Panel Administrativo de Offside
+          </h1>
+          <h1 className="text-2xl w-3/4 h-[15%] text-[#3D405B] font-bold">
+            Ingresa en tu cuenta
+          </h1>
+          <LoginForm />
+          <div className="h-[10%] flex items-center justify-center gap-2 font-semibold text-lg">
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

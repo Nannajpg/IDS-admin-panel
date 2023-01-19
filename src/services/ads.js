@@ -2,17 +2,18 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { API_URL } from "../config.js";
 
-const BASE_URL = API_URL+"/ads";
-const FETCH_URL = `${BASE_URL}/search?size=3&page=`;
+const BASE_URL = API_URL+"/promotions";
+//const FETCH_URL = `${BASE_URL}/size=7&page=`;
 
-export const fetchAds = async (token, { page = 0, adtype, search }) => {
-  if (adtype === "") adtype = "&adtype[]=static&adtype[]=float";
-  else adtype = `&adtype=${adtype}`;
-  if (search === "") search = "&announcer=.*";
-  else search = `&announcer=${search}`;
+export const fetchAds = async (token, { page = 0, adtype, search, size }) => {
+
+  if (search === "") search = "&alias=.*";
+  else search = `&alias=${search}`;
+
+  console.log(search)
 
 try {
-  const res = await axios.get(FETCH_URL + page + adtype + search, {
+  const res = await axios.get(BASE_URL + "?page=" + page + "&size=" + size + search, {
     headers: {
       Authorization: 'Bearer ' + token
     }
@@ -30,9 +31,9 @@ try {
 };
 
 export const createAd = async (token, ad) => {
-  const { announcer, adType, redirecTo, img } = ad;
+  const { alias, description, promotionType, redirecTo, img } = ad;
   const myFile = img;
-  const adData = { announcer, adType, redirecTo, myFile };
+  const adData = { alias, description, promotionType, redirecTo, myFile };
   try {
     const res = await axios.post(BASE_URL, adData, {
       headers: {
@@ -74,9 +75,9 @@ export const deleteAd = async (token, id) => {
 };
 
 export const editAd = async (token, { ad, id }) => {
-  const { announcer, adType, redirecTo, img } = ad;
+  const { alias, description, promotionType, redirecTo, img } = ad;
   const myFile = img;
-  const adData = { announcer, adType, redirecTo, myFile };
+  const adData = { alias, description, promotionType, redirecTo, myFile };
 
   try {
     const res = await axios.put(BASE_URL + `/${id}`, adData, {
@@ -96,3 +97,18 @@ export const editAd = async (token, { ad, id }) => {
   }
 }
 
+export const exportAdReport = async (token, adId) => {
+  try {
+    const res = await axios.get(BASE_URL + `/report/${adId}`, {
+      headers: { Authorization: 'Bearer ' + token },
+      responseType: 'blob',
+    });
+    return res;
+  } catch(error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al editar anuncio"
+      );
+    } throw error;
+  }
+}

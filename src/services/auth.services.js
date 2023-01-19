@@ -4,6 +4,7 @@ import { API_URL } from "../config.js";
 const URL_LOGIN = API_URL+"/auth/login";
 const URL_SIGNUP = API_URL+"/auth/register";
 
+
 export const login = async ({ email, password }) => {
     try {
         const { data } = await axios.post(URL_LOGIN, { email, password });
@@ -35,3 +36,4 @@ export const signup = async (user) => {
         } throw error;
     } 
 }
+

@@ -10,6 +10,7 @@ import { setAllEvents } from '../../features/events/eventSlice'
 import { Link } from 'react-router-dom'
 import { toast } from "react-toastify";
 import { setLoading } from "../../features/global/globalSlice";
+import { FiArrowLeft as Arrow } from "react-icons/fi";
 
 function MatchForm({ action, id }) {
 
@@ -80,7 +81,7 @@ function MatchForm({ action, id }) {
             try {
                 dispatch(setLoading(true))
                 const res = await fetchAllTeams(userToken, selectedEventId);
-                setAllTeams(res);
+                setAllTeams(res.items);
             } catch (error) {
               if (error.response) {
                 throw new Error(
@@ -115,54 +116,74 @@ function MatchForm({ action, id }) {
     }, [params.id, matches]);
 
     return (
-        <form onSubmit={handleSubmit} className="bg-zinc-800 max-2-sm p-4 mb-2 rounded-md">
+        <div className="w-screen h-screen items-center justify-center flex h-full drop-shadow-md">
+              <div className="flex md:w-3/4 w-full gap-[20%] md:gap-[30%]">
+              <div>
+                        <Link to="/matches" className=""><Arrow color="#3D405B" size="2.5rem"/></Link>
+                </div>
+        <form onSubmit={handleSubmit} className='bg-[#EAEAEA] rounded-2xl text-black'>
+            <div>
+                <h1 className='text-white text-2xl p-2 bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-t-2xl font-bold text-justify'>Partidos</h1>
+            </div>
+            <div className="pt-8 py-1 bg-[#F1F1F1] px-7 text-[#3D405B]">
+                <div>
+                    <Select
+                        label={"Competición"}
+                        onChange={changeEventId}
+                        value={match.eventId}
+                        options={eventsOptions}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="gameDate" className='block text-lg font-bold mb-2'>Fecha</label>
+                    <input name='gameDate' type="date" onChange={handleChange} className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-zinc-200' required />
+                </div>
+                <div>
+                    <Select
+                        label={"Equipo 1"}
+                        onChange={changeTeamOneId}
+                        value={match.teamOneId}
+                        options={teamsOptions}
+                    />
+                </div>
+                <div>
+                    <Select
+                        label={"Equipo 2"}
+                        onChange={changeTeamTwoId}
+                        value={match.teamTwoId}
+                        options={teamsOptions}
+                    />
+                </div>
+            </div>
+            <div className="py-2 bg-[#F1F1F1] px-6">
+            <div className="flex flex-col items-center justify-center pt-5 pb-8 bg-[#c3c3c3] rounded-lg">
+                  <p class="text-sm font-bold text-center text-gray-500">
+                    Arrastra y suelta el archivo aquí o
+                  </p>
+                    <input
+                        className='text-lg text-gray-100 rounded-2xl w-1/2 cursor-pointer bg-[#c3c3c3]'
+                        aria-describedby="file_input_help"
+                        name="file_input"
+                        type="file"
+                        accept='.csv'
+                        onChange={(e) => setMatch((match) => ({
+                            ...match,
+                            myFile: e.target.files[0],
+                        }))}
+                    />
+            </div>
+
             
-            <label htmlFor="name" className="block text-xl font-bold mb-2" >Partidos</label> 
+                
+            </div>
+            <div className='pt-10 p-4 flex bg-[#F1F1F1] rounded-b-lg justify-center'>
+                <button className='font-medium py-0.4 h-8 px-6 text-white bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-2xl'>Confirmar</button>
+            </div>
 
-            <Select 
-                label={"Competición en el que participa"}
-                onChange={changeEventId}
-                value={match.eventId}
-                options={eventsOptions} 
-            />
-
-            <Select 
-                label={"Equipo 1"}
-                onChange={changeTeamOneId}
-                value={match.teamOneId}
-                options={teamsOptions} 
-            />
-
-            <Select 
-                label={"Equipo 2"}
-                onChange={changeTeamTwoId}
-                value={match.teamTwoId}
-                options={teamsOptions} 
-            />
-
-            <label htmlFor="gameDate" className="block text-sm font-bold mb-2">Fecha:</label>
-            <input name='gameDate' type="date" onChange={handleChange} className="w-full p-2 rounded-md bg-zinc-600 mb-2" required />
-
-            <label className='block text-sm mb-2 font-bold' htmlFor="file_input">
-                    Subir Archivo de Excel
-                </label>
-                <input
-                    className="w-full p-2 rounded-md bg-zinc-600 mb-2 file:rounded-md file:border-none file:bg-zinc-700 file:text-white hover:file:bg-zinc-800 hover:file:cursor-pointer"
-                    aria-describedby="file_input_help"
-                    name="file_input"
-                    type="file"
-                    accept='.csv'
-                    onChange={(e) => setMatch((match) => ({
-                        ...match,
-                        myFile: e.target.files[0],
-                    }))}
-                />
-                <p className="mt-1 text-sm text-gray-500 dark:text-gray-300 mb-2" id="file_input_help">
-                    Formato: csv
-                </p>   
-            <button className="bg-emerald-600 px-2 py-1 rounded-md">Guardar</button>
-            <Link to="/matches" className="bg-red-500 px-2 py-1 rounded-md mx-8">Volver</Link>
         </form>
+    </div>
+        </div>
+      
     )
 }
 

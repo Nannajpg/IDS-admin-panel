@@ -15,12 +15,8 @@ export const userSlice = createSlice({
         resetUsers: (state, _) => {
             state.users = [];
         },
-        addUser: (state, { payload }) => {
-            const { id } = payload;
-            const foundUser = state.users.find(user => user.id === id);
-            if (!foundUser) {
-                state.users.push(payload);
-            }
+        setUsers: (state, { payload }) => {
+            state.users = payload;
         },
         editUser: (state, action) =>{
             const { id, name, role, email, password } = action.payload
@@ -32,12 +28,6 @@ export const userSlice = createSlice({
                 foundUser.role = role;
                 foundUser.email = email;
                 foundUser.password = password;
-            }
-        },
-        deleteUser: (state, { payload }) => {
-            const userFound = state.users.find(user => user.id === payload)
-            if (userFound) {
-                state.users.splice(state.indexOf(userFound), 1)
             }
         },
         setAmount: (state, action) => {
@@ -62,5 +52,5 @@ export const userSlice = createSlice({
     }
 })
 
-export const {resetUsers, addUser, editUser, deleteUser, setAmount, setPage, setTotalPages, toSearch, toFilter, toFirstPage } = userSlice.actions
+export const {resetUsers, setUsers, editUser, setAmount, setPage, setTotalPages, toSearch, toFilter, toFirstPage } = userSlice.actions
 export default userSlice.reducer

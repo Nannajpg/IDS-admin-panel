@@ -1,5 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
+import Sidebar from '../../components/Sidebar'
+import Navbar from '../../components/Navbar'
 
 const Auth = () => {
 
@@ -7,7 +9,14 @@ const Auth = () => {
 
   if (!auth.success) return <Navigate to='/' />
   
-  return <Outlet />;
+  
+  return(
+    <>      
+      <Navbar />     
+      <Outlet />
+    </>
+    
+  ) 
 }
 
 export default Auth

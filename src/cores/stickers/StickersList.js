@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import StickersListHeader from "./StickersListHeader";
 import {
-  readStickers,
   setAmount,
-  setTotalPages,
-  setPage
+  setPage,
+  setSticker,
+  setTotalPages
 } from "../../features/stickers/stickerSlice";
-import StickerCard from "./StickerCard";
+import StickerRow from "./StickerRow";
 import {
   getAllStickers,
 } from "../../services/stickers.services";
@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Pagination from '../../components/pagination'
 import { toast } from 'react-toastify';
 import { setLoading } from "../../features/global/globalSlice";
+//import "./StickersList.css"
 
 const StickerList = () => {
   const dispatch = useDispatch();
@@ -27,44 +28,61 @@ const StickerList = () => {
     dispatch(setPage(page-1))
   }
 
-  useEffect(() => {
-    const getStickers = async () => {
-      const res = await getAllStickers(token, stickerState.page);
+  const getStickers = useCallback(async () => {
+    const res = await getAllStickers(token, stickerState.page);
       try {
         dispatch(setLoading(true));
-        if (res.data.items.length > 0) {
-          for (let i = 0; i < res.data.items.length; i++) {
-            dispatch(setTotalPages(res.data.paginate.pages));
-            dispatch(readStickers(res.data.items[i]));
-          }
-          dispatch(setAmount(res.data.paginate.total));
+        dispatch(setSticker(res.data.items))
+        dispatch(setAmount(res.data.paginate.total));
+        dispatch(setTotalPages(res.data.paginate.total));
+        } catch (error) {
+          toast.error(error.message);
+        } finally {
+          dispatch(setLoading(false));
         }
-      } catch (error) {
-        toast.error(error.message);
-      } finally {
-        dispatch(setLoading(false));
-      }
-    };
-
+    },
+    [dispatch, stickerState.page, token],
+  )
+  
+  useEffect(() => {
     getStickers();
-  }, [dispatch, stickerState.page, stickerState.stickers, token, stickerState.search]);
+  }, [getStickers]);
 
   return (
-    <div className="w-4/6">
-      {console.log(stickerState)}
+    <div>
       <StickersListHeader amount={stickerState.amount} />
-      <div className="grid grid-cols-4 gap-4">
-        {stickerState.stickers.map((sticker) => (
-          <StickerCard sticker={sticker} key={sticker.id} />
-        ))}
+      <div className="overflow-auto shadow-lg rounded-2xl">
+        <table className="w-full">
+            <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
+              <tr>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">ID</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Imagen</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Nombre</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Competición</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Equipo</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center max-[750px]:hidden">Posición</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center max-[950px]:hidden">Altura (cm)</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center max-[1050px]:hidden">Peso (Kg)</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center max-[850px]:hidden">% de Aparición</td>
+                <td className="p-3 w-30 rounded-r-full"></td>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">            
+              {stickerState.stickers.map((sticker) => (
+                  <StickerRow sticker={sticker} key={sticker.id} getStickers={getStickers} />
+              ))}
+          </tbody>
+        </table>
       </div>
+    
       <div className='py-4'>
-          <Pagination
-            currentPage={page + 1}
-            totalPages={totalPages}
-            handleSetPage={handleSetPage}
-          />
+            <Pagination
+              currentPage={page + 1}
+              totalPages={totalPages}
+              handleSetPage={handleSetPage}
+            />
       </div>
+      
     </div>
   );
 };
