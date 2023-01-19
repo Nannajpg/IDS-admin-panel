@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_URL } from "../config.js";
 
 const BASE_URL = API_URL+"/users/";
+const URL_AMOUNTS = API_URL+"/admin/countAll";
 
 export const fetchUsers = async (token, page) => {
   try {
@@ -81,3 +82,20 @@ export const editUser = async (id, token, user) => {
     } throw error;
   }
 };
+
+export const getAmounts = async (token) => {
+  try {
+      const res = await axios.get(URL_AMOUNTS,  {
+        headers: { "Authorization": `Bearer ${token}` },
+      });
+      console.log("token", token)
+      console.log("amounts", res.data)
+      return res.data;        
+  } catch (error) {
+      if (error.response) {
+          throw new Error(
+              error?.response?.data?.message || "Error al registrar"
+          );
+      } throw error;
+  } 
+}
