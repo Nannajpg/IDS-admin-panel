@@ -7,7 +7,7 @@ const FilterSelect = () => {
   return (
     <select
       name="filterType"
-      className="w-1/4 p-2 rounded-md bg-zinc-600 mb-2"
+      className="p-1 rounded-2xl bg-white mb-2 h-8 hover:bg-slate-500"
       onChange={(e) => handleChange(e)}
     >
       <option value="">Todos los equipos</option>

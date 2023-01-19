@@ -1,8 +1,7 @@
 import React from "react";
-import 'react-toastify/dist/ReactToastify.css'
+import "react-toastify/dist/ReactToastify.css";
 
 function ModalDelete({ handleDelete, onClick, isVisible, item }) {
-
   return (
     <>
       {isVisible && (
@@ -20,7 +19,7 @@ function ModalDelete({ handleDelete, onClick, isVisible, item }) {
             <div className="flex justify-between px-2">
               <div className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-[3px]">
                 <button
-                  className='bg-white rounded-full px-8 font-semibold text-[#D13256] flex items-center h-[29px]'
+                  className="bg-white rounded-full px-8 font-semibold text-[#D13256] flex items-center h-[29px]"
                   onClick={onClick}
                 >
                   Cancelar
@@ -28,7 +27,7 @@ function ModalDelete({ handleDelete, onClick, isVisible, item }) {
               </div>
 
               <button
-                className='bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8'
+                className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8"
                 onClick={handleDelete}
               >
                 Eliminar

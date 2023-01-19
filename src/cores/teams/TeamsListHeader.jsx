@@ -20,22 +20,31 @@ const TeamsListHeader = () => {
   };
 
   return (
-    <header className="flex justify-between items-center mt-5 w-full">
-      <Link to="/dashboard" className=""><Arrow color="#3D405B" size="2.5rem"/></Link>
-      <h1 className='text-[#3D405B] font-bold text-3xl'>Gestionar Equipos</h1>
-      <h1 className='text-[#3D405B] font-medium text-lg'>Equipos: {teams.total}</h1>
+<header>
+    <div>
+        <div className='flex'>
+          <Link to="/dashboard" className=""><Arrow color="#3D405B" size="2.5rem"/></Link>
+          <h1 className='text-[#3D405B] font-bold text-3xl'>Gestionar Equipos</h1>
+        </div>
 
-      <SearchBar
-        handleSubmit={handleSubmit}
-        placeholder={"Buscar equipo por nombre"}
-      />
+        <div className='py-1'>
+          <h1 className='text-[#3D405B] font-medium text-lg'>Equipos: {teams.total}</h1>
+        </div>
 
-      <FilterSelect />
+        <div className='flex gap-x-8'>
+          <SearchBar
+            handleSubmit={handleSubmit}
+            placeholder={"Buscar equipo por nombre"}
+          />
+          <FilterSelect />
+          <Link to="/newTeam" className='bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8'>
+              Crear
+          </Link>
+        </div>
 
-      <Link to="/newTeam" className='bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8'>
-          Crear
-      </Link>
-    </header>
+    </div>
+</header>
+
   );
 };
 

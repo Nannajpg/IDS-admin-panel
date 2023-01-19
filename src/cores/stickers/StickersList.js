@@ -49,7 +49,7 @@ const StickerList = () => {
   return (
     <div>
       <StickersListHeader amount={stickerState.amount} />
-      <div className="overflow-auto shadow-lg rounded-lg hidden md:block">
+      <div className="overflow-auto shadow-lg rounded-2xl hidden md:block">
         <table className="w-full">
             <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
               <tr>
