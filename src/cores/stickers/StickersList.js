@@ -3,7 +3,8 @@ import StickersListHeader from "./StickersListHeader";
 import {
   setAmount,
   setPage,
-  setSticker
+  setSticker,
+  setTotalPages
 } from "../../features/stickers/stickerSlice";
 import StickerRow from "./StickerRow";
 import {
@@ -33,15 +34,16 @@ const StickerList = () => {
         dispatch(setLoading(true));
         dispatch(setSticker(res.data.items))
         dispatch(setAmount(res.data.paginate.total));
-        } catch (error) {
-          toast.error(error.message);
-        } finally {
-          dispatch(setLoading(false));
-        }
+        dispatch(setTotalPages(res.data.paginate.pages));
+      } catch (error) {
+        toast.error(error.message);
+      } finally {
+        dispatch(setLoading(false));
+      }
     },
     [dispatch, stickerState.page, token],
   )
-  
+
   useEffect(() => {
     getStickers();
   }, [getStickers]);
