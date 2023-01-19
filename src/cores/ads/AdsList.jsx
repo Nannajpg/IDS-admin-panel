@@ -4,7 +4,8 @@ import AdRow from "./AdRow";
 import { useEffect, useState, useCallback } from "react";
 import AdsListHeader from "./AdsListHeader";
 import Pagination from "../../components/pagination";
-import * as inventoryServices from "../../services/ads";
+import { fetchAds } from "../../services/ads";
+
 import {
   storeAllAds,
   setPage,
@@ -24,11 +25,11 @@ const AdsList = () => {
   const totalPages = useSelector((state) => state.ads.totalPages);
   const [adtype, setAdtype] = useState("");
   const [search, setearch] = useState("");
-
+  
   const getAds = useCallback(async () => {
     try {
       dispatch(setLoading(true));
-      const data = await inventoryServices.fetchAds(token, {
+      const data = await fetchAds(token, {
         page,
         adtype,
         search,

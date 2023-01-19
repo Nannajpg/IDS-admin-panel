@@ -96,3 +96,18 @@ export const editAd = async (token, { ad, id }) => {
   }
 }
 
+export const exportAdReport = async (token, adId) => {
+  try {
+    const res = await axios.get(BASE_URL + `/report/${adId}`, {
+      headers: { Authorization: 'Bearer ' + token },
+      responseType: 'blob',
+    });
+    return res;
+  } catch(error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al editar anuncio"
+      );
+    } throw error;
+  }
+}
