@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { MdModeEditOutline as Pencil } from "react-icons/md";
 import { RiDeleteBin6Line as Bin } from "react-icons/ri";
+import { AiOutlineFilePdf as Pdf} from 'react-icons/ai'
 import "./AdRow.css";
 import useModal from "../../components/useModal";
 import ModalDelete from "../../components/ModalDelete";
@@ -76,6 +77,14 @@ const AdRow = ({ ad, getAds }) => {
 
         <button onClick={toggleModal}>
           <Bin
+            color="white"
+            className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1"
+            size="2rem"
+          />
+        </button>
+
+        <button onClick>
+          <Pdf
             color="white"
             className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1"
             size="2rem"
