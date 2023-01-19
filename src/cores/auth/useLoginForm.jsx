@@ -1,27 +1,32 @@
-
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import useForm from '../../hooks/useForm';
-import { login } from '../../features/auth/authSlice';
 import * as authServices from '../../services/auth.services';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { login } from '../../features/auth/authSlice';
+import useForm from '../../components/useForm';
+import { toast } from 'react-toastify';
 
 const useLoginForm = () => {
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
   const { inputValues, handleChange } = useForm();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await authServices.login(inputValues);
-      console.log(user);
-      dispatch(login(user));
-      
-      navigate("/dashboard");
+      const data = await authServices.login(inputValues);
+      console.log(data)
+      localStorage.setItem("loggedUser", JSON.stringify(data));
+      dispatch(login(data));
     } catch(e) {
-      toast.error(e.message);
+      toast.error(e.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     }
   }
 

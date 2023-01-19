@@ -1,14 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-
-const initialState = [];
-
 export const userSlice = createSlice({
     name: 'users',
     initialState: {
         amount: 0,
         page: 0,
-        users: []
+        users: [],
+        totalPages:0
     },
     reducers:{
         initUsers: (state, { payload }) => {
@@ -17,12 +15,8 @@ export const userSlice = createSlice({
         resetUsers: (state, _) => {
             state.users = [];
         },
-        addUser: (state, { payload }) => {
-            const { id } = payload;
-            const foundUser = state.users.find(user => user.id === id);
-            if (!foundUser) {
-                state.users.push(payload);
-            }
+        setUsers: (state, { payload }) => {
+            state.users = payload;
         },
         editUser: (state, action) =>{
             const { id, name, role, email, password } = action.payload
@@ -36,21 +30,27 @@ export const userSlice = createSlice({
                 foundUser.password = password;
             }
         },
-        deleteUser: (state, { payload }) => {
-            const userFound = state.users.find(user => user.id === payload)
-            if (userFound) {
-                state.users.splice(state.indexOf(userFound), 1)
-            }
+        setAmount: (state, action) => {
+            state.amount = action.payload;
         },
         setPage: (state, action) => {
             state.users = [];
             state.page = action.payload;
         },
-        setAmount: (state, action) => {
-            state.amount = action.payload;
+        setTotalPages: (state, action) => {
+            state.totalPages = action.payload;
+        },
+        toSearch: (state, action) => {
+            state.search = action.payload;
+          },
+        toFilter: (state, action) => {
+            state.event = action.payload;
+        },
+        toFirstPage: (state) => {
+            state.page = 0;
         },
     }
 })
 
-export const {resetUsers, addUser, editUser, deleteUser, setAmount, setPage } = userSlice.actions
+export const {resetUsers, setUsers, editUser, setAmount, setPage, setTotalPages, toSearch, toFilter, toFirstPage } = userSlice.actions
 export default userSlice.reducer

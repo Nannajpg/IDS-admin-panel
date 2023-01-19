@@ -1,8 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-
-const initialState = [];
-
 export const eventSlice = createSlice({
     name: 'events',
     initialState: {
@@ -16,8 +13,8 @@ export const eventSlice = createSlice({
         resetEvents: (state, _) => {
             state.events = [];
         },
-        setEvents: (state, action) => {
-            state.events = action.payload;
+        setEvents: (state, { payload }) => {
+            state.events = payload;
         },
         setAllEvents: (state, action) => {
             state.eventsAll = action.payload;
@@ -39,7 +36,7 @@ export const eventSlice = createSlice({
             }
         },
         setPage: (state, action) => {
-            state.stickers = [];
+            state.events = [];
             state.page = action.payload;
         },
         setAmount: (state, action) => {
@@ -48,8 +45,17 @@ export const eventSlice = createSlice({
         setTotalPages: (state, action) => {
             state.totalPages = action.payload;
         },
+        toSearch: (state, action) => {
+            state.search = action.payload;
+          },
+        toFilter: (state, action) => {
+            state.event = action.payload;
+        },
+        toFirstPage: (state) => {
+            state.page = 0;
+        },
     }
 })
 
-export const { initEvents, setEvents, setAllEvents, editEvent, deleteEvent, resetEvents, setAmount, setPage, setTotalPages } = eventSlice.actions
+export const { initEvents, setEvents, setAllEvents, editEvent, deleteEvent, resetEvents, setAmount, setPage, setTotalPages, toSearch, toFilter, toFirstPage } = eventSlice.actions
 export default eventSlice.reducer

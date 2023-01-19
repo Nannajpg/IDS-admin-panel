@@ -1,25 +1,29 @@
 import React from "react";
 import Form from "./Form";
 import * as eventsServices from "../../services/events.services";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { setLoading } from "../../features/global/globalSlice";
 
 const CreateForm = () => {
   const {userToken} = useSelector(state => state.auth)
+  const dispatch = useDispatch();
   const create = async (event) => {
     try {
-      
+      dispatch(setLoading(true));
       return await eventsServices.createEvent(userToken, {
         ...event,
-        status: (event.status === 'Activo')
       });
-
     } catch (error) {
-      if (error?.response?.data) {
-        alert(error?.response?.data.message);
-      }else{
-          alert("Error del servidor al editar usuario")
+      if (error.response) {
+        throw new Error(
+          error?.response?.data.message
+        );
       }
+      toast.error(error.message);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 

@@ -18,11 +18,13 @@ import StickersList from './cores/stickers/StickersList';
 import TeamsList from "./cores/teams/TeamsList";
 import CreateFormTeam from "./cores/teams/CreateFormTeam";
 import EditFormTeam from "./cores/teams/EditFormTeam";
+import MatchesList from './cores/matches/MatchesList';
+import MatchCreateForm from './cores/matches/CreateForm';
 
 function App() {
 
   return (
-    <div className='bg-zinc-900 h-screen text-white'>
+    <div className='bg-[#EAEAEA] h-screen'>
       <div className='flex items-center justify-center h-full'>
         <BrowserRouter>
         <Routes>
@@ -44,6 +46,8 @@ function App() {
             <Route path="/teams" element={<TeamsList />} />
             <Route path="/newTeam" element={<CreateFormTeam />} />
             <Route path="/editTeam/:id" element={<EditFormTeam />} />
+            <Route path="matches" element={<MatchesList/>} />
+            <Route path="matches/create" element={<MatchCreateForm/>} />
           </Route>
         </Routes>
         </BrowserRouter>

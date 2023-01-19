@@ -5,12 +5,19 @@ const BASE_URL = API_URL+"/users/";
 
 export const fetchUsers = async (token, page) => {
   try {
-    const res = await axios.get(BASE_URL+"?size=9&page="+page, {
+    const res = await axios.get(BASE_URL + "?size=7&page=" + page, {
       headers: { Authorization: `Bearer ${token}` },
     });
+    if (!res.data.items || !res.data.success) {
+      throw new Error("No se han recibido bien los datos del servidor :(");
+    }
     return res.data;
   } catch (error) {
-    throw new Error('error fetcheando usuario');
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error fetcheando usuario"
+      );
+    } throw error;
   }
 };
 
@@ -19,10 +26,18 @@ export const createUser = async (user, token) => {
     const { data } = await axios.post(BASE_URL, user, {
       headers: { Authorization: `Bearer ${token}` },
     },);
+    console.log("data:", data)
+    if (!data.success || !data.message) {
+      throw new Error(
+        "Ha ocurrido un error con el backend");
+    }
     return data;
-  } catch (e) {
-    console.log(e.message);
-    throw new Error(e.message);
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error creando usuario"
+      );
+    } throw error;
   }
 };
 
@@ -31,9 +46,18 @@ export const deleteUser = async (id, token) => {
     const res = await axios.delete(BASE_URL + id, {
       headers: { Authorization: `Bearer ${token}` },
     });
+    if (!res.data.success || !res.data.message) {
+      throw new Error(
+        "Ha ocurrido un error con el backend"
+      );
+    }
     return res;
   } catch (error) {
-    throw new Error('error eliminando usuario');
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || 'error eliminando usuario'
+      );
+    } throw error;
   }
 };
 
@@ -43,8 +67,17 @@ export const editUser = async (id, token, user) => {
       headers: { "Authorization": `Bearer ${token}` },
     });
     user.id = Number(id);
+    if (!user) {
+      throw new Error(
+        "Ha ocurrido un error con el backend"
+      );
+    }
     return user;
   } catch (error) {
-    throw new Error('error editando usuario');
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || 'Error editando usuario'
+      );
+    } throw error;
   }
 };
