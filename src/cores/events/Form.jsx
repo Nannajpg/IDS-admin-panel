@@ -47,9 +47,9 @@ function EventForm({ action, id }) {
                     </div>
                     <div className='text-lg pt-2 px-7 text-[#3D405B] bg-[#F1F1F1]'>
                         <label htmlFor="name" className="block font-bold mb-2">Nombre</label>
-                        <input name='eventName' type="text" placeholder="Nombre" onChange={handleChange} className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500" required />
+                        <input name='eventName' type="text" placeholder="Nombre" onChange={handleChange} className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-[#FCC0A8]-500" required />
                         <label htmlFor="status" className="block font-bold mb-2">Estado de Competición</label>
-                        <select name="status" className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500" onChange={handleChange} placeholder="Estado del Evento" required>
+                        <select name="status" className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-[#FCC0A8]-500" onChange={handleChange} placeholder="Estado del Evento" required>
                             <option defaultValue="">Seleccionar estado</option>
                             <option value={0}>Inactivo</option>
                             <option value={1}>Activo</option>

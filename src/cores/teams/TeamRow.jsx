@@ -37,7 +37,7 @@ const TeamRow = ({ team, getTeams }) => {
       <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{team.id}</td>
       <td className='p-3 text-sm text-black whitespace-nowrap flex justify-center font-medium'><img src={team.badge} alt="adImage" className="rounded-full object-contain h-8 w-8" /></td>
       <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{team.name}</td>
-      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{team.event.eventName}</td>
+      <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium max-[600px]:hidden'>{team.event.eventName}</td>
       <td className='p-3 w-30 flex gap-2'>
           <Link
             to={`/editTeam/` + team.id}

@@ -6,13 +6,14 @@ const BASE_URL = API_URL+"/promotions";
 //const FETCH_URL = `${BASE_URL}/size=7&page=`;
 
 export const fetchAds = async (token, { page = 0, adtype, search, size }) => {
-  if (adtype === "") adtype = "&adtype[]=static&adtype[]=float";
-  else adtype = `&adtype=${adtype}`;
-  if (search === "") search = "&announcer=.*";
-  else search = `&announcer=${search}`;
+
+  if (search === "") search = "&alias=.*";
+  else search = `&alias=${search}`;
+
+  console.log(search)
 
 try {
-  const res = await axios.get(BASE_URL + "?page=" + page + "&size=" + size, {
+  const res = await axios.get(BASE_URL + "?page=" + page + "&size=" + size + search, {
     headers: {
       Authorization: 'Bearer ' + token
     }
@@ -96,3 +97,18 @@ export const editAd = async (token, { ad, id }) => {
   }
 }
 
+export const exportAdReport = async (token, adId) => {
+  try {
+    const res = await axios.get(BASE_URL + `/report/${adId}`, {
+      headers: { Authorization: 'Bearer ' + token },
+      responseType: 'blob',
+    });
+    return res;
+  } catch(error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error al editar anuncio"
+      );
+    } throw error;
+  }
+}

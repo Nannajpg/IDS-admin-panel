@@ -52,14 +52,14 @@ const TeamsList = () => {
     <div>
       <TeamsListHeader />
 
-      <div className="overflow-auto w-full rounded-lg hidden md:block">
-        <table className="shadow-lg w-5/2 m-auto">
+      <div className="mt-4 overflow-auto w-full rounded-2xl shadow-lg">
+        <table className="shadow-lg w-full m-auto">
             <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
               <tr>
                 <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">ID</td>
                 <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Imagen</td>
                 <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Equipo</td>
-                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Competición</td>
+                <td className="p-3 w-30 text-sm font-bold tracking-wide text-center max-[600px]:hidden">Competición</td>
                 <td className="rounded-r-full"></td>
               </tr>
             </thead>

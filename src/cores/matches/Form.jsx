@@ -136,7 +136,7 @@ function MatchForm({ action, id }) {
                 </div>
                 <div>
                     <label htmlFor="gameDate" className='block text-lg font-bold mb-2'>Fecha</label>
-                    <input name='gameDate' type="date" onChange={handleChange} className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500' required />
+                    <input name='gameDate' type="date" onChange={handleChange} className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-zinc-200' required />
                 </div>
                 <div>
                     <Select
@@ -156,19 +156,27 @@ function MatchForm({ action, id }) {
                 </div>
             </div>
             <div className="py-2 bg-[#F1F1F1] px-6">
-                <input
-                    className='w-1/2 font-medium py-0.4 px-6 text-white bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-2xl'
-                    aria-describedby="file_input_help"
-                    name="file_input"
-                    type="file"
-                    accept='.csv'
-                    onChange={(e) => setMatch((match) => ({
-                        ...match,
-                        myFile: e.target.files[0],
-                    }))}
-                />
+            <div className="flex flex-col items-center justify-center pt-5 pb-8 bg-[#c3c3c3] rounded-lg">
+                  <p class="text-sm font-bold text-center text-gray-500">
+                    Arrastra y suelta el archivo aquí o
+                  </p>
+                    <input
+                        className='text-lg text-gray-100 rounded-2xl w-1/2 cursor-pointer bg-[#c3c3c3]'
+                        aria-describedby="file_input_help"
+                        name="file_input"
+                        type="file"
+                        accept='.csv'
+                        onChange={(e) => setMatch((match) => ({
+                            ...match,
+                            myFile: e.target.files[0],
+                        }))}
+                    />
             </div>
-            <div className='pt-20 p-4 flex bg-[#F1F1F1] rounded-b-lg justify-center'>
+
+            
+                
+            </div>
+            <div className='pt-10 p-4 flex bg-[#F1F1F1] rounded-b-lg justify-center'>
                 <button className='font-medium py-0.4 h-8 px-6 text-white bg-gradient-to-r from-[#D13256] to-[#F75845] rounded-2xl'>Confirmar</button>
             </div>
 

@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAllEvents } from "../../features/events/eventSlice";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { saveSticker, editSticker } from "../../services/stickers.services";
+import { saveSticker, editSticker, getStickerById } from "../../services/stickers.services";
 import { fetchAllEvents } from "../../services/events.services";
 import Select from "../../components/select";
 import { fetchAllTeams } from "../../services/team.services";
@@ -101,12 +101,10 @@ function StickerForm() {
     try {
       dispatch(setLoading(true));
       e.preventDefault();
-      console.log(sticker?.id)
       if (sticker?.id) {
-        console.log("entro en editar")
+        console.log("edit");
         await editSticker(userToken, sticker, sticker.id);
       } else {
-        console.log("entro en guardar")
         await saveSticker(userToken, sticker);
       }
       navigate("/stickers");
@@ -121,6 +119,36 @@ function StickerForm() {
       dispatch(setLoading(false));
     }
   };
+  
+  const FetchStickerById = useCallback( async () => {
+    try{
+      console.log(params)
+      if(!params?.id) return;
+      setLoading(true)
+      const res = await getStickerById(userToken, params.id)
+      console.log(res.data)
+      setSticker(res.data.item)
+    } catch (error) {
+      if (error.response) {
+        throw new Error(
+          error?.response?.data?.message || "Error desconocido del servidor"
+        );
+      }
+      toast.error(error.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
+    },
+    [dispatch, sticker.id, userToken],
+  )
+
+
+  useEffect(() => {
+    FetchStickerById();
+  }, [FetchStickerById])
+  
+  
+  
 
   return (
     <div className="w-screen h-screen items-center drop-shadow-md justify-center flex h-full">
@@ -153,7 +181,7 @@ function StickerForm() {
                 type="text"
                 onChange={handleChange}
                 value={sticker.externalUuid}
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-zinc-200"
                 placeholder="UUID"
                 required
               />
@@ -170,7 +198,7 @@ function StickerForm() {
                 type="text"
                 onChange={handleChange}
                 value={sticker.playerName}
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-zinc-200"
                 placeholder="Nombre"
                 required
               />
@@ -191,7 +219,7 @@ function StickerForm() {
                 max={100}
                 onChange={handleChange}
                 value={sticker.jerseyNumber}
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-zinc-200"
                 placeholder="1-99"
                 required
               />
@@ -244,7 +272,7 @@ function StickerForm() {
                 max={634}
                 onChange={handleChange}
                 value={sticker.weight}
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-zinc-200"
                 placeholder="Kg"
                 required
               />
@@ -261,7 +289,7 @@ function StickerForm() {
                 max={272}
                 onChange={handleChange}
                 value={sticker.height}
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-zinc-200"
                 placeholder="cm"
                 required
               />
@@ -281,7 +309,7 @@ function StickerForm() {
                 max={100}
                 onChange={handleChange}
                 value={sticker.appearanceRate}
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-zinc-200"
                 placeholder="%"
                 required
               />

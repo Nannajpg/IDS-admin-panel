@@ -33,7 +33,7 @@ const UserRow = ({ user, getUsers }) => {
       <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{user.id}</td>
             <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{user.name}</td>
             <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{user.email}</td>
-            <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{user.role}</td>
+            <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium max-[900px]:hidden'>{user.role}</td>
             <td className='p-3 w-30 flex gap-2'>
             <Link
               to={`/users/edit/${user.id}`}

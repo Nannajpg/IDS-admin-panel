@@ -87,4 +87,24 @@ export const deleteSticker = async (token, id) => {
             );
         } throw error;
     }
-}
+}   
+
+    export const getStickerById = async (token, id) => {
+        try {
+            const res = await axios.get(BASE_URL + `/${id}`, {
+                headers:{
+                    Authorization: "Bearer " + token,
+                }
+            });
+            if (!res.data.item || !res.data.success) {
+                throw new Error("No se han recibido bien los datos del servidor :(");
+            }
+            return res;
+        } catch (error) {
+            if (error.response) {
+                throw new Error(
+                    error?.response?.data?.message || "Error al obtener los cromos"
+                );
+            } throw error;
+        }
+    }

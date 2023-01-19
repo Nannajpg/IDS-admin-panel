@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_URL } from "../config.js";
 
 const BASE_URL = API_URL+"/users/";
+const URL_AMOUNTS = API_URL+"/admin/countAll";
 
 export const fetchUsers = async (token, page) => {
   try {
@@ -81,3 +82,23 @@ export const editUser = async (id, token, user) => {
     } throw error;
   }
 };
+
+export const getDashboardAmounts = async (token) => {
+  try {
+      const res = await axios.get(URL_AMOUNTS,  {
+        headers: { "Authorization": `Bearer ${token}` },
+      });
+
+      if (!res.data?.item) {
+        throw new Error("Error al decodificar la respuesta de los contadores del dashboard");
+      }
+
+      return res.data.item;        
+  } catch (error) {
+      if (error.response) {
+          throw new Error(
+              error?.response?.data?.message || "Error al obtener cantidades"
+          );
+      } throw error;
+  } 
+}

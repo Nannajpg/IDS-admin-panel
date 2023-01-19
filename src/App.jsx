@@ -20,39 +20,50 @@ import CreateFormTeam from "./cores/teams/CreateFormTeam";
 import EditFormTeam from "./cores/teams/EditFormTeam";
 import MatchesList from './cores/matches/MatchesList';
 import MatchCreateForm from './cores/matches/CreateForm';
+import Navbar from './components/Navbar'
+import Loading from "react-fullscreen-loading";
+import { useSelector } from "react-redux";
+import useLocalStorage from './hooks/useLocalStorage';
 
 function App() {
+  const loading = useSelector((state) => state.global.loading);
+
+  useLocalStorage();
 
   return (
-    <div className='bg-[#EAEAEA] h-screen'>
-      <div className='flex items-center justify-center h-full'>
-        <BrowserRouter>
-        <Routes>
-          <Route path="/" element= {<Login/>} />
-          <Route element={<Auth />}>
-            <Route path="dashboard" element= {<Menu />} />
-            <Route path="users/" element={<UsersList/>} />
-            <Route path="users/create" element={<UserCreateForm />} />
-            <Route path="users/edit/:id" element={<UserEditForm/>} />
-            <Route path="events" element={<EventsList/>} />
-            <Route path="events/create" element={<EventCreateForm/>} />
-            <Route path="events/edit/:id" element={<EventEditForm/>} />
-            <Route path="/ads" element={<AdsList />} />
-            <Route path="/newAd" element={<AdCreateForm />} />
-            <Route path="/editAd/:id" element={<AdEditForm />} />
-            <Route path='/stickers' element={<StickersList />} />
-            <Route path='/create-sticker' element={<StickerForm />} />
-            <Route path='/edit-sticker/:id' element={<StickerForm />} />
-            <Route path="/teams" element={<TeamsList />} />
-            <Route path="/newTeam" element={<CreateFormTeam />} />
-            <Route path="/editTeam/:id" element={<EditFormTeam />} />
-            <Route path="matches" element={<MatchesList/>} />
-            <Route path="matches/create" element={<MatchCreateForm/>} />
-          </Route>
-        </Routes>
-        </BrowserRouter>
+    <>
+      <Loading loading={loading} background="rgb(234, 234, 234)" loaderColor="from-[#D13256] to-[#F75845]"></Loading>
+      <div className='bg-[#EAEAEA] h-screen'>
+        <div className='flex items-center justify-center h-full'>
+          <BrowserRouter>
+          <Routes>
+            <Route path="/" element= {<Login/>} />
+            
+            <Route element={<Auth />}>
+              <Route path="dashboard" element= {<Menu />} />
+              <Route path="users/" element={<UsersList/>} />
+              <Route path="users/create" element={<UserCreateForm />} />
+              <Route path="users/edit/:id" element={<UserEditForm/>} />
+              <Route path="events" element={<EventsList/>} />
+              <Route path="events/create" element={<EventCreateForm/>} />
+              <Route path="events/edit/:id" element={<EventEditForm/>} />
+              <Route path="/ads" element={<AdsList />} />
+              <Route path="/newAd" element={<AdCreateForm />} />
+              <Route path="/editAd/:id" element={<AdEditForm />} />
+              <Route path='/stickers' element={<StickersList />} />
+              <Route path='/create-sticker' element={<StickerForm />} />
+              <Route path='/edit-sticker/:id' element={<StickerForm />} />
+              <Route path="/teams" element={<TeamsList />} />
+              <Route path="/newTeam" element={<CreateFormTeam />} />
+              <Route path="/editTeam/:id" element={<EditFormTeam />} />
+              <Route path="matches" element={<MatchesList/>} />
+              <Route path="matches/create" element={<MatchCreateForm/>} />
+            </Route>
+          </Routes>
+          </BrowserRouter>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

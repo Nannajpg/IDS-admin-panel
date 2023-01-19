@@ -7,7 +7,6 @@ import { fetchEvents } from '../../services/events.services'
 import EventRow from './EventRow'
 import Pagination from '../../components/pagination'
 import { setLoading } from "../../features/global/globalSlice";
-import SearchBar from "../../components/searchbar";
 import {FiArrowLeft as Arrow} from 'react-icons/fi'
 
 function EventsList() {
@@ -56,24 +55,27 @@ function EventsList() {
     }, [getEvents]);
 
     return (
-        <div className='w-4/6'>
-
-            <header className='flex justify-between items-center py-4'>
-            <Link to="/dashboard" className=""><Arrow color="#3D405B" size="2.5rem"/></Link>
-                <h1 className='text-[#3D405B] font-bold text-3xl'>Gestionar Competiciones</h1>
-                <h1 className='text-[#3D405B] font-medium text-lg'>Competiciones: {amount}</h1>
-                <SearchBar
-                    handleSubmit={handleSubmit}
-                    placeholder={"Buscar competición por nombre"}
-                />
-                <Link to="/events/create" className='bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8'>
-                    Crear
-                </Link>
+        <div>
+            <header>
+                <div>
+                    <div className='flex'>
+                        <Link to="/dashboard" className=""><Arrow color="#3D405B" size="2.5rem"/></Link>
+                        <h1 className='text-[#3D405B] font-bold text-3xl'>Gestionar Competiciones</h1>
+                    </div>
+                    <div className='py-1'>
+                        <h1 className='text-[#3D405B] font-medium text-lg'>Competiciones: {amount}</h1>
+                    </div>
+                    <div className='py-1 flex'>
+                        <Link to="/events/create" className='bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8'>
+                            Crear
+                        </Link>
+                    </div>
+                </div>
             </header>
 
 
-            <div className="overflow-auto w-full rounded-lg hidden md:block">
-                <table className="w-2/3 shadow-lg m-auto">
+            <div className="overflow-auto w-full rounded-2xl shadow-lg">
+                <table className="w-full shadow-lg m-auto">
                     <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
                     <tr>
                         <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">Id</td>
