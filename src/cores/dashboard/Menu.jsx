@@ -39,7 +39,7 @@ const Menu = () => {
         <MenuCard
           amount="16"
           topic="Competiciones"
-          route="/users"
+          route="/events"
           textStyles="text-2xl"
         />
 

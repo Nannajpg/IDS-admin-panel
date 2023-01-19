@@ -66,7 +66,7 @@ function MatchesList() {
                 </div>
             </header>
 
-            <div className="overflow-auto w-full rounded-2xl shadow-lg hidden md:block">
+            <div className="overflow-auto w-full rounded-2xl shadow-lg">
                 <table className="w-full shadow-lg m-auto">
                     <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
                     <tr>

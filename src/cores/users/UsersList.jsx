@@ -89,7 +89,7 @@ function UsersList() {
           </div>
         </div>
       </header>
-      <div className="overflow-auto shadow-lg rounded-2xl hidden md:block">
+      <div className="overflow-auto shadow-lg rounded-2xl">
         <table className="w-full">
           <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
             <tr>
@@ -102,7 +102,7 @@ function UsersList() {
               <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">
                 Email
               </td>
-              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">
+              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center max-[600px]:hidden">
                 Tipo de usuario
               </td>
               <td className="rounded-r-full"></td>

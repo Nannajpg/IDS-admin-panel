@@ -55,8 +55,8 @@ const AdsList = () => {
   return (
     <div>
       <AdsListHeader />
-      <div className="overflow-auto w-full rounded-2xl shadow-lg hidden md:block">
-        <table className="w-5/2 m-auto">
+      <div className="overflow-auto rounded-2xl shadow-lg">
+        <table className="w-full">
           <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
             <tr>
               <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">
@@ -68,13 +68,13 @@ const AdsList = () => {
               <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">
                 Título
               </td>
-              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">
+              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center max-[500px]:hidden">
                 Descripción
               </td>
-              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">
+              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center max-[600px]:hidden">
                 Dirección
               </td>
-              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">
+              <td className="p-3 w-30 text-sm font-bold tracking-wide text-center max-[700px]:hidden">
                 Tipo de anuncio
               </td>
               <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">

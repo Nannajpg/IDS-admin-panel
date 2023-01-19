@@ -10,3 +10,9 @@
 body {
   background-color: #eaeaea;
 }
+
+@media (max-width: 600px) {
+  .dissapear-in-600px {
+    display: none;
+  }
+}
