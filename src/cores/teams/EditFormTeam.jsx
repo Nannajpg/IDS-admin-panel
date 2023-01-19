@@ -25,6 +25,7 @@ const EditFormTeam = () => {
   };
 
   useEffect(() => {
+    console.log('A==A=A=A=A==A=A', id, teams)
     if (id) {
       setTeamFound(
         teams.find((team) => {

@@ -40,7 +40,7 @@ const TeamRow = ({ team, getTeams }) => {
       <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium max-[600px]:hidden'>{team.event.eventName}</td>
       <td className='p-3 w-30 flex gap-2'>
           <Link
-            to={`/editTeam/` + team.id}
+            to={`/editTeam/` +`${team.id}`}
           >
           <Pencil color='white' className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1" size="2rem"/>
           </Link>

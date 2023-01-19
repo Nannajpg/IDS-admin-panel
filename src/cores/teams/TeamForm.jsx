@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { setLoading } from "../../features/global/globalSlice";
 import { FiArrowLeft as Arrow } from "react-icons/fi";
 
-function TeamForm() {
+function TeamForm({ toEditTeam }) {
   const events = useSelector((state) => state.events.eventsAll);
   const { userToken } = useSelector((state) => state.auth);
 
@@ -25,6 +25,12 @@ function TeamForm() {
     myFile: "",
     idEvents: 0,
   });
+
+  useEffect(() => {
+    setTeam({
+      ...toEditTeam,
+    })
+  }, [toEditTeam])
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -65,7 +71,7 @@ function TeamForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (params.id) {
+    if (toEditTeam.id) {
       await teamServices.editTeam(userToken, team, team.id);
     } else {
       await teamServices.createTeam(userToken, team);

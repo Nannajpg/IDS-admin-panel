@@ -37,7 +37,7 @@ const Sidebar = ({setIsVisible}) => {
                             <span class=" px-4 text-gray-400">Menú</span>
                             <ul class="space-y-4 mb-6 px-4 mt-3">
                                 <Link
-                                    to="/users"
+                                    to="/dashboard"
                                     className="flex gap-4 font-bold text-[#3D405B] hover:text-gray-800 transition "
                                 >
                                     <Dashboard size='1.5rem' color='#3D405B'/>
