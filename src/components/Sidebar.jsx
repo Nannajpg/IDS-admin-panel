@@ -86,7 +86,7 @@ const Sidebar = ({setIsVisible}) => {
 
                                 </ul>
 
-                                <ul class="space-y-4 px-4 mt-60">
+                                <ul class="space-y-4 px-4 mt-36">
                                 <Link
                                     onClick={handleLogout}
                                     to="/"
