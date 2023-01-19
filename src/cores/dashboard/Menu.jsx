@@ -31,6 +31,11 @@ const Menu = () => {
     [dispatch, userToken],
   )
 
+  const handleLogout = () => {
+    localStorage.clear();
+    dispatch(logout());
+  }
+
   useEffect(() => {
     getAmounts();
   }, [getAmounts])
@@ -77,7 +82,7 @@ const Menu = () => {
         />
       
         <Link
-          onClick={() => dispatch(logout())}
+          onClick={handleLogout}
           to="/"
           className="rounded-md w-60 h-14 bg-gray-300 flex items-center text-xl pl-2 gap-2 text-[#254E5A] font-semibold"
         >

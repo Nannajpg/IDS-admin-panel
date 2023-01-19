@@ -10,7 +10,8 @@ import ModalDelete from "../../components/ModalDelete";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setLoading } from "../../features/global/globalSlice";
-import { deleteAd } from "../../services/ads";
+import { deleteAd, exportAdReport } from "../../services/ads";
+const FileDownload = require('js-file-download');
 
 const AdRow = ({ ad, getAds }) => {
   const { isVisible, toggleModal } = useModal();
@@ -30,6 +31,19 @@ const AdRow = ({ ad, getAds }) => {
       dispatch(setLoading(false));
     }
   }, [ad.id, dispatch, getAds, toggleModal, userToken]);
+
+  const onExportAdsPDF = useCallback(async () => {
+    try {
+      console.log('onExportAdsPDF')
+      dispatch(setLoading(true));
+      const result = await exportAdReport(userToken, ad.id);
+      FileDownload(result.data, `promotion-report-${ad.id}.pdf`);
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  }, [ad.id, dispatch, userToken]);
 
   return (
     <tr className="bg-white">
@@ -83,7 +97,7 @@ const AdRow = ({ ad, getAds }) => {
           />
         </button>
 
-        <button onClick>
+        <button onClick={onExportAdsPDF}>
           <Pdf
             color="white"
             className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1"

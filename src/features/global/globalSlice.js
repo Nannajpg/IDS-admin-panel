@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export const globalSlice = createSlice({
     name: 'global',
-    initialState: { loading: false },
+    initialState: { loading: true },
     reducers:{
         setLoading: (state, { payload }) => {
             state.loading = payload;
