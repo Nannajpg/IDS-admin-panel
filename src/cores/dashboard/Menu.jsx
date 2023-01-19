@@ -3,20 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../features/auth/authSlice";
 import MenuCard from "./MenuCard";
-import { MdLogout } from "react-icons/md"
+import { MdLogout } from "react-icons/md";
 
 const Menu = () => {
-  const dispatch = useDispatch();
-  const state = useSelector(state => state)
-
-  const {amount} = useSelector(state => state.users);
+  const dispatch = useDispatch()  
 
   return (
     <main className="w-screen h-screen flex flex-col md:pl-5 pt-5 gap-5 justify-start sm:items-start items-center">
       <h1 className="text-[#3D405B] text-4xl font-semibold">Panel Administrativo de Offside</h1>
       <section className="sm:w-full grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-5 md:content-start">
-        {console.log(state)}
-
         <MenuCard
           amount="16"
           topic="Usuarios"
@@ -53,10 +48,7 @@ const Menu = () => {
           route="/ads"
           textStyles="text-3xl"
         />
-        
-        
-        
-
+      
         <Link
           onClick={() => dispatch(logout())}
           to="/"

@@ -54,25 +54,29 @@ function UsersList() {
 
     return (
         <div className='w-4/6 '>
-            <header className='flex justify-between items-center py-4 '>
-                <Link to="/dashboard" className=""><Arrow color="#3D405B" size="2.5rem"/></Link>
-
-                <h1 className='text-[#3D405B] font-bold text-3xl'>Gestionar Usuarios</h1>
-                <h1 className='text-[#3D405B] font-medium text-lg'>Usuarios: {amount}</h1>
-
-                <SearchBar
-                    handleSubmit={handleSubmit}
-                    placeholder={"Buscar email"}
-                />
-
-                <Link to="/users/create" className='bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8'>
-                    Crear
-                </Link>
-
+            <header>
+                <div>
+                    <div className='flex'>
+                        <Link to="/dashboard" className=""><Arrow color="#3D405B" size="2.5rem"/></Link>
+                        <h1 className='text-[#3D405B] font-bold text-3xl'>Gestionar Usuarios</h1>
+                    </div>
+                    <div className='py-1'>
+                        <h1 className='text-[#3D405B] font-medium text-lg'>Usuarios: {amount}</h1>
+                    </div>
+                    <div className='flex'>
+                        <SearchBar
+                            handleSubmit={handleSubmit}
+                            placeholder={"Buscar email"}
+                        />
+                        <Link to="/users/create" className='bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8'>
+                            Crear
+                        </Link>
+                    </div>
+                </div>
             </header>
 
             <div className="overflow-auto shadow-lg rounded-lg hidden md:block">
-                    <table className="">
+                    <table className="w-full">
                         <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
                         <tr>
                             <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">ID</td>
@@ -89,10 +93,6 @@ function UsersList() {
                 
             </div>
 
-            <div className='grid grid-cols-3 gap-4'>
-                
-            </div>
-
 
             <div className='py-4'>
                 <Pagination
@@ -101,8 +101,6 @@ function UsersList() {
                     handleSetPage={handleSetPage}
                 />
             </div>  
-
-   
         </div>
     )
 }
