@@ -55,7 +55,7 @@ const AdsList = () => {
   return (
     <div>
       <AdsListHeader />
-      <div className="overflow-auto w-full">
+      <div className="overflow-auto w-full rounded-2xl shadow-lg hidden md:block">
         <table className="w-5/2 m-auto">
           <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
             <tr>
