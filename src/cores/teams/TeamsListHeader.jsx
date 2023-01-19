@@ -30,8 +30,6 @@ const TeamsListHeader = () => {
         placeholder={"Buscar equipo por nombre"}
       />
 
-      <FilterSelect />
-
       <Link to="/newTeam" className='bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8'>
           Crear
       </Link>

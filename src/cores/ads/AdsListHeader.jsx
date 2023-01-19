@@ -28,7 +28,6 @@ const AdsListHeader = () => {
             handleSubmit={handleSubmit}
             placeholder={"Buscar anuncio por título"}
           />
-        <FilterSelect />
       
       <Link to="/newAd" className='bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8'>
           Crear

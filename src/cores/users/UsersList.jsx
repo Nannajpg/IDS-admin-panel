@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { setUsers, setAmount, setPage, setTotalPages, toSearch, toFirstPage} from '../../features/users/userSlice'
 import * as usersServices from "../../services/users.services";
@@ -13,6 +13,7 @@ import {FiArrowLeft as Arrow} from 'react-icons/fi'
 
 function UsersList() {
 
+    const [search, setSearch] = useState('');
     const { page, totalPages, users, amount } = useSelector(state => state.users);
     const  {userToken} = useSelector(state => state.auth);
     const dispatch = useDispatch();
@@ -23,16 +24,13 @@ function UsersList() {
 
     const handleSubmit = (e, searchRef) => {
         e.preventDefault();
-        dispatch(toSearch(searchRef.current.value));
-        dispatch(toFirstPage());
-        return(searchRef.current.value = '')
+        setSearch(searchRef.current.value);
       };
 
     const getUsers = useCallback(async () => {
             try {
                 dispatch(setLoading(true));
-                console.log(userToken)
-                const data = await usersServices.fetchUsers(userToken, page);
+                const data = await usersServices.fetchUsers(userToken, page, search);
                 dispatch(setUsers(data.items));
                 dispatch(setAmount(data.paginate.total));
                 dispatch(setTotalPages(data.paginate.pages))
@@ -44,7 +42,7 @@ function UsersList() {
                 dispatch(setLoading(false));
             }
         },
-      [dispatch, page, userToken],
+      [dispatch, page, userToken, search]
     )
     
     useEffect(() => {
@@ -64,10 +62,6 @@ function UsersList() {
                         <h1 className='text-[#3D405B] font-medium text-lg'>Usuarios: {amount}</h1>
                     </div>
                     <div className='flex'>
-                        <SearchBar
-                            handleSubmit={handleSubmit}
-                            placeholder={"Buscar email"}
-                        />
                         <Link to="/users/create" className='bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8'>
                             Crear
                         </Link>

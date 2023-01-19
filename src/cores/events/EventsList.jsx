@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { setEvents, setAmount, setTotalPages, setPage, toFirstPage, toSearch} from '../../features/events/eventSlice'
@@ -14,13 +14,13 @@ function EventsList() {
     const postPerPage = 7;
     const { page, totalPages, events, amount } = useSelector(state => state.events);
     const dispatch = useDispatch();
-    const {userToken} = useSelector(state => state.auth)
-    console.log(userToken)
+    const {userToken} = useSelector(state => state.auth);
+    const [search, setSearch] = useState('');
 
     const getEvents = useCallback(async () => {
         try {
             dispatch(setLoading(true));
-            const result = await fetchEvents(userToken, page, postPerPage);
+            const result = await fetchEvents(userToken, page, postPerPage, search);
             dispatch(setEvents(result.items));
             dispatch(setAmount(result.paginate.total));
             dispatch(setTotalPages(result.paginate.pages));
@@ -38,7 +38,7 @@ function EventsList() {
         } finally {
             dispatch(setLoading(false));
         }
-    }, [page, dispatch, userToken]);
+    }, [page, dispatch, userToken, search]);
 
     const handleSetPage = page => {
         dispatch(setPage(page-1))
@@ -46,9 +46,8 @@ function EventsList() {
 
     const handleSubmit = (e, searchRef) => {
         e.preventDefault();
-        dispatch(toSearch(searchRef.current.value));
+        setSearch(searchRef.current.value);
         dispatch(toFirstPage());
-        return(searchRef.current.value = '')
       };
 
     useEffect(() => {
@@ -62,10 +61,6 @@ function EventsList() {
             <Link to="/dashboard" className=""><Arrow color="#3D405B" size="2.5rem"/></Link>
                 <h1 className='text-[#3D405B] font-bold text-3xl'>Gestionar Competiciones</h1>
                 <h1 className='text-[#3D405B] font-medium text-lg'>Competiciones: {amount}</h1>
-                <SearchBar
-                    handleSubmit={handleSubmit}
-                    placeholder={"Buscar competición por nombre"}
-                />
                 <Link to="/events/create" className='bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8'>
                     Crear
                 </Link>

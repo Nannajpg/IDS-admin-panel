@@ -17,7 +17,7 @@ const Auth = () => {
       <Navbar />
     */}
       
-      <Outlet />;
+      <Outlet />
     </>
     
   ) 

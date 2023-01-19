@@ -17,14 +17,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { setLoading } from "../../features/global/globalSlice";
 
 const AdsList = () => {
-  const ads = useSelector((state) => state.ads.ads);
+  const { ads, search } = useSelector((state) => state.ads);
   const token = useSelector((state) => state.auth.userToken);
   const dispatch = useDispatch();
   const page = useSelector((state) => state.ads.page);
   const size = 7;
   const totalPages = useSelector((state) => state.ads.totalPages);
   const [adtype, setAdtype] = useState("");
-  const [search, setearch] = useState("");
   
   const getAds = useCallback(async () => {
     try {
