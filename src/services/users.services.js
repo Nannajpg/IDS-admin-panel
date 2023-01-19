@@ -26,7 +26,8 @@ export const createUser = async (user, token) => {
     const { data } = await axios.post(BASE_URL, user, {
       headers: { Authorization: `Bearer ${token}` },
     },);
-    if (!data.item || !data.message) {
+    console.log("data:", data)
+    if (!data.success || !data.message) {
       throw new Error(
         "Ha ocurrido un error con el backend");
     }

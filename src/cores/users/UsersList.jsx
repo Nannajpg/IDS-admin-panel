@@ -14,7 +14,7 @@ import {FiArrowLeft as Arrow} from 'react-icons/fi'
 function UsersList() {
 
     const { page, totalPages, users, amount } = useSelector(state => state.users);
-    const { userToken } = useSelector(state => state.auth);
+    const  {userToken} = useSelector(state => state.auth);
     const dispatch = useDispatch();
 
     const handleSetPage = page => {
@@ -31,6 +31,7 @@ function UsersList() {
     const getUsers = useCallback(async () => {
             try {
                 dispatch(setLoading(true));
+                console.log(userToken)
                 const data = await usersServices.fetchUsers(userToken, page);
                 dispatch(setUsers(data.items));
                 dispatch(setAmount(data.paginate.total));

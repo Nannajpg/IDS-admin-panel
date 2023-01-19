@@ -13,7 +13,7 @@ const Menu = () => {
       <br />
       <Link
         to="/users"
-        className="bg-emerald-600 px-2 py-1 rounded-md mx-2 my-2 "
+        className="bg-white px-2 py-1 rounded-md mx-2 my-2 "
       >
         Usuarios
       </Link>

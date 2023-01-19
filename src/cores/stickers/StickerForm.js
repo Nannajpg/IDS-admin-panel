@@ -101,11 +101,12 @@ function StickerForm() {
     try {
       dispatch(setLoading(true));
       e.preventDefault();
-      console.log(sticker.id)
-      if (sticker.id =! null) {
-        console.log(params.id)
+      console.log(sticker?.id)
+      if (sticker?.id) {
+        console.log("entro en editar")
         await editSticker(userToken, sticker, sticker.id);
       } else {
+        console.log("entro en guardar")
         await saveSticker(userToken, sticker);
       }
       navigate("/stickers");

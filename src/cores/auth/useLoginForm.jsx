@@ -13,6 +13,7 @@ const useLoginForm = () => {
     e.preventDefault();
     try {
       const data = await authServices.login(inputValues);
+      console.log(data)
       localStorage.setItem("loggedUser", JSON.stringify(data));
       dispatch(login(data));
     } catch(e) {
