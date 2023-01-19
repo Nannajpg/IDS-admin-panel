@@ -16,7 +16,7 @@ const SearchBar = ({ handleSubmit, placeholder }) => {
         ></input>
         <button type="submit">
           <BsSearch
-            className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full h-8 w-9 p-1.5"
+            className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full h-8 w-9 p-1.5 "
             size="1rem"
             color="white"
           />

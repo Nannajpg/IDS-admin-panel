@@ -103,7 +103,7 @@ function TeamForm() {
                   placeholder="Nombre"
                   onChange={handleChange}
                   value={team.name}
-                  className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                  className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-[#FCC0A8]"
                   required
                 />
               </div>

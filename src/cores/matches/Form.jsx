@@ -136,7 +136,7 @@ function MatchForm({ action, id }) {
                 </div>
                 <div>
                     <label htmlFor="gameDate" className='block text-lg font-bold mb-2'>Fecha</label>
-                    <input name='gameDate' type="date" onChange={handleChange} className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500' required />
+                    <input name='gameDate' type="date" onChange={handleChange} className='w-full p-1 rounded-2xl bg-white mb-2 hover:bg-[#FCC0A8]' required />
                 </div>
                 <div>
                     <Select

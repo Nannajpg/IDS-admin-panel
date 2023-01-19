@@ -153,7 +153,7 @@ function StickerForm() {
                 type="text"
                 onChange={handleChange}
                 value={sticker.externalUuid}
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-[#FCC0A8]"
                 placeholder="UUID"
                 required
               />
@@ -170,7 +170,7 @@ function StickerForm() {
                 type="text"
                 onChange={handleChange}
                 value={sticker.playerName}
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-[#FCC0A8]"
                 placeholder="Nombre"
                 required
               />
@@ -191,7 +191,7 @@ function StickerForm() {
                 max={100}
                 onChange={handleChange}
                 value={sticker.jerseyNumber}
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-[#FCC0A8]"
                 placeholder="1-99"
                 required
               />
@@ -223,7 +223,7 @@ function StickerForm() {
               <select
                 name="position"
                 onChange={handleChange}
-                className="w-full p-1 focus:border-blue-500 rounded-2xl bg-white mb-2 hover:bg-zinc-100"
+                className="w-full p-1 focus:border-blue-500 rounded-2xl bg-white mb-2 hover:bg-[#FCC0A8]"
               >
                 <option>Seleccione Posición...</option>
                 <option value="goalkeeper">Portero</option>
@@ -244,7 +244,7 @@ function StickerForm() {
                 max={634}
                 onChange={handleChange}
                 value={sticker.weight}
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-[#FCC0A8]"
                 placeholder="Kg"
                 required
               />
@@ -261,7 +261,7 @@ function StickerForm() {
                 max={272}
                 onChange={handleChange}
                 value={sticker.height}
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-[#FCC0A8]"
                 placeholder="cm"
                 required
               />
@@ -281,7 +281,7 @@ function StickerForm() {
                 max={100}
                 onChange={handleChange}
                 value={sticker.appearanceRate}
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-[#FCC0A8]"
                 placeholder="%"
                 required
               />
