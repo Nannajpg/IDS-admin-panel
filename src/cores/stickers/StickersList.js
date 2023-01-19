@@ -81,6 +81,7 @@ const StickerList = () => {
               totalPages={totalPages}
               handleSetPage={handleSetPage}
             />
+            {console.log("cp", page)}
       </div>
       
     </div>

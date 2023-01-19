@@ -8,11 +8,12 @@ const PaginationComponent = ({currentPage, totalPages, handleSetPage}) => {
 
     let pages = []
 
-    for (let i = currentPage - 5; i <= currentPage + OFFSET_HORIZONTAL_PAGES; i++) {
-        if (i < totalPages && i > 0)
+    for (let i = currentPage - OFFSET_HORIZONTAL_PAGES ; i <= currentPage + OFFSET_HORIZONTAL_PAGES; i++) {
+        if (i <= totalPages && i > 0)
             pages.push(i)
     }
 
+    console.log(currentPage, totalPages, handleSetPage )
     return (
         <div className='pagination'>
             {
