@@ -82,7 +82,7 @@ const StickerList = () => {
       </div>
       
     </div>
-  );
-};
+  )
+}
 
 export default StickerList;
