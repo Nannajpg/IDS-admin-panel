@@ -48,11 +48,11 @@ function Form({ action, id, toEditUser }) {
                     <div className='text-lg pt-3 px-7 gap-y-8 text-[#3D405B] bg-[#F1F1F1] shadow-md'>
                         <div>
                             <label htmlFor="name" className="block font-bold mb-2">Nombre</label>
-                            <input name='name' type="text" placeholder="Nombre" onChange={handleChange} className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500" value={user.name} required/>
+                            <input name='name' type="text" placeholder="Nombre" onChange={handleChange} className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-zinc-200" value={user.name} required/>
                         </div>
                         <div>
                             <label htmlFor="role" className="block font-bold mb-2">Tipo de usuario</label>
-                            <select name="role" className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500" value={user.role} onChange={handleChange} required placeholder="Rol del Usuario">
+                            <select name="role" className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-zinc-200" value={user.role} onChange={handleChange} required placeholder="Rol del Usuario">
                                 <option value="">Tipo de usuario</option>
                                 <option value="user">Usuario</option>
                                 <option value="admin">Administrador</option>
@@ -61,11 +61,11 @@ function Form({ action, id, toEditUser }) {
                         </div>
                         <div>
                             <label htmlFor="email" className="font-bold mb-2">Email</label>
-                            <input name='email' type="email" placeholder="Email" value={user.email} onChange={handleChange} className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500" required/>
+                            <input name='email' type="email" placeholder="Email" value={user.email} onChange={handleChange} className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-zinc-200" required/>
                         </div> 
                         <div>
                             <label htmlFor="password" className="block font-bold mb-2">Contraseña</label>
-                            <input name='password' type="password" placeholder="Contraseña" onChange={handleChange} className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500" required/>
+                            <input name='password' type="password" placeholder="Contraseña" onChange={handleChange} className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-zinc-200" required/>
                         </div>
                     </div>
                         <div className='p-5 flex justify-center bg-[#F1F1F1] rounded-bl-lg rounded-br-lg shadow-md'>

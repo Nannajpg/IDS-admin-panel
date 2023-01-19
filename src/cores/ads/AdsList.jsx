@@ -4,8 +4,7 @@ import AdRow from "./AdRow";
 import { useEffect, useState, useCallback } from "react";
 import AdsListHeader from "./AdsListHeader";
 import Pagination from "../../components/pagination";
-import { fetchAds } from "../../services/ads";
-
+import * as inventoryServices from "../../services/ads";
 import {
   storeAllAds,
   setPage,
@@ -17,18 +16,19 @@ import "react-toastify/dist/ReactToastify.css";
 import { setLoading } from "../../features/global/globalSlice";
 
 const AdsList = () => {
-  const { ads, search } = useSelector((state) => state.ads);
+  const ads = useSelector((state) => state.ads.ads);
   const token = useSelector((state) => state.auth.userToken);
   const dispatch = useDispatch();
   const page = useSelector((state) => state.ads.page);
   const size = 7;
   const totalPages = useSelector((state) => state.ads.totalPages);
   const [adtype, setAdtype] = useState("");
-  
+  const [search, setearch] = useState("");
+
   const getAds = useCallback(async () => {
     try {
       dispatch(setLoading(true));
-      const data = await fetchAds(token, {
+      const data = await inventoryServices.fetchAds(token, {
         page,
         adtype,
         search,
@@ -53,9 +53,9 @@ const AdsList = () => {
   };
 
   return (
-    <div className="w-4/6">
+    <div>
       <AdsListHeader />
-      <div className="overflow-auto w-full">
+      <div className="overflow-auto w-full rounded-2xl shadow-lg hidden md:block">
         <table className="w-5/2 m-auto">
           <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
             <tr>

@@ -80,7 +80,7 @@ const Form = ({ onSubmit, id, toEditAd }) => {
                 type="text"
                 placeholder="Titulo"
                 ref={aliasRef}
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-[#FCC0A8]"
                 required
               />
             </div>
@@ -93,7 +93,7 @@ const Form = ({ onSubmit, id, toEditAd }) => {
                 type="text"
                 placeholder="Descripción"
                 ref={descriptionRef}
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-[#FCC0A8]"
                 required
               />
             </div>
@@ -103,7 +103,7 @@ const Form = ({ onSubmit, id, toEditAd }) => {
               </label>
               <select
                 name="promotionType"
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-[#FCC0A8]"
                 ref={promotionTypeRef}
                 placeholder="Tipo del anuncio"
                 required
@@ -123,7 +123,7 @@ const Form = ({ onSubmit, id, toEditAd }) => {
                 type="text"
                 placeholder="Link del anuncio"
                 ref={redirecToRef}
-                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-slate-500"
+                className="w-full p-1 rounded-2xl bg-white mb-2 hover:bg-[#FCC0A8]"
                 required
                 onChange={(e) => {
                   const urlExpresions =

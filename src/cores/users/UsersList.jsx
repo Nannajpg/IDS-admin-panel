@@ -62,7 +62,7 @@ function UsersList() {
                         <h1 className='text-[#3D405B] font-medium text-lg'>Usuarios: {amount}</h1>
                     </div>
                     <div className='flex'>
-                        <Link to="/users/create" className='bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8'>
+                        <Link to="/users/create" className='bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full px-8 font-semibold text-white flex items-center h-8 mb-1'>
                             Crear
                         </Link>
                     </div>
