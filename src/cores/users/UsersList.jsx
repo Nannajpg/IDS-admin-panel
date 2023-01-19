@@ -53,7 +53,7 @@ function UsersList() {
     
 
     return (
-        <div className='w-4/6 '>
+        <div className='md:w-4/6 w-11/12'>
             <header>
                 <div>
                     <div className='flex'>
@@ -75,14 +75,14 @@ function UsersList() {
                 </div>
             </header>
 
-            <div className="overflow-auto shadow-lg rounded-lg hidden md:block">
+            <div className="overflow-auto shadow-lg rounded-lg">
                     <table className="w-full">
                         <thead className="bg-gradient-to-r header-table-rounded from-[#D13256] to-[#F75845] text-white">
                         <tr>
                             <td className="p-3 w-30 text-sm font-bold tracking-wide text-center rounded-l-full">ID</td>
                             <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Nombre</td>
                             <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Email</td>
-                            <td className="p-3 w-30 text-sm font-bold tracking-wide text-center">Tipo de usuario</td>
+                            <td className="p-3 w-30 text-sm font-bold tracking-wide text-center max-[900px]:hidden">Tipo de usuario</td>
                             <td className="rounded-r-full"></td>
                         </tr>
                         </thead>

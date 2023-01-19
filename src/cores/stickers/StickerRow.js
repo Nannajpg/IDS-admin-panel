@@ -37,10 +37,10 @@ function StickerRow({ sticker, getStickers }) {
             <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{sticker.playerName}</td>
             <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{sticker.team.event.eventName}</td>
             <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{sticker.team.name}</td>
-            <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{sticker.position}</td>
-            <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{sticker.height}</td>
-            <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{sticker.weight}</td>
-            <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium'>{sticker.appearanceRate}%</td>
+            <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium max-[750px]:hidden'>{sticker.position}</td>
+            <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium max-[950px]:hidden'>{sticker.height}</td>
+            <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium max-[1050px]:hidden'>{sticker.weight}</td>
+            <td className='p-3 text-sm text-black whitespace-nowrap text-center font-medium max-[850px]:hidden'>{sticker.appearanceRate}%</td>
             <td className='p-3 w-30 flex gap-2'>
                 <Link to={`/edit-sticker/${sticker.id}`}><Pencil color='white' className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1" size="2rem"/></Link>
                 <button onClick={toggleModal}><Bin color='white' className="bg-gradient-to-b from-[#D13256] to-[#F75845] rounded-full p-1" size="2rem"/> </button>

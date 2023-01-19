@@ -60,7 +60,7 @@ const AdRow = ({ ad, getAds }) => {
       <td className="p-3 text-sm text-black whitespace-nowrap text-center font-medium">
         {ad.alias}
       </td>
-      <td className="p-3 text-sm text-black whitespace-nowrap text-center font-medium dots-max-text">
+      <td className="p-3 text-sm text-black whitespace-nowrap text-center font-medium dots-max-text max-[620px]:hidden">
         {ad.description}
       </td>
       <td className="p-3 text-sm text-black whitespace-nowrap text-center font-medium dots-max-text">
@@ -71,13 +71,13 @@ const AdRow = ({ ad, getAds }) => {
           </a>
         </p>
       </td>
-      <td className="p-3 text-sm text-black whitespace-nowrap text-center font-medium">
+      <td className="p-3 text-sm text-black whitespace-nowrap text-center font-medium max-[900px]:hidden">
         {ad.promotionType}
       </td>
-      <td className="p-3 text-sm text-black whitespace-nowrap text-center font-medium">
+      <td className="p-3 text-sm text-black whitespace-nowrap text-center font-medium max-[700px]:hidden">
         {ad.clickedQuantities}
       </td>
-      <td className="p-3 text-sm text-black whitespace-nowrap text-center font-medium">
+      <td className="p-3 text-sm text-black whitespace-nowrap text-center font-medium max-[800px]:hidden">
         {ad.requestedQuantities}
       </td>
       <td className="p-3 w-30 flex gap-2">
