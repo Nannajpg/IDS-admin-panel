@@ -13,7 +13,7 @@ const PaginationComponent = ({currentPage, totalPages, handleSetPage}) => {
             pages.push(i)
     }
 
-    console.log(currentPage, totalPages, handleSetPage )
+    console.log("-----", currentPage, totalPages, handleSetPage )
     return (
         <div className='pagination'>
             {
