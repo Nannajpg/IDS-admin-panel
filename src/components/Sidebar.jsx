@@ -1,16 +1,19 @@
 import React from 'react'
-import logo from '../cores/auth/assets/logo.png'
+import logo from '../cores/auth/assets/logoh.png'
 import { Link } from 'react-router-dom'
+import {FiMenu as Option} from 'react-icons/fi'
 
-const Sidebar = () => {
+const Sidebar = ({setIsVisible}) => {
     return (
         <div>
             <div class=" flex items-end justify-end px-4">
                 <div class="z-20 fixed top-0 lg:left-0 h-screen w-9/12 lg:w-72 bg-[#EAEAEA] shadow-2xl peer-focus:left-0 peer:transition ease-out delay-150 duration-200">
 
                     <nav role="navigation" class="p-6">
-                        <div class="flex items-center gap-4 pb-4">
-                            <img class="w-48" src={logo} alt=""/>
+                        <div class="flex items-center gap-4 pb-4 w-full h-4">
+                            <button onClick={() => setIsVisible(false)}><Option size='2rem' color='#D13256'/></button>
+                            <img class="w-32" src={logo} alt=""/>
+                            
                         </div>
                         <div class="mt-4 -mx-4 relative overflow-y-auto overflow-x-hidden h-[85vh]">
                             <span class=" px-4 text-gray-500">Menu</span>
