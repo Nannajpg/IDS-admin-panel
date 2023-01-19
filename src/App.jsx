@@ -32,7 +32,7 @@ function App() {
 
   return (
     <>
-      <Loading loading={loading} background="rgba(24, 24, 27, 0.5)" loaderColor="white"></Loading>
+      <Loading loading={loading} background="rgb(234, 234, 234)" loaderColor="from-[#D13256] to-[#F75845]"></Loading>
       <div className='bg-[#EAEAEA] h-screen'>
         <div className='flex items-center justify-center h-full'>
           <BrowserRouter>

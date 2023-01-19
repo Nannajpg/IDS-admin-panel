@@ -12,12 +12,9 @@ const Auth = () => {
   
   return(
     <>
-    {/* 
       <Sidebar />
-      <Navbar />
-    */}
-      
-      <Outlet />;
+      <Navbar />     
+      <Outlet />
     </>
     
   ) 
